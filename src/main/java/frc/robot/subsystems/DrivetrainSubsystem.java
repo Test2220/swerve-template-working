@@ -163,9 +163,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
         }
     ).withSize(1, 1).withPosition(4, 0);
 
-    tab.addNumber("Meters X", () -> m_odometry.getPoseMeters().getX());
-    tab.addNumber("Meters Y", () -> m_odometry.getPoseMeters().getY());
-    tab.addNumber("Rotation", () -> m_odometry.getPoseMeters().getRotation().getDegrees());
+    tab.addNumber("Meters X", () -> m_odometry.getPoseMeters().getX()).withSize(1, 1).withPosition(4, 1);
+    tab.addNumber("Meters Y", () -> m_odometry.getPoseMeters().getY()).withSize(1, 1).withPosition(5, 1);
+    tab.addNumber("Rotation", () -> m_odometry.getPoseMeters().getRotation().getDegrees()).withSize(1, 1).withPosition(5, 0);
   }
 
   /**
