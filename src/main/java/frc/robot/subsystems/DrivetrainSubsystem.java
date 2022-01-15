@@ -105,7 +105,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_frontLeftModule = Mk3SwerveModuleHelper.createFalcon500(
             // This parameter is optional, but will allow you to see the current state of the module on the dashboard.
             tab.getLayout("Front Left Module", BuiltInLayouts.kList)
-                    .withSize(2, 4)
+                    .withSize(1, 4)
                     .withPosition(0, 0),
             // This can either be STANDARD or FAST depending on your gear configuration
             Mk3SwerveModuleHelper.GearRatio.STANDARD,
@@ -122,8 +122,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // We will do the same for the other modules
     m_frontRightModule = Mk3SwerveModuleHelper.createFalcon500(
             tab.getLayout("Front Right Module", BuiltInLayouts.kList)
-                    .withSize(2, 4)
-                    .withPosition(2, 0),
+                    .withSize(1, 4)
+                    .withPosition(1, 0),
             Mk3SwerveModuleHelper.GearRatio.STANDARD,
             FRONT_RIGHT_MODULE_DRIVE_MOTOR,
             FRONT_RIGHT_MODULE_STEER_MOTOR,
@@ -133,8 +133,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     m_backLeftModule = Mk3SwerveModuleHelper.createFalcon500(
             tab.getLayout("Back Left Module", BuiltInLayouts.kList)
-                    .withSize(2, 4)
-                    .withPosition(4, 0),
+                    .withSize(1, 4)
+                    .withPosition(2, 0),
             Mk3SwerveModuleHelper.GearRatio.STANDARD,
             BACK_LEFT_MODULE_DRIVE_MOTOR,
             BACK_LEFT_MODULE_STEER_MOTOR,
@@ -144,14 +144,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     m_backRightModule = Mk3SwerveModuleHelper.createFalcon500(
             tab.getLayout("Back Right Module", BuiltInLayouts.kList)
-                    .withSize(2, 4)
-                    .withPosition(6, 0),
+                    .withSize(1, 4)
+                    .withPosition(3, 0),
             Mk3SwerveModuleHelper.GearRatio.STANDARD,
             BACK_RIGHT_MODULE_DRIVE_MOTOR,
             BACK_RIGHT_MODULE_STEER_MOTOR,
             BACK_RIGHT_MODULE_STEER_ENCODER,
             BACK_RIGHT_MODULE_STEER_OFFSET
     );
+
+    tab.addNumber("Gyro Angle", () -> {
+            return m_navx.getAngle();
+        }
+    ).withSize(1, 1).withPosition(4, 0);
   }
 
   /**
