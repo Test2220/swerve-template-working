@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -70,6 +71,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
 //   private final PigeonIMU m_pigeon = new PigeonIMU(DRIVETRAIN_PIGEON_ID);
   // FIXME Uncomment if you are using a NavX
  private final AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
+
+ private final SwerveDriveOdometry m_odometry =
+      new SwerveDriveOdometry(m_kinematics, m_navx.getRotation2d());
+
 
   // These are our modules. We initialize them in the constructor.
   private final SwerveModule m_frontLeftModule;
@@ -157,6 +162,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
             return m_navx.getAngle();
         }
     ).withSize(1, 1).withPosition(4, 0);
+
+    tab.addNumber("Meters X", () -> m_odometry.getPoseMeters().getX());
+    tab.addNumber("Meters Y", () -> m_odometry.getPoseMeters().getY());
+    tab.addNumber("Rotation", () -> m_odometry.getPoseMeters().getRotation().getDegrees());
   }
 
   /**
@@ -198,5 +207,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_frontRightModule.set(states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[1].angle.getRadians());
     m_backLeftModule.set(states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[2].angle.getRadians());
     m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[3].angle.getRadians());
+    
+    
+    m_odometry.update(
+        m_navx.getRotation2d(),
+        states[0],
+        states[1],
+        states[2],
+        states[3]
+     );
   }
 }
