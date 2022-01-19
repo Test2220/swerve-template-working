@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.util.Units;
 
 /**
@@ -51,4 +52,15 @@ public final class Constants {
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 18; // FIXME Set back right steer motor ID
     public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 5; // FIXME Set back right steer encoder ID
     public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(225.263672+0.75); // FIXME Measure and set back right steer offset 225.175781
+   
+    public static final double kMaxAccelerationMetersPerSecondSquared = 1;
+    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+    public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+    public static final double kPXController = 0.25;
+    public static final double kPYController = 0.25;
+
+    public static final double kPThetaController = 0.25;
+
+    public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
+        kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 }

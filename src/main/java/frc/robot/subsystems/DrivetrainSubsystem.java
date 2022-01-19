@@ -55,7 +55,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public static final double MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND = MAX_VELOCITY_METERS_PER_SECOND /
           Math.hypot(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0);
 
-  private final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
+  public static final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
           // Front left
           new Translation2d(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0),
           // Front right
@@ -84,7 +84,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private final SwerveModule m_backLeftModule;
   private final SwerveModule m_backRightModule;
 
-  private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
+ // private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
+ private SwerveModuleState[] m_states = m_kinematics.toSwerveModuleStates(new ChassisSpeeds(0.0, 0.0, 0.0));
+
 
   public DrivetrainSubsystem() {
     ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
@@ -197,12 +199,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {
-    m_chassisSpeeds = chassisSpeeds;
+    m_states = m_kinematics.toSwerveModuleStates(chassisSpeeds);
   }
 
   @Override
   public void periodic() {
-    SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
+    SwerveModuleState[] states = m_states;
     SwerveDriveKinematics.normalizeWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
 
     m_frontLeftModule.set(states[0].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[0].angle.getRadians());
@@ -223,5 +225,20 @@ public class DrivetrainSubsystem extends SubsystemBase {
 public Pose2d getPose() {
 return m_odometry.getPoseMeters();
 }
+
+public void resetOdometry(Pose2d pose) {
+        m_odometry.resetPosition(pose, m_navx.getRotation2d());
+      }
+
+public void setModuleStates(SwerveModuleState[] desiredStates) {
+m_states = desiredStates; 
+  }
+
+public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+    var swerveModuleStates = DrivetrainSubsystem.m_kinematics.toSwerveModuleStates(
+        fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, m_navx.getRotation2d())
+            : new ChassisSpeeds(xSpeed, ySpeed, rot));
+   m_states = swerveModuleStates;
+  }
 
 }
