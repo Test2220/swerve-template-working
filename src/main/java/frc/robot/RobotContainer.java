@@ -12,6 +12,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -28,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Trajectories;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -111,15 +113,17 @@ public class RobotContainer {
             .setKinematics(DrivetrainSubsystem.m_kinematics);
 
     // An example trajectory to follow.  All units in meters.
-    Trajectory exampleTrajectory =
-        TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-            // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3, 0, new Rotation2d(0)),
-            config);
+    Trajectory exampleTrajectory = Trajectories.testTrajectory;
+    Transform2d transform = new Transform2d(exampleTrajectory.getInitialPose(), new Pose2d());
+    exampleTrajectory = exampleTrajectory.transformBy(transform);
+        // TrajectoryGenerator.generateTrajectory(
+        //     // Start at the origin facing the +X direction
+        //     new Pose2d(0, 0, new Rotation2d(0)),
+        //     // Pass through these two interior waypoints, making an 's' curve path
+        //     List.of(new Translation2d(0, -3), new Translation2d(3, -3), new Translation2d(3, 0) ),
+        //     // End 3 meters straight ahead of where we started, facing forward
+        //     new Pose2d(0, 0, new Rotation2d(0)),
+        //     config);
 
     var thetaController =
         new ProfiledPIDController(
@@ -141,7 +145,6 @@ public class RobotContainer {
 
     // Reset odometry to the starting pose of the trajectory.
     m_drivetrainSubsystem.resetOdometry(exampleTrajectory.getInitialPose());
-
     // Run path following command, then stop at the end.
     return swerveControllerCommand.andThen(() -> m_drivetrainSubsystem.drive(0, 0, 0, false));
   }
