@@ -28,8 +28,11 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.DefaultDriveCommand;
+import frc.robot.commands.LEDCommands;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Trajectories;
+import frc.robot.subsystems.LED.Pattern;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,6 +45,8 @@ public class RobotContainer {
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
 
   private final XboxController m_controller = new XboxController(0);
+
+  private final LED m_ledcommands = new LED();
 
   double speedModifier = 1;
 
@@ -72,6 +77,7 @@ public class RobotContainer {
             () -> -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
             () -> -modifyAxis(m_controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier
     ));
+    m_ledcommands.setDefaultCommand(new LEDCommands(m_ledcommands, Pattern.HOTPINK));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -96,6 +102,8 @@ public class RobotContainer {
               else
                 speedModifier = 1;
             });       
+      new Button(m_controller::getXButton)
+            .whileHeld(new LEDCommands(m_ledcommands, Pattern.GREEN));
   }
 
   /**
