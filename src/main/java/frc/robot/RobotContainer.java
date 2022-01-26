@@ -7,6 +7,7 @@ package frc.robot;
 import java.util.List;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -104,6 +105,10 @@ public class RobotContainer {
             });       
       new Button(m_controller::getXButton)
             .whileHeld(new LEDCommands(m_ledcommands, Pattern.GREEN));
+      new Button(m_controller::getAButton)
+            .whenPressed(() -> {
+              m_ledcommands.m_lastBrownOut = Timer.getFPGATimestamp();
+            });
   }
 
   /**
