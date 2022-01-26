@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import frc.robot.commands.AllianceLEDs;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.LEDCommands;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -109,6 +110,8 @@ public class RobotContainer {
             .whenPressed(() -> {
               m_ledcommands.m_lastBrownOut = Timer.getFPGATimestamp();
             });
+      new Button(m_controller::getBButton)
+            .whenPressed(new AllianceLEDs(m_ledcommands));
   }
 
   /**

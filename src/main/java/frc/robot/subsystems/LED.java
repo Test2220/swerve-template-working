@@ -19,7 +19,8 @@ public class LED extends SubsystemBase {
         BLUE(0.87),
         YELLOW(0.69),
         VIOLET(0.91),
-        BLACK(0.99);
+        BLACK(0.99),
+        RAINBOWWITHGLITTER(-0.89);
 
         public final double label;
 
@@ -40,7 +41,7 @@ public class LED extends SubsystemBase {
             
         }
         else if(m_lastBrownOut + 5 >= Timer.getFPGATimestamp()){
-            m_LED.setSpeed(Pattern.BLUE.label);
+            m_LED.setSpeed(Pattern.RAINBOWWITHGLITTER.label);
         }
         else{
             setPattern(m_lastPattern);
