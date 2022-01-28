@@ -42,10 +42,10 @@ public class LimelightDefaultCommand extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-    if(interrupted){
-        limelight.setCameraMode(CameraMode.VISION_PROCESSING);
-        limelight.setLEDMode(LEDMode.USE_PIPELINE);
-    }
+    // if(interrupted){
+    //     limelight.setCameraMode(CameraMode.VISION_PROCESSING);
+    //     limelight.setLEDMode(LEDMode.USE_PIPELINE);
+    // }
     }
 
     @Override

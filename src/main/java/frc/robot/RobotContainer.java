@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.AllianceLEDs;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.LEDCommands;
+import frc.robot.commands.LimelightAutoTurning;
 import frc.robot.subsystems.LED;
 import frc.robot.commands.LimelightDefaultCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -127,7 +128,7 @@ public class RobotContainer {
     Shuffleboard.getTab("PID").add(pidController);
     new Button(m_controller::getYButton)
         .whileHeld(
-            new PIDCommand(
+            new LimelightAutoTurning(
                 pidController,
                 () -> {
                   return m_limelight.getHOffset();
