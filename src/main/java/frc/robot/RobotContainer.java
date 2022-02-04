@@ -39,6 +39,7 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Trajectories;
 import frc.robot.subsystems.LED.Pattern;
+import frc.robot.subsystems.PixyCamSPI;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -55,6 +56,7 @@ public class RobotContainer {
   private final Limelight m_limelight = new Limelight();
 
   private final XboxController m_controller = new XboxController(0);
+  private final PixyCamSPI m_pixy = new PixyCamSPI(0);
 
   private final LED m_ledcommands = new LED();
 
