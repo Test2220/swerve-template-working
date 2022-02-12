@@ -65,4 +65,11 @@ public final class Constants {
         kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     public static final int BlinkinPWMPort = 7;
     public static final String LIMELIGHT_TABLE_NAME = "limelight";
+
+
+    public static final int Intake_Talon_Left = 0; //change these values to match correct Talon ID number
+    public static final int Intake_Talon_Right = 1;
+    public static final int SOLENOID_FORWARD = 2;  //NEED SOLENOID ID
+    public static final int SOLENOID_REVERSE = 3;
+    public static final double intakePower = 0.4; //need intake power value
 }

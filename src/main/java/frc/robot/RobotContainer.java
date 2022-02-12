@@ -36,10 +36,14 @@ import frc.robot.commands.LimelightAutoTurning;
 import frc.robot.subsystems.LED;
 import frc.robot.commands.LimelightDefaultCommand;
 import frc.robot.commands.PixyCamAutoTurning;
+import frc.robot.commands.RetractIntake;
+import frc.robot.commands.ExtendIntake;
 //import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Trajectories;
+import frc.robot.subsystems.Intake.Position;
 import frc.robot.subsystems.LED.Pattern;
 import io.github.pseudoresonance.pixy2api.Pixy2;
 import io.github.pseudoresonance.pixy2api.Pixy2CCC;
@@ -61,8 +65,10 @@ public class RobotContainer {
 
   private final XboxController m_controller = new XboxController(0);
   private final PixyCamSPI m_pixy = new PixyCamSPI(0);
+  private final Intake intake = new Intake();
 
   private final LED m_ledcommands = new LED();
+
 
   double speedModifier = 1;
 
@@ -113,6 +119,13 @@ public class RobotContainer {
     new Button(m_controller::getBackButton)
         // No requirements because we don't need to interrupt anything
         .whenPressed(() -> m_drivetrainSubsystem.zeroGyroscope());
+
+    //run intake buttons 
+    new Button(() -> m_controller.getPOV() == 0)
+    .whenPressed(new ExtendIntake(intake));
+
+    new Button(() -> m_controller.getPOV() == 180)
+    .whenPressed(new RetractIntake(intake));
 
     new Button(m_controller::getLeftBumper)
         .whenPressed(() -> {
