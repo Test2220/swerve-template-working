@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
+
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
@@ -69,7 +71,16 @@ public final class Constants {
 
     public static final int Intake_Talon_Left = 0; //change these values to match correct Talon ID number
     public static final int Intake_Talon_Right = 1;
-    public static final int SOLENOID_FORWARD = 2;  //NEED SOLENOID ID
-    public static final int SOLENOID_REVERSE = 3;
-    public static final double intakePower = 0.4; //need intake power value
+    public static final int INTAKE_SOLENOID_FORWARD = 2;  //NEED SOLENOID ID FOR INTAKE
+    public static final int INTAKE_SOLENOID_REVERSE = 3;
+    public static final double INTAKE_POWER = 0.4; //need intake power value
+
+    public static final int SHOOTER_TALON_LEFT = 5; //NEED SHOOTER TALON IDS
+    public static final int SHOOTER_TALON_RIGHT = 6;
+    public static final int SHOOTER_SOLENOID_FORWARD = 4;//NEED SOLENOID ID FOR THE SHOOTER 
+    public static final int SHOOTER_SOLENOID_REVERSE = 3;
+    public static final TalonFXInvertType LEFT_FALCON_DIRECTION = TalonFXInvertType.Clockwise;
+    public static final TalonFXInvertType RIGH_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
+    public static final double SHOOTER_POWER = 0.4; //need intake power value
+
 }

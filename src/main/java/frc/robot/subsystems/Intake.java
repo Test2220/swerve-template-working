@@ -17,10 +17,12 @@ public class Intake extends SubsystemBase {
     }
     TalonFX talonFXLeft = new TalonFX(Constants.Intake_Talon_Left); //change the numbers once the talonFX is updated 
     TalonFX talonFXRight = new TalonFX(Constants.Intake_Talon_Right);
-    DoubleSolenoid solenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.SOLENOID_FORWARD, Constants.SOLENOID_REVERSE);  //modyleType  
+    DoubleSolenoid solenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.INTAKE_SOLENOID_FORWARD, 
+    Constants.INTAKE_SOLENOID_REVERSE);    
    
     public Intake() {
        talonFXRight.follow(talonFXLeft);
+       talonFXLeft.configFactoryDefault();
     }
 
     public void periodic() {

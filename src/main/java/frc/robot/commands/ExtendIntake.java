@@ -18,7 +18,7 @@ public class ExtendIntake extends CommandBase {
         intake.setPosition(Position.EXTENDED);
     }
     public void execute() {
-        intake.setPower(Constants.intakePower);
+        intake.setPower(Constants.INTAKE_POWER);
     }
     public void end(boolean interrupted) {
         intake.setPosition(Position.RETRACTED);

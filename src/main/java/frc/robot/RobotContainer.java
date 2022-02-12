@@ -37,6 +37,7 @@ import frc.robot.subsystems.LED;
 import frc.robot.commands.LimelightDefaultCommand;
 import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.commands.RetractIntake;
+import frc.robot.commands.RunShooter;
 import frc.robot.commands.ExtendIntake;
 //import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -66,6 +67,7 @@ public class RobotContainer {
   private final XboxController m_controller = new XboxController(0);
   private final PixyCamSPI m_pixy = new PixyCamSPI(0);
   private final Intake intake = new Intake();
+  private final Shooter shooter = new Shooter();
 
   private final LED m_ledcommands = new LED();
 
@@ -126,6 +128,9 @@ public class RobotContainer {
 
     new Button(() -> m_controller.getPOV() == 180)
     .whenPressed(new RetractIntake(intake));
+
+    new Button(() -> m_controller.getPOV() == 270)
+    .whenPressed(new RunShooter(shooter));
 
     new Button(m_controller::getLeftBumper)
         .whenPressed(() -> {
