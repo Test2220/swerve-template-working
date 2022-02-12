@@ -21,6 +21,8 @@ public class PixyCamSPI extends SubsystemBase {
   private boolean connected;
   private boolean seesTarget;
   private boolean retrievedState;
+  private byte currentSignature = Pixy2CCC.CCC_SIG1;
+
 
   //For efficiency
   private int cacheNumber;
@@ -98,7 +100,7 @@ public class PixyCamSPI extends SubsystemBase {
     //If the Pixy is returning an error, don't update the targets.
     if(state < 0) return;
     //Retrieve the targets and store the number in a variable
-    numberOfTargets = pixycam.getCCC().getBlocks(false, Pixy2CCC.CCC_SIG1, 48);
+    numberOfTargets = pixycam.getCCC().getBlocks(false, getCurrentSignature(), 48);
     //Update the cache number
     cacheNumber++;
     //Update the seesTarget variable
@@ -106,6 +108,14 @@ public class PixyCamSPI extends SubsystemBase {
     else seesTarget = false;
   }
 
+  public byte getCurrentSignature() {
+    return currentSignature;
+  }
+
+  public void setCurrentSignature(byte currentSignature) {
+    this.currentSignature = currentSignature;
+  }
+  
   /**
    * @return The number of targets in view of the camera (or the last number retrieved)
    */
