@@ -35,10 +35,20 @@ import frc.robot.commands.LEDCommands;
 import frc.robot.commands.LimelightAutoTurning;
 import frc.robot.subsystems.LED;
 import frc.robot.commands.LimelightDefaultCommand;
+import frc.robot.commands.PixyCamAutoTurning;
+import frc.robot.commands.RetractIntake;
+import frc.robot.commands.RunShooter;
+import frc.robot.commands.ExtendIntake;
+//import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Trajectories;
+import frc.robot.subsystems.Intake.Position;
 import frc.robot.subsystems.LED.Pattern;
+import io.github.pseudoresonance.pixy2api.Pixy2;
+import io.github.pseudoresonance.pixy2api.Pixy2CCC;
+import frc.robot.subsystems.PixyCamSPI;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -55,8 +65,12 @@ public class RobotContainer {
   private final Limelight m_limelight = new Limelight();
 
   private final XboxController m_controller = new XboxController(0);
+  private final PixyCamSPI m_pixy = new PixyCamSPI(0);
+  private final Intake intake = new Intake();
+  private final Shooter shooter = new Shooter();
 
   private final LED m_ledcommands = new LED();
+
 
   double speedModifier = 1;
 
@@ -106,9 +120,19 @@ public class RobotContainer {
     // Back button zeros the gyroscope
     new Button(m_controller::getBackButton)
         // No requirements because we don't need to interrupt anything
-        .whenPressed(m_drivetrainSubsystem::zeroGyroscope);
+        .whenPressed(() -> m_drivetrainSubsystem.zeroGyroscope());
 
-    new Button(m_controller::getAButton)
+    //run intake buttons 
+    new Button(() -> m_controller.getPOV() == 0)
+    .whenPressed(new ExtendIntake(intake));
+
+    new Button(() -> m_controller.getPOV() == 180)
+    .whenPressed(new RetractIntake(intake));
+
+    new Button(() -> m_controller.getPOV() == 270)
+    .whenPressed(new RunShooter(shooter));
+
+    new Button(m_controller::getLeftBumper)
         .whenPressed(() -> {
           if (speedModifier == 1)
             speedModifier = 0.5;
@@ -117,15 +141,15 @@ public class RobotContainer {
         });
     new Button(m_controller::getXButton)
         .whileHeld(new LEDCommands(m_ledcommands, Pattern.GREEN));
-    new Button(m_controller::getAButton)
-        .whenPressed(() -> {
-          m_ledcommands.m_lastBrownOut = Timer.getFPGATimestamp();
-        });
-    new Button(m_controller::getBButton)
-        .whenPressed(new AllianceLEDs(m_ledcommands));
+    // new Button(m_controller::getAButton)
+    //     .whenPressed(() -> {
+    //       m_ledcommands.m_lastBrownOut = Timer.getFPGATimestamp();
+    //     });
+    //new Button(m_controller::getBButton)
+        //.whenPressed(new AllianceLEDs(m_ledcommands));
     PIDController pidController = new PIDController(0.01, 0, 0);
     //Any value over 0.01 makes it dance like MJ. it does not work.
-    Shuffleboard.getTab("PID").add(pidController);
+    Shuffleboard.getTab("PID").add("LIMELIGHT PID", pidController);
     new Button(m_controller::getYButton)
         .whileHeld(
             new LimelightAutoTurning(
@@ -145,8 +169,46 @@ public class RobotContainer {
                       m_drivetrainSubsystem.getGyroscopeRotation()));
                 },
                 m_limelight, m_drivetrainSubsystem));
+                PIDController pixyPidController = new PIDController(0.01, 0, 0);
+                //Any value over 0.01 makes it dance like MJ. it does not work.
+                Shuffleboard.getTab("PID").add("PIXY PID", pixyPidController);
+  new Button(m_controller::getBButton).whileHeld(new PixyCamAutoTurning(
+    pixyPidController,
+    () -> {
+      return m_pixy.getLargestTargetAngle();
+    },
+    () -> {
+      return 0;
+    },
+    (output) -> {
+      m_drivetrainSubsystem.drive(
+          ChassisSpeeds.fromFieldRelativeSpeeds(
+          -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+          -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+          output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier,
+          m_drivetrainSubsystem.getGyroscopeRotation()));
+    },
+    m_pixy,Pixy2CCC.CCC_SIG1, m_drivetrainSubsystem
+    ));
+    new Button(m_controller::getAButton).whileHeld(new PixyCamAutoTurning(
+    pixyPidController,
+    () -> {
+      return m_pixy.getLargestTargetAngle();
+    },
+    () -> {
+      return 0;
+    },
+    (output) -> {
+      m_drivetrainSubsystem.drive(
+          ChassisSpeeds.fromFieldRelativeSpeeds(
+          -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+          -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+          output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier,
+          m_drivetrainSubsystem.getGyroscopeRotation()));
+    },
+    m_pixy,Pixy2CCC.CCC_SIG2, m_drivetrainSubsystem
+    ));
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
