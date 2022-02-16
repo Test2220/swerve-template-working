@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -82,5 +83,9 @@ public final class Constants {
     public static final TalonFXInvertType LEFT_FALCON_DIRECTION = TalonFXInvertType.Clockwise;
     public static final TalonFXInvertType RIGH_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
     public static final double SHOOTER_POWER = 0.4; //need intake power value
+
+    public static final int RIGHT_FALCON = 10;
+    public static final int LEFT_FALCON = 11; //NEED CLIMBER FALCON IDS
+    public static final NeutralMode IDLE_BEHAVIOR = NeutralMode.Brake;
 
 }
