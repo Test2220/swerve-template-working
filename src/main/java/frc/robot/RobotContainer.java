@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.AllianceLEDs;
+import frc.robot.commands.AutomaticConveyor;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.LEDCommands;
 import frc.robot.commands.LimelightAutoTurning;
@@ -39,6 +40,7 @@ import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.ExtendIntake;
+import frc.robot.subsystems.ConveyorSubsystem;
 //import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Intake;
@@ -63,11 +65,14 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private final Limelight m_limelight = new Limelight();
+  
 
   private final XboxController m_controller = new XboxController(0);
+  private final XboxController m_controller2 = new XboxController(1);
   private final PixyCamSPI m_pixy = new PixyCamSPI(0);
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
+  private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 
   private final LED m_ledcommands = new LED();
 
@@ -104,6 +109,9 @@ public class RobotContainer {
     m_ledcommands.setDefaultCommand(new LEDCommands(m_ledcommands, Pattern.HOTPINK));
 
     m_limelight.setDefaultCommand(new LimelightDefaultCommand(m_limelight));
+    conveyorSubsystem.setDefaultCommand(new AutomaticConveyor(conveyorSubsystem, () -> 0.25, () -> m_controller.getAButton(), () -> m_controller2.getBButton()));
+
+    
     // Configure the button bindings
     configureButtonBindings();
   }
