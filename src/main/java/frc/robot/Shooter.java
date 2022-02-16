@@ -16,8 +16,7 @@ public class Shooter extends SubsystemBase {
     
     private TalonFX leftFalcon;
     private TalonFX rightFalcon;
-    DoubleSolenoid solenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 
-    Constants.SHOOTER_SOLENOID_FORWARD, Constants.SHOOTER_SOLENOID_REVERSE);  
+ 
 
 
     // public enum ShooterSystemState {

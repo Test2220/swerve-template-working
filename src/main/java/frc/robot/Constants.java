@@ -79,7 +79,7 @@ public final class Constants {
     public static final int SHOOTER_TALON_LEFT = 5; //NEED SHOOTER TALON IDS
     public static final int SHOOTER_TALON_RIGHT = 6;
     public static final int SHOOTER_SOLENOID_FORWARD = 4;//NEED SOLENOID ID FOR THE SHOOTER 
-    public static final int SHOOTER_SOLENOID_REVERSE = 3;
+    public static final int SHOOTER_SOLENOID_REVERSE = 5;
     public static final TalonFXInvertType LEFT_FALCON_DIRECTION = TalonFXInvertType.Clockwise;
     public static final TalonFXInvertType RIGH_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
     public static final double SHOOTER_POWER = 0.4; //need intake power value

@@ -6,6 +6,8 @@ package frc.robot;
 
 import java.util.List;
 
+import javax.lang.model.util.ElementScanner6;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
@@ -76,7 +78,6 @@ public class RobotContainer {
 
   private final LED m_ledcommands = new LED();
 
-
   double speedModifier = 1;
 
   /**
@@ -130,15 +131,15 @@ public class RobotContainer {
         // No requirements because we don't need to interrupt anything
         .whenPressed(() -> m_drivetrainSubsystem.zeroGyroscope());
 
-    //run intake buttons 
+    // run intake buttons
     new Button(() -> m_controller.getPOV() == 0)
-    .whenPressed(new ExtendIntake(intake));
+        .whenPressed(new ExtendIntake(intake));
 
     new Button(() -> m_controller.getPOV() == 180)
-    .whenPressed(new RetractIntake(intake));
+        .whenPressed(new RetractIntake(intake));
 
     new Button(() -> m_controller.getPOV() == 270)
-    .whenPressed(new RunShooter(shooter));
+        .whenPressed(new RunShooter(shooter));
 
     new Button(m_controller::getLeftBumper)
         .whenPressed(() -> {
@@ -150,13 +151,13 @@ public class RobotContainer {
     new Button(m_controller::getXButton)
         .whileHeld(new LEDCommands(m_ledcommands, Pattern.GREEN));
     // new Button(m_controller::getAButton)
-    //     .whenPressed(() -> {
-    //       m_ledcommands.m_lastBrownOut = Timer.getFPGATimestamp();
-    //     });
-    //new Button(m_controller::getBButton)
-        //.whenPressed(new AllianceLEDs(m_ledcommands));
+    // .whenPressed(() -> {
+    // m_ledcommands.m_lastBrownOut = Timer.getFPGATimestamp();
+    // });
+    // new Button(m_controller::getBButton)
+    // .whenPressed(new AllianceLEDs(m_ledcommands));
     PIDController pidController = new PIDController(0.01, 0, 0);
-    //Any value over 0.01 makes it dance like MJ. it does not work.
+    // Any value over 0.01 makes it dance like MJ. it does not work.
     Shuffleboard.getTab("PID").add("LIMELIGHT PID", pidController);
     new Button(m_controller::getYButton)
         .whileHeld(
@@ -171,52 +172,83 @@ public class RobotContainer {
                 (output) -> {
                   m_drivetrainSubsystem.drive(
                       ChassisSpeeds.fromFieldRelativeSpeeds(
-                      -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
-                      -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
-                      output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier,
-                      m_drivetrainSubsystem.getGyroscopeRotation()));
+                          -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+                              * speedModifier,
+                          -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+                              * speedModifier,
+                          output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier,
+                          m_drivetrainSubsystem.getGyroscopeRotation()));
                 },
                 m_limelight, m_drivetrainSubsystem));
-                PIDController pixyPidController = new PIDController(0.01, 0, 0);
-                //Any value over 0.01 makes it dance like MJ. it does not work.
-                Shuffleboard.getTab("PID").add("PIXY PID", pixyPidController);
-  new Button(m_controller::getBButton).whileHeld(new PixyCamAutoTurning(
-    pixyPidController,
-    () -> {
-      return m_pixy.getLargestTargetAngle();
-    },
-    () -> {
-      return 0;
-    },
-    (output) -> {
-      m_drivetrainSubsystem.drive(
-          ChassisSpeeds.fromFieldRelativeSpeeds(
-          -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
-          -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
-          output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier,
-          m_drivetrainSubsystem.getGyroscopeRotation()));
-    },
-    m_pixy,Pixy2CCC.CCC_SIG1, m_drivetrainSubsystem
-    ));
+    PIDController pixyPidController = new PIDController(0.01, 0, 0);
+    // Any value over 0.01 makes it dance like MJ. it does not work.
+    Shuffleboard.getTab("PID").add("PIXY PID", pixyPidController);
+    // new Button(m_controller::getBButton).whileHeld(new PixyCamAutoTurning(
+    // pixyPidController,
+    // () -> {
+    // return m_pixy.getLargestTargetAngle();
+    // },
+    // () -> {
+    // return 0;
+    // },
+    // (output) -> {
+    // m_drivetrainSubsystem.drive(
+    // ChassisSpeeds.fromFieldRelativeSpeeds(
+    // -modifyAxis(m_controller.getLeftY()) *
+    // DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+    // -modifyAxis(m_controller.getLeftX()) *
+    // DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+    // output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND *
+    // speedModifier,
+    // m_drivetrainSubsystem.getGyroscopeRotation()));
+    // },
+    // m_pixy,Pixy2CCC.CCC_SIG1, m_drivetrainSubsystem
+    // ));
+    // new Button(m_controller::getAButton).whileHeld(new PixyCamAutoTurning(
+    // pixyPidController,
+    // () -> {
+    // return m_pixy.getLargestTargetAngle();
+    // },
+    // () -> {
+    // return 0;
+    // },
+    // (output) -> {
+    // m_drivetrainSubsystem.drive(
+    // ChassisSpeeds.fromFieldRelativeSpeeds(
+    // -modifyAxis(m_controller.getLeftY()) *
+    // DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+    // -modifyAxis(m_controller.getLeftX()) *
+    // DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+    // output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND *
+    // speedModifier,
+    // m_drivetrainSubsystem.getGyroscopeRotation()));
+    // },
+    // m_pixy,Pixy2CCC.CCC_SIG2, m_drivetrainSubsystem
+    // ));
+
     new Button(m_controller::getAButton).whileHeld(new PixyCamAutoTurning(
-    pixyPidController,
-    () -> {
-      return m_pixy.getLargestTargetAngle();
-    },
-    () -> {
-      return 0;
-    },
-    (output) -> {
-      m_drivetrainSubsystem.drive(
-          ChassisSpeeds.fromFieldRelativeSpeeds(
-          -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
-          -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
-          output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier,
-          m_drivetrainSubsystem.getGyroscopeRotation()));
-    },
-    m_pixy,Pixy2CCC.CCC_SIG2, m_drivetrainSubsystem
-    ));
+        pixyPidController,
+        () -> {
+          return m_pixy.getLargestTargetAngle();
+        },
+        () -> {
+          return 0;
+        },
+        (output) -> {
+          double forward = -0.2;
+          if (m_pixy.getSeesTarget() != true) {
+            forward = 0;
+            output = 0.2;
+          }
+          m_drivetrainSubsystem.drive(
+              new ChassisSpeeds(
+                  forward * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+                  0 * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+                  output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier));
+        },
+        m_pixy, Pixy2CCC.CCC_SIG1 , m_drivetrainSubsystem));
   }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -264,6 +296,7 @@ public class RobotContainer {
     m_drivetrainSubsystem.resetOdometry(exampleTrajectory.getInitialPose());
     // Run path following command, then stop at the end.
     return swerveControllerCommand.andThen(() -> m_drivetrainSubsystem.drive(0, 0, 0, false));
+
   }
 
   private static double deadband(double value, double deadband) {

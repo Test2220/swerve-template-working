@@ -108,6 +108,10 @@ public class PixyCamSPI extends SubsystemBase {
     else seesTarget = false;
   }
 
+  public boolean getSeesTarget(){
+    return seesTarget;
+  }
+
   public byte getCurrentSignature() {
     return currentSignature;
   }

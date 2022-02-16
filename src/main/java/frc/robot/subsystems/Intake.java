@@ -17,8 +17,8 @@ public class Intake extends SubsystemBase {
     }
     TalonFX talonFXLeft = new TalonFX(Constants.Intake_Talon_Left); //change the numbers once the talonFX is updated 
     TalonFX talonFXRight = new TalonFX(Constants.Intake_Talon_Right);
-    DoubleSolenoid solenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.INTAKE_SOLENOID_FORWARD, 
-    Constants.INTAKE_SOLENOID_REVERSE);    
+    // DoubleSolenoid solenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.INTAKE_SOLENOID_FORWARD, 
+    // Constants.INTAKE_SOLENOID_REVERSE);    
    
     public Intake() {
        talonFXRight.follow(talonFXLeft);
@@ -36,10 +36,10 @@ public class Intake extends SubsystemBase {
     public void setPosition(Position deploy) {
         switch (deploy) {
             case EXTENDED:
-            solenoid.set(Value.kForward);
+            // solenoid.set(Value.kForward);
             break;
             case RETRACTED:
-            solenoid.set(Value.kReverse);
+            // solenoid.set(Value.kReverse);
             break;
         }
 
