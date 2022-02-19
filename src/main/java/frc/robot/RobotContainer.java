@@ -120,19 +120,6 @@ public class RobotContainer {
         // No requirements because we don't need to interrupt anything
         .whenPressed(() -> m_drivetrainSubsystem.zeroGyroscope());
 
-    // run intake buttons
-    new Button(m_manipulatorController::getAButton)
-        .whenPressed(new ExtendIntake(intake));
-
-    new Button(m_manipulatorController::getBButton)
-        .whenPressed(new RetractIntake(intake));
-
-    new Button(() -> m_manipulatorController.getRightTriggerAxis() > 0.4)
-        .whenPressed(new RunShooter(shooter));
-
-    new Button(() -> m_manipulatorController.getLeftTriggerAxis() > 0.4)
-        .whenPressed(new RunIntake(intake));
-
     new Button(m_driverController::getLeftBumper)
         .whenPressed(() -> {
           if (m_drivetrainSubsystem.getSpeedModifier() == 1.0)
@@ -188,6 +175,19 @@ public class RobotContainer {
         },
         m_pixy, Pixy2CCC.CCC_SIG1, m_drivetrainSubsystem));
 
+    // run intake buttons
+    new Button(m_manipulatorController::getAButton)
+        .whenPressed(new ExtendIntake(intake));
+
+    new Button(m_manipulatorController::getBButton)
+        .whenPressed(new RetractIntake(intake));
+
+    new Button(() -> m_manipulatorController.getRightTriggerAxis() > 0.4)
+        .whenPressed(new RunShooter(shooter));
+
+    new Button(() -> m_manipulatorController.getLeftTriggerAxis() > 0.4)
+        .whenPressed(new RunIntake(intake));
+
     new Button(m_manipulatorController::getLeftBumper).whileHeld(new RunClimber(m_climber, false));
 
     new Button(m_manipulatorController::getRightBumper).whileHeld(new RunClimber(m_climber, true));
@@ -205,8 +205,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return new FollowPath(Trajectories.testTrajectory, m_drivetrainSubsystem);
   }
-
-  
 
   private static double deadband(double value, double deadband) {
     if (Math.abs(value) > deadband) {
