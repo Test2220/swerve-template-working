@@ -1,0 +1,67 @@
+package frc.robot.commands;
+
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import frc.robot.Constants;
+import frc.robot.subsystems.DrivetrainSubsystem;
+
+public class FollowPath extends CommandBase {
+    Pose2d initialPose2d;
+    DrivetrainSubsystem drivetrainSubsystem;
+    SwerveControllerCommand swerveControllerCommand;
+
+    public FollowPath(Trajectory trajectory, DrivetrainSubsystem drivetrainSubsystem) { 
+        
+       swerveControllerCommand = new SwerveControllerCommand(
+            trajectory, 
+            drivetrainSubsystem::getPose, 
+            DrivetrainSubsystem.m_kinematics, 
+            new PIDController(Constants.kPXController, 0, 0), 
+            new PIDController(Constants.kPYController, 0, 0),
+            FollowPath.getThetaController(),
+            drivetrainSubsystem::setModuleStates,
+            drivetrainSubsystem);
+            initialPose2d = trajectory.getInitialPose();
+            this.drivetrainSubsystem = drivetrainSubsystem;
+    }
+
+    private static ProfiledPIDController getThetaController() {
+        var thetaController = new ProfiledPIDController(
+                Constants.kPThetaController, 0, 0, Constants.kThetaControllerConstraints);
+        thetaController.enableContinuousInput(-Math.PI, Math.PI);
+        return thetaController;
+    }
+
+    @Override
+    public void initialize() {
+        // Reset odometry to the starting pose of the trajectory.
+        drivetrainSubsystem.resetOdometry(initialPose2d);
+        swerveControllerCommand.initialize();
+    }
+    @Override
+    public void execute() {
+        swerveControllerCommand.execute();
+    }
+
+    @Override
+    public void end(boolean interupted) {
+        // Run path following command, then stop at the end.
+        drivetrainSubsystem.drive(0, 0, 0, false);
+        swerveControllerCommand.end(interupted);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return swerveControllerCommand.isFinished();
+    }
+}

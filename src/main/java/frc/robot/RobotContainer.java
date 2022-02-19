@@ -47,6 +47,7 @@ import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.TiltClimber;
 import frc.robot.commands.ExtendIntake;
+import frc.robot.commands.FollowPath;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ConveyorSubsystem;
 //import frc.robot.commands.PixyCamAutoTurning;
@@ -113,7 +114,7 @@ public class RobotContainer {
     m_ledcommands.setDefaultCommand(new AllianceLEDs(m_ledcommands));
 
     m_limelight.setDefaultCommand(new LimelightDefaultCommand(m_limelight));
-    
+
     conveyorSubsystem.setDefaultCommand(new AutomaticConveyor(conveyorSubsystem,
         () -> {
           if (m_manipulatorController.getPOV() == 0) {
@@ -198,7 +199,7 @@ public class RobotContainer {
         },
         m_pixy, Pixy2CCC.CCC_SIG2, m_drivetrainSubsystem));
 
-    new Button(m_driverController::getAButton).whileHeld(new PixyCamAutoTurning(
+    new Button(m_driverController::getXButton).whileHeld(new PixyCamAutoTurning(
         (output) -> {
           double forward = -0.2;
           if (m_pixy.getSeesTarget() != true) {
@@ -248,29 +249,13 @@ public class RobotContainer {
     // // End 3 meters straight ahead of where we started, facing forward
     // new Pose2d(0, 0, new Rotation2d(0)),
     // config);
-
-    var thetaController = new ProfiledPIDController(
-        Constants.kPThetaController, 0, 0, Constants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
-
-    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-        exampleTrajectory,
-        m_drivetrainSubsystem::getPose, // Functional interface to feed supplier
-        DrivetrainSubsystem.m_kinematics,
-
-        // Position controllers
-        new PIDController(Constants.kPXController, 0, 0),
-        new PIDController(Constants.kPYController, 0, 0),
-        thetaController,
-        m_drivetrainSubsystem::setModuleStates,
-        m_drivetrainSubsystem);
-
-    // Reset odometry to the starting pose of the trajectory.
-    m_drivetrainSubsystem.resetOdometry(exampleTrajectory.getInitialPose());
-    // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> m_drivetrainSubsystem.drive(0, 0, 0, false));
+    return new FollowPath(Trajectories.testTrajectory, m_drivetrainSubsystem);
+    
+    
 
   }
+
+  
 
   private static double deadband(double value, double deadband) {
     if (Math.abs(value) > deadband) {
