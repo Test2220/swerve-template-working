@@ -110,9 +110,10 @@ public class RobotContainer {
         () -> -modifyAxis(m_driverController.getLeftY()),
         () -> -modifyAxis(m_driverController.getLeftX()),
         () -> -modifyAxis(m_driverController.getRightX())));
-    m_ledcommands.setDefaultCommand(new LEDCommands(m_ledcommands, Pattern.HOTPINK));
+    m_ledcommands.setDefaultCommand(new AllianceLEDs(m_ledcommands));
 
     m_limelight.setDefaultCommand(new LimelightDefaultCommand(m_limelight));
+    
     conveyorSubsystem.setDefaultCommand(new AutomaticConveyor(conveyorSubsystem,
         () -> {
           if (m_manipulatorController.getPOV() == 0) {
@@ -152,10 +153,10 @@ public class RobotContainer {
         .whenPressed(new RetractIntake(intake));
 
     new Button(() -> m_manipulatorController.getRightTriggerAxis() > 0.4)
-        .whenPressed(new RunIntake(intake));
+        .whenPressed(new RunShooter(shooter));
 
     new Button(() -> m_manipulatorController.getLeftTriggerAxis() > 0.4)
-        .whenPressed(new RunShooter(shooter));
+        .whenPressed(new RunIntake(intake));
 
     new Button(m_driverController::getLeftBumper)
         .whenPressed(() -> {
@@ -164,6 +165,7 @@ public class RobotContainer {
           else
             m_drivetrainSubsystem.setSpeedModifier(1.0);
         });
+
     new Button(m_driverController::getYButton)
         .whileHeld(
             new LimelightAutoTurning(
@@ -175,6 +177,7 @@ public class RobotContainer {
                       true);
                 },
                 m_limelight, m_drivetrainSubsystem));
+
     new Button(m_driverController::getAButton).whileHeld(new PixyCamAutoTurning(
         (output) -> {
           m_drivetrainSubsystem.drive(
@@ -184,6 +187,7 @@ public class RobotContainer {
               true);
         },
         m_pixy, Pixy2CCC.CCC_SIG1, m_drivetrainSubsystem));
+
     new Button(m_driverController::getBButton).whileHeld(new PixyCamAutoTurning(
         (output) -> {
           m_drivetrainSubsystem.drive(
@@ -202,14 +206,13 @@ public class RobotContainer {
             output = 0.2;
           }
           m_drivetrainSubsystem.drive(
-                  forward,
-                  0,
-                  output,
-                  false
-          );
-    },
+              forward,
+              0,
+              output,
+              false);
+        },
         m_pixy, Pixy2CCC.CCC_SIG1, m_drivetrainSubsystem));
-      
+
     new Button(m_manipulatorController::getLeftBumper).whileHeld(new RunClimber(m_climber, false));
 
     new Button(m_manipulatorController::getRightBumper).whileHeld(new RunClimber(m_climber, true));
@@ -218,7 +221,6 @@ public class RobotContainer {
 
     new Button(m_manipulatorController::getYButton).whenPressed(new TiltClimber(m_climber, ClimberPositions.VERTICAL));
   }
-
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
