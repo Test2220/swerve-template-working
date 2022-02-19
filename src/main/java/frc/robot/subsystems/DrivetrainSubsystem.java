@@ -83,7 +83,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private final SwerveModule m_backLeftModule;
   private final SwerveModule m_backRightModule;
 
- // private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
+  private double speedModifier = 1;
+
+ public double getSpeedModifier() {
+        return speedModifier;
+}
+
+public void setSpeedModifier(double speedModifier) {
+        this.speedModifier = speedModifier;
+}
+
+// private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
  private SwerveModuleState[] m_states = m_kinematics.toSwerveModuleStates(new ChassisSpeeds(0.0, 0.0, 0.0));
 
 
@@ -234,6 +244,9 @@ m_states = desiredStates;
   }
 
 public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+        xSpeed *= MAX_VELOCITY_METERS_PER_SECOND * speedModifier;
+        ySpeed *= MAX_VELOCITY_METERS_PER_SECOND * speedModifier;
+        rot *= MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier;
     var swerveModuleStates = DrivetrainSubsystem.m_kinematics.toSwerveModuleStates(
         fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, m_navx.getRotation2d())
             : new ChassisSpeeds(xSpeed, ySpeed, rot));
