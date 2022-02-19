@@ -6,9 +6,11 @@ import frc.robot.subsystems.Climber;
 
 public class RunClimber extends CommandBase {
     private Climber climber;
+    private boolean goesUp;
 
-    public RunClimber(Climber climber) {
+    public RunClimber(Climber climber, boolean goesUp) {
         this.climber = climber;
+        this.goesUp = goesUp;
         addRequirements(climber);
     }
 
@@ -16,7 +18,11 @@ public class RunClimber extends CommandBase {
 
     }
     public void execute() {
-        climber.setPower(Constants.CLIMBER_POWER);
+        if(goesUp == true) {
+            climber.setPower(Constants.CLIMBER_POWER);
+        } else {
+            climber.setPower(-Constants.CLIMBER_POWER);
+        }
     }
     public void end() {
 

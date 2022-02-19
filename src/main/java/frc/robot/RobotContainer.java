@@ -42,15 +42,19 @@ import frc.robot.subsystems.LED;
 import frc.robot.commands.LimelightDefaultCommand;
 import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.commands.RetractIntake;
+import frc.robot.commands.RunClimber;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
+import frc.robot.commands.TiltClimber;
 import frc.robot.commands.ExtendIntake;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ConveyorSubsystem;
 //import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Trajectories;
+import frc.robot.subsystems.Climber.ClimberPositions;
 import frc.robot.subsystems.Intake.Position;
 import frc.robot.subsystems.LED.Pattern;
 import io.github.pseudoresonance.pixy2api.Pixy2;
@@ -77,7 +81,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
   private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
-
+  private final Climber m_climber = new Climber();
   private final LED m_ledcommands = new LED();
 
   /**
@@ -203,9 +207,18 @@ public class RobotContainer {
                   output,
                   false
           );
-        },
+    },
         m_pixy, Pixy2CCC.CCC_SIG1, m_drivetrainSubsystem));
+      
+    new Button(m_manipulatorController::getLeftBumper).whileHeld(new RunClimber(m_climber, false));
+
+    new Button(m_manipulatorController::getRightBumper).whileHeld(new RunClimber(m_climber, true));
+
+    new Button(m_manipulatorController::getXButton).whenPressed(new TiltClimber(m_climber, ClimberPositions.TILTED));
+
+    new Button(m_manipulatorController::getYButton).whenPressed(new TiltClimber(m_climber, ClimberPositions.VERTICAL));
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
