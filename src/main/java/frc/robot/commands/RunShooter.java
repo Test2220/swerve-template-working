@@ -19,6 +19,6 @@ public class RunShooter extends CommandBase {
         
     }
     public void end() {
-
+        shooter.setPower(0);
     }
 }

@@ -18,9 +18,9 @@ public class RetractIntake extends CommandBase {
         intake.setPosition(Position.RETRACTED);
     }
     public void execute() {
-       intake.setPower(Constants.INTAKE_POWER);
+    //    intake.setPower(Constants.INTAKE_POWER);
     }
     public void end(boolean interrupted) {
-       intake.setPosition(Position.RETRACTED);
+    //    intake.setPosition(Position.RETRACTED);
     }
 }

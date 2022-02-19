@@ -40,6 +40,7 @@ import frc.robot.subsystems.LED;
 import frc.robot.commands.LimelightDefaultCommand;
 import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.commands.RetractIntake;
+import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.ExtendIntake;
 import frc.robot.subsystems.ConveyorSubsystem;
@@ -69,8 +70,8 @@ public class RobotContainer {
   private final Limelight m_limelight = new Limelight();
   
 
-  private final XboxController m_controller = new XboxController(0);
-  private final XboxController m_controller2 = new XboxController(1);
+  private final XboxController m_driverController = new XboxController(0);
+  private final XboxController m_manipulatorController = new XboxController(1);
   private final PixyCamSPI m_pixy = new PixyCamSPI(0);
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
@@ -86,15 +87,15 @@ public class RobotContainer {
   public RobotContainer() {
     ShuffleboardTab xbox = Shuffleboard.getTab("Xbox");
     xbox.addNumber("Left X", () -> {
-      return m_controller.getLeftX();
+      return m_driverController.getLeftX();
     }).withWidget(BuiltInWidgets.kGraph);
 
     xbox.addNumber("Left Y", () -> {
-      return m_controller.getLeftY();
+      return m_driverController.getLeftY();
     }).withWidget(BuiltInWidgets.kGraph);
 
     xbox.addNumber("Right X", () -> {
-      return m_controller.getRightX();
+      return m_driverController.getRightX();
     }).withWidget(BuiltInWidgets.kGraph);
     // Set up the default command for the drivetrain.
     // The controls are for field-oriented driving:
@@ -103,14 +104,25 @@ public class RobotContainer {
     // Right stick X axis -> rotation
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
         m_drivetrainSubsystem,
-        () -> -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
-        () -> -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
-        () -> -modifyAxis(m_controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
+        () -> -modifyAxis(m_driverController.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+        () -> -modifyAxis(m_driverController.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+        () -> -modifyAxis(m_driverController.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
             * speedModifier));
     m_ledcommands.setDefaultCommand(new LEDCommands(m_ledcommands, Pattern.HOTPINK));
 
     m_limelight.setDefaultCommand(new LimelightDefaultCommand(m_limelight));
-    conveyorSubsystem.setDefaultCommand(new AutomaticConveyor(conveyorSubsystem, () -> 0.25, () -> m_controller.getAButton(), () -> m_controller2.getBButton()));
+    conveyorSubsystem.setDefaultCommand(new AutomaticConveyor(conveyorSubsystem, 
+      () -> {
+        if (m_manipulatorController.getPOV() == 0){
+          return 0.1;
+        } else if (m_manipulatorController.getPOV() == 180) {
+          return -0.1;
+        } else {
+          return 0;
+        }
+      }, 
+      () -> m_manipulatorController.getBackButton(), 
+      () -> m_manipulatorController.getStartButton()));
 
     
     // Configure the button bindings
@@ -127,28 +139,31 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Back button zeros the gyroscope
-    new Button(m_controller::getBackButton)
+    new Button(m_driverController::getBackButton)
         // No requirements because we don't need to interrupt anything
         .whenPressed(() -> m_drivetrainSubsystem.zeroGyroscope());
 
     // run intake buttons
-    new Button(() -> m_controller.getPOV() == 0)
+    new Button(m_manipulatorController::getAButton)
         .whenPressed(new ExtendIntake(intake));
 
-    new Button(() -> m_controller.getPOV() == 180)
+    new Button(m_manipulatorController::getBButton)
         .whenPressed(new RetractIntake(intake));
 
-    new Button(() -> m_controller.getPOV() == 270)
+    new Button(() -> m_manipulatorController.getRightTriggerAxis() > 0.4)
+        .whenPressed(new RunIntake(intake));
+
+    new Button(() -> m_manipulatorController.getLeftTriggerAxis() > 0.4)
         .whenPressed(new RunShooter(shooter));
 
-    new Button(m_controller::getLeftBumper)
+    new Button(m_driverController::getLeftBumper)
         .whenPressed(() -> {
           if (speedModifier == 1)
             speedModifier = 0.5;
           else
             speedModifier = 1;
         });
-    new Button(m_controller::getXButton)
+    new Button(m_driverController::getXButton)
         .whileHeld(new LEDCommands(m_ledcommands, Pattern.GREEN));
     // new Button(m_controller::getAButton)
     // .whenPressed(() -> {
@@ -159,7 +174,7 @@ public class RobotContainer {
     PIDController pidController = new PIDController(0.01, 0, 0);
     // Any value over 0.01 makes it dance like MJ. it does not work.
     Shuffleboard.getTab("PID").add("LIMELIGHT PID", pidController);
-    new Button(m_controller::getYButton)
+    new Button(m_driverController::getYButton)
         .whileHeld(
             new LimelightAutoTurning(
                 pidController,
@@ -172,9 +187,9 @@ public class RobotContainer {
                 (output) -> {
                   m_drivetrainSubsystem.drive(
                       ChassisSpeeds.fromFieldRelativeSpeeds(
-                          -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+                          -modifyAxis(m_driverController.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
                               * speedModifier,
-                          -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+                          -modifyAxis(m_driverController.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
                               * speedModifier,
                           output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier,
                           m_drivetrainSubsystem.getGyroscopeRotation()));
@@ -226,7 +241,7 @@ public class RobotContainer {
     // m_pixy,Pixy2CCC.CCC_SIG2, m_drivetrainSubsystem
     // ));
 
-    new Button(m_controller::getAButton).whileHeld(new PixyCamAutoTurning(
+    new Button(m_driverController::getAButton).whileHeld(new PixyCamAutoTurning(
         pixyPidController,
         () -> {
           return m_pixy.getLargestTargetAngle();

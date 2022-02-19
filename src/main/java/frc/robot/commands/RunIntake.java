@@ -15,9 +15,9 @@ public class RunIntake extends CommandBase {
 
     }
     public void execute() {
-        intake.setPower(Constants.CLIMBER_POWER);
+        intake.setPower(Constants.INTAKE_POWER);
     }
     public void end() {
-
-}
+        intake.setPower(0);
+    }
 }

@@ -18,6 +18,8 @@ public class AutomaticConveyor extends CommandBase {
         this.manualPower = manualPower;
         this.manualOveride = manualOveride;
         this.switchToIdle = switchToIdle;
+
+        addRequirements(conveyorSubsystem);
     }
 
     public void initialize() {
@@ -36,7 +38,7 @@ public class AutomaticConveyor extends CommandBase {
                 }
                 break;
             case LOADING:
-                conveyorSubsystem.setPower(0.5);
+                conveyorSubsystem.setPower(0.1);
                 if (!conveyorSubsystem.isBallPresentAtInput()) {
                     transitionSystemState(SystemState.IDLE);
                 }
