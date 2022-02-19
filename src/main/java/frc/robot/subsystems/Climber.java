@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import javax.security.auth.x500.X500Principal;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 

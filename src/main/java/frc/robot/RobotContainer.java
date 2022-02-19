@@ -4,41 +4,19 @@
 
 package frc.robot;
 
-import java.util.List;
-
-import javax.lang.model.util.ElementScanner6;
-
-import com.swervedrivespecialties.swervelib.ctre.Falcon500SteerConfiguration;
-
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Transform2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.shuffleboard.WidgetType;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.AllianceLEDs;
 import frc.robot.commands.AutomaticConveyor;
 import frc.robot.commands.DefaultDriveCommand;
-import frc.robot.commands.LEDCommands;
+import frc.robot.commands.ExtendIntake;
+import frc.robot.commands.FollowPath;
 import frc.robot.commands.LimelightAutoTurning;
-import frc.robot.subsystems.LED;
 import frc.robot.commands.LimelightDefaultCommand;
 import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.commands.RetractIntake;
@@ -46,21 +24,17 @@ import frc.robot.commands.RunClimber;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.TiltClimber;
-import frc.robot.commands.ExtendIntake;
-import frc.robot.commands.FollowPath;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Climber.ClimberPositions;
 import frc.robot.subsystems.ConveyorSubsystem;
 //import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.Trajectories;
-import frc.robot.subsystems.Climber.ClimberPositions;
-import frc.robot.subsystems.Intake.Position;
-import frc.robot.subsystems.LED.Pattern;
-import io.github.pseudoresonance.pixy2api.Pixy2;
-import io.github.pseudoresonance.pixy2api.Pixy2CCC;
 import frc.robot.subsystems.PixyCamSPI;
+import frc.robot.subsystems.Trajectories;
+import io.github.pseudoresonance.pixy2api.Pixy2CCC;
 
 /**
  * This class is where the bulk of the robot should be declared. Since

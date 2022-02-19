@@ -1,14 +1,8 @@
 package frc.robot;
 
-import com.ctre.phoenix.Logger;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import org.ejml.dense.block.decomposition.hessenberg.TridiagonalDecompositionHouseholder_MT_FDRB;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
@@ -30,7 +24,7 @@ public class Shooter extends SubsystemBase {
     // private ShooterSystemState sState = ShooterSystemState.STILL;
     private ShooterDesiredState dState = ShooterDesiredState.IDLE;
 
-    public void Shooter() {
+    public Shooter() {
         leftFalcon = new TalonFX(Constants.SHOOTER_TALON_LEFT);
         rightFalcon = new TalonFX(Constants.SHOOTER_TALON_RIGHT);
 
