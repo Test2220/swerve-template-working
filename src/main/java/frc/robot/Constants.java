@@ -74,7 +74,7 @@ public final class Constants {
     public static final int Intake_Talon_Right = 1;
     public static final int INTAKE_SOLENOID_FORWARD = 2;  //NEED SOLENOID ID FOR INTAKE
     public static final int INTAKE_SOLENOID_REVERSE = 3;
-    public static final double INTAKE_POWER = 0.4; //need intake power value
+    public static final double INTAKE_POWER = 0.01; //need intake power value
 
     public static final int SHOOTER_TALON_LEFT = 5; //NEED SHOOTER TALON IDS
     public static final int SHOOTER_TALON_RIGHT = 6;
@@ -82,7 +82,7 @@ public final class Constants {
     public static final int SHOOTER_SOLENOID_REVERSE = 5;
     public static final TalonFXInvertType LEFT_FALCON_DIRECTION = TalonFXInvertType.Clockwise;
     public static final TalonFXInvertType RIGH_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
-    public static final double SHOOTER_POWER = 0.4; //need shooter power value
+    public static final double SHOOTER_POWER = 0.2; //need shooter power value
 
     public static final int CLIMBER_RIGHT_FALCON = 10;
     public static final int CLIMBER_LEFT_FALCON = 11; //NEED CLIMBER FALCON IDS
@@ -91,7 +91,9 @@ public final class Constants {
     public static final int CLIMBER_SOLENOID_LEFT_REVERSE = 7;
     public static final int CLIMBER_SOLENOID_RIGHT_FORWARD = 8;
     public static final int CLIMBER_SOLENOID_RIGHT_REVERSE = 9;
-    public static final double CLIMBER_POWER = 0.4; //need climber power value
+    public static final double CLIMBER_POWER = 0.25; //need climber power value
+
+    public static final double CONVEYOR_POWER = 0.01;
 
 
 

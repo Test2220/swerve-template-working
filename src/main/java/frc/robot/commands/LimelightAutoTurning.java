@@ -13,11 +13,9 @@ import frc.robot.subsystems.Limelight.LEDMode;
 public class LimelightAutoTurning extends PIDCommand{
     Limelight limelight ;
     
-    public LimelightAutoTurning(PIDController controller, DoubleSupplier measurementSource,
-            DoubleSupplier setpointSource, DoubleConsumer useOutput, Limelight limelight,
-             Subsystem... requirements) {
+    public LimelightAutoTurning(DoubleConsumer useOutput, Limelight limelight, Subsystem... requirements) {
 
-        super(controller, measurementSource, setpointSource, useOutput, requirements);
+        super(new PIDController(0.01, 0, 0), limelight::getHOffset, () -> 0, useOutput, requirements);
         addRequirements(limelight);
         this.limelight = limelight;
         

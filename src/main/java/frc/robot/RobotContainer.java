@@ -114,9 +114,9 @@ public class RobotContainer {
     conveyorSubsystem.setDefaultCommand(new AutomaticConveyor(conveyorSubsystem, 
       () -> {
         if (m_manipulatorController.getPOV() == 0){
-          return 0.1;
+          return Constants.CONVEYOR_POWER;
         } else if (m_manipulatorController.getPOV() == 180) {
-          return -0.1;
+          return -Constants.CONVEYOR_POWER;
         } else {
           return 0;
         }
@@ -163,27 +163,9 @@ public class RobotContainer {
           else
             speedModifier = 1;
         });
-    new Button(m_driverController::getXButton)
-        .whileHeld(new LEDCommands(m_ledcommands, Pattern.GREEN));
-    // new Button(m_controller::getAButton)
-    // .whenPressed(() -> {
-    // m_ledcommands.m_lastBrownOut = Timer.getFPGATimestamp();
-    // });
-    // new Button(m_controller::getBButton)
-    // .whenPressed(new AllianceLEDs(m_ledcommands));
-    PIDController pidController = new PIDController(0.01, 0, 0);
-    // Any value over 0.01 makes it dance like MJ. it does not work.
-    Shuffleboard.getTab("PID").add("LIMELIGHT PID", pidController);
     new Button(m_driverController::getYButton)
         .whileHeld(
             new LimelightAutoTurning(
-                pidController,
-                () -> {
-                  return m_limelight.getHOffset();
-                },
-                () -> {
-                  return 0;
-                },
                 (output) -> {
                   m_drivetrainSubsystem.drive(
                       ChassisSpeeds.fromFieldRelativeSpeeds(

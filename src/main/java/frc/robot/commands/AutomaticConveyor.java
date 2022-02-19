@@ -4,6 +4,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.ConveyorSubsystem;
 
 public class AutomaticConveyor extends CommandBase {
@@ -38,7 +39,7 @@ public class AutomaticConveyor extends CommandBase {
                 }
                 break;
             case LOADING:
-                conveyorSubsystem.setPower(0.1);
+                conveyorSubsystem.setPower(Constants.CONVEYOR_POWER);
                 if (!conveyorSubsystem.isBallPresentAtInput()) {
                     transitionSystemState(SystemState.IDLE);
                 }
