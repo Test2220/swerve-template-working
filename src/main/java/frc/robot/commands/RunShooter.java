@@ -8,6 +8,7 @@ public class RunShooter extends CommandBase {
     private Shooter shooter;
     public RunShooter(Shooter shooter) {
         this.shooter = shooter;
+        addRequirements(shooter);
     }
 
     public void intialize() {
@@ -15,7 +16,7 @@ public class RunShooter extends CommandBase {
 
     public void execute() {
         shooter.setPower(Constants.SHOOTER_POWER);
-
+        
     }
     public void end() {
 

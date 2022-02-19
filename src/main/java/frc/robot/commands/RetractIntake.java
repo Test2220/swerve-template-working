@@ -11,7 +11,7 @@ public class RetractIntake extends CommandBase {
 
     public RetractIntake(Intake intake) {
         this.intake = intake; 
-        addRequirements();
+        addRequirements(intake);
     }
 
     public void initialize() {
