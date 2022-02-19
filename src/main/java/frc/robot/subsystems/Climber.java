@@ -1,11 +1,14 @@
 package frc.robot.subsystems;
 
+import javax.security.auth.x500.X500Principal;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -25,6 +28,10 @@ public class Climber extends SubsystemBase {
     public Climber() {
         rightTalon.setNeutralMode(Constants.CLIMBER_IDLE_BEHAVIOR);
         rightTalon.follow(leftTalon);
+        // rightTalon.configForwardSoftLimitThreshold(X);
+        // rightTalon.configReverseSoftLimitThreshold(0);
+        Shuffleboard.getTab("Climber").addNumber("Right Sensor Units", rightTalon::getSelectedSensorPosition);
+        Shuffleboard.getTab("Climber").addNumber("Left Sensor Units", leftTalon::getSelectedSensorPosition);
 
     }
 
