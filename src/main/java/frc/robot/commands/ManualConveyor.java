@@ -10,6 +10,8 @@ public class ManualConveyor extends CommandBase {
     public ManualConveyor(ConveyorSubsystem conveyorSubsystem, double power) {
         this.conveyorSubsystem = conveyorSubsystem;
         this.power = power;
+
+        addRequirements(conveyorSubsystem);
     }
 
 
