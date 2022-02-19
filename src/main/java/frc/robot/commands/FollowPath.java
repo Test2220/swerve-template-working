@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
@@ -21,7 +22,8 @@ public class FollowPath extends CommandBase {
     SwerveControllerCommand swerveControllerCommand;
 
     public FollowPath(Trajectory trajectory, DrivetrainSubsystem drivetrainSubsystem) { 
-        
+    Transform2d transform = new Transform2d(trajectory.getInitialPose(), new Pose2d());
+    trajectory = trajectory.transformBy(transform);
        swerveControllerCommand = new SwerveControllerCommand(
             trajectory, 
             drivetrainSubsystem::getPose, 

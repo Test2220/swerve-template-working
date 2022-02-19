@@ -229,30 +229,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // Create config for trajectory
-    TrajectoryConfig config = new TrajectoryConfig(
-        DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-        Constants.kMaxAccelerationMetersPerSecondSquared)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(DrivetrainSubsystem.m_kinematics);
-
-    // An example trajectory to follow. All units in meters.
-    Trajectory exampleTrajectory = Trajectories.testTrajectory;
-    Transform2d transform = new Transform2d(exampleTrajectory.getInitialPose(), new Pose2d());
-    exampleTrajectory = exampleTrajectory.transformBy(transform);
-    // TrajectoryGenerator.generateTrajectory(
-    // // Start at the origin facing the +X direction
-    // new Pose2d(0, 0, new Rotation2d(0)),
-    // // Pass through these two interior waypoints, making an 's' curve path
-    // List.of(new Translation2d(0, -3), new Translation2d(3, -3), new
-    // Translation2d(3, 0) ),
-    // // End 3 meters straight ahead of where we started, facing forward
-    // new Pose2d(0, 0, new Rotation2d(0)),
-    // config);
     return new FollowPath(Trajectories.testTrajectory, m_drivetrainSubsystem);
-    
-    
-
   }
 
   
