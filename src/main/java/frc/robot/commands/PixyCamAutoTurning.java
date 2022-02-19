@@ -15,11 +15,9 @@ import io.github.pseudoresonance.pixy2api.Pixy2;
 public class PixyCamAutoTurning extends PIDCommand {
     PixyCamSPI pixyCam;
     byte currentSignature;  
-    public PixyCamAutoTurning(PIDController controller, DoubleSupplier measurementSource,
-            DoubleSupplier setpointSource, DoubleConsumer useOutput, PixyCamSPI pixyCam, byte currentSignature,
-             Subsystem... requirements) {
+    public PixyCamAutoTurning(DoubleConsumer useOutput, PixyCamSPI pixyCam, byte currentSignature, Subsystem... requirements) {
 
-        super(controller, measurementSource, setpointSource, useOutput, requirements);
+        super(new PIDController(0.01, 0, 0), pixyCam::getLargestTargetAngle, () -> 0, useOutput, requirements);
         addRequirements(pixyCam);
         this.pixyCam = pixyCam;
         this.currentSignature = currentSignature;

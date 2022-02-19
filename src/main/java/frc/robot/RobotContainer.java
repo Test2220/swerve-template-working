@@ -68,7 +68,6 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private final Limelight m_limelight = new Limelight();
-  
 
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_manipulatorController = new XboxController(1);
@@ -104,27 +103,28 @@ public class RobotContainer {
     // Right stick X axis -> rotation
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
         m_drivetrainSubsystem,
-        () -> -modifyAxis(m_driverController.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
-        () -> -modifyAxis(m_driverController.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+        () -> -modifyAxis(m_driverController.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+            * speedModifier,
+        () -> -modifyAxis(m_driverController.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+            * speedModifier,
         () -> -modifyAxis(m_driverController.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
             * speedModifier));
     m_ledcommands.setDefaultCommand(new LEDCommands(m_ledcommands, Pattern.HOTPINK));
 
     m_limelight.setDefaultCommand(new LimelightDefaultCommand(m_limelight));
-    conveyorSubsystem.setDefaultCommand(new AutomaticConveyor(conveyorSubsystem, 
-      () -> {
-        if (m_manipulatorController.getPOV() == 0){
-          return Constants.CONVEYOR_POWER;
-        } else if (m_manipulatorController.getPOV() == 180) {
-          return -Constants.CONVEYOR_POWER;
-        } else {
-          return 0;
-        }
-      }, 
-      () -> m_manipulatorController.getBackButton(), 
-      () -> m_manipulatorController.getStartButton()));
+    conveyorSubsystem.setDefaultCommand(new AutomaticConveyor(conveyorSubsystem,
+        () -> {
+          if (m_manipulatorController.getPOV() == 0) {
+            return Constants.CONVEYOR_POWER;
+          } else if (m_manipulatorController.getPOV() == 180) {
+            return -Constants.CONVEYOR_POWER;
+          } else {
+            return 0;
+          }
+        },
+        () -> m_manipulatorController.getBackButton(),
+        () -> m_manipulatorController.getStartButton()));
 
-    
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -169,9 +169,11 @@ public class RobotContainer {
                 (output) -> {
                   m_drivetrainSubsystem.drive(
                       ChassisSpeeds.fromFieldRelativeSpeeds(
-                          -modifyAxis(m_driverController.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+                          -modifyAxis(m_driverController.getLeftY())
+                              * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
                               * speedModifier,
-                          -modifyAxis(m_driverController.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+                          -modifyAxis(m_driverController.getLeftX())
+                              * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
                               * speedModifier,
                           output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier,
                           m_drivetrainSubsystem.getGyroscopeRotation()));
@@ -180,57 +182,34 @@ public class RobotContainer {
     PIDController pixyPidController = new PIDController(0.01, 0, 0);
     // Any value over 0.01 makes it dance like MJ. it does not work.
     Shuffleboard.getTab("PID").add("PIXY PID", pixyPidController);
-    // new Button(m_controller::getBButton).whileHeld(new PixyCamAutoTurning(
-    // pixyPidController,
-    // () -> {
-    // return m_pixy.getLargestTargetAngle();
-    // },
-    // () -> {
-    // return 0;
-    // },
-    // (output) -> {
-    // m_drivetrainSubsystem.drive(
-    // ChassisSpeeds.fromFieldRelativeSpeeds(
-    // -modifyAxis(m_controller.getLeftY()) *
-    // DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
-    // -modifyAxis(m_controller.getLeftX()) *
-    // DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
-    // output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND *
-    // speedModifier,
-    // m_drivetrainSubsystem.getGyroscopeRotation()));
-    // },
-    // m_pixy,Pixy2CCC.CCC_SIG1, m_drivetrainSubsystem
-    // ));
-    // new Button(m_controller::getAButton).whileHeld(new PixyCamAutoTurning(
-    // pixyPidController,
-    // () -> {
-    // return m_pixy.getLargestTargetAngle();
-    // },
-    // () -> {
-    // return 0;
-    // },
-    // (output) -> {
-    // m_drivetrainSubsystem.drive(
-    // ChassisSpeeds.fromFieldRelativeSpeeds(
-    // -modifyAxis(m_controller.getLeftY()) *
-    // DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
-    // -modifyAxis(m_controller.getLeftX()) *
-    // DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
-    // output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND *
-    // speedModifier,
-    // m_drivetrainSubsystem.getGyroscopeRotation()));
-    // },
-    // m_pixy,Pixy2CCC.CCC_SIG2, m_drivetrainSubsystem
-    // ));
+    new Button(m_driverController::getBButton).whileHeld(new PixyCamAutoTurning(
+        (output) -> {
+          m_drivetrainSubsystem.drive(
+              ChassisSpeeds.fromFieldRelativeSpeeds(
+                  -modifyAxis(m_driverController.getLeftY()) *
+                      DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+                  -modifyAxis(m_driverController.getLeftX()) *
+                      DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+                  output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND *
+                      speedModifier,
+                  m_drivetrainSubsystem.getGyroscopeRotation()));
+        },
+        m_pixy, Pixy2CCC.CCC_SIG1, m_drivetrainSubsystem));
+    new Button(m_driverController::getAButton).whileHeld(new PixyCamAutoTurning(
+        (output) -> {
+          m_drivetrainSubsystem.drive(
+              ChassisSpeeds.fromFieldRelativeSpeeds(
+                  -modifyAxis(m_driverController.getLeftY()) *
+                      DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+                  -modifyAxis(m_driverController.getLeftX()) *
+                      DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
+                  output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND *
+                      speedModifier,
+                  m_drivetrainSubsystem.getGyroscopeRotation()));
+        },
+        m_pixy, Pixy2CCC.CCC_SIG2, m_drivetrainSubsystem));
 
     new Button(m_driverController::getAButton).whileHeld(new PixyCamAutoTurning(
-        pixyPidController,
-        () -> {
-          return m_pixy.getLargestTargetAngle();
-        },
-        () -> {
-          return 0;
-        },
         (output) -> {
           double forward = -0.2;
           if (m_pixy.getSeesTarget() != true) {
@@ -243,7 +222,7 @@ public class RobotContainer {
                   0 * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * speedModifier,
                   output * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier));
         },
-        m_pixy, Pixy2CCC.CCC_SIG1 , m_drivetrainSubsystem));
+        m_pixy, Pixy2CCC.CCC_SIG1, m_drivetrainSubsystem));
   }
 
   /**
