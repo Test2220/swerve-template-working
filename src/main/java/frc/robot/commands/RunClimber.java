@@ -24,7 +24,9 @@ public class RunClimber extends CommandBase {
             climber.setPower(-Constants.CLIMBER_POWER);
         }
     }
-    public void end() {
 
+    @Override
+    public void end(boolean interupted) {
+        climber.setPower(0);
     }
 }

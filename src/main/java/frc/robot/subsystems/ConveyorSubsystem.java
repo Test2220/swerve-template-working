@@ -18,6 +18,8 @@ public class ConveyorSubsystem extends SubsystemBase {
     public ConveyorSubsystem() {
         Shuffleboard.getTab("Conveyor").addBoolean("Sensor In", photoEyeSensorIn::get);
         Shuffleboard.getTab("Conveyor").addBoolean("Sensor Out", photoEyeSensorOut::get);
+
+        talon.setInverted(true);
     }
 
     public void setPower(double power) {

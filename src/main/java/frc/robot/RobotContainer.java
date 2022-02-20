@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.AllianceLEDs;
 import frc.robot.commands.AutomaticConveyor;
+import frc.robot.commands.DefaultClimber;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.ExtendIntake;
 import frc.robot.commands.FollowPath;
@@ -33,6 +34,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.PixyCamSPI;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Trajectories;
 import io.github.pseudoresonance.pixy2api.Pixy2CCC;
 
@@ -101,6 +103,11 @@ public class RobotContainer {
         },
         () -> m_manipulatorController.getBackButton(),
         () -> m_manipulatorController.getStartButton()));
+
+    m_climber.setDefaultCommand(new DefaultClimber(m_climber, 
+        () -> -modifyAxis(m_manipulatorController.getLeftY()),
+        () -> -modifyAxis(m_manipulatorController.getRightY())
+    ));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -183,10 +190,10 @@ public class RobotContainer {
         .whenPressed(new RetractIntake(intake));
 
     new Button(() -> m_manipulatorController.getRightTriggerAxis() > 0.4)
-        .whenPressed(new RunShooter(shooter, conveyorSubsystem));
+        .whileHeld(new RunShooter(shooter, conveyorSubsystem));
 
     new Button(() -> m_manipulatorController.getLeftTriggerAxis() > 0.4)
-        .whenPressed(new RunIntake(intake));
+        .whileHeld(new RunIntake(intake));
 
     new Button(m_manipulatorController::getLeftBumper).whileHeld(new RunClimber(m_climber, false));
 

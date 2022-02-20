@@ -25,11 +25,14 @@ public class Climber extends SubsystemBase {
 
     public Climber() {
         rightTalon.setNeutralMode(Constants.CLIMBER_IDLE_BEHAVIOR);
-        rightTalon.follow(leftTalon);
+        leftTalon.setNeutralMode(Constants.CLIMBER_IDLE_BEHAVIOR);
         // rightTalon.configForwardSoftLimitThreshold(X);
         // rightTalon.configReverseSoftLimitThreshold(0);
         Shuffleboard.getTab("Climber").addNumber("Right Sensor Units", rightTalon::getSelectedSensorPosition);
         Shuffleboard.getTab("Climber").addNumber("Left Sensor Units", leftTalon::getSelectedSensorPosition);
+
+        rightTalon.setInverted(true);
+        leftTalon.setInverted(true);
 
     }
 

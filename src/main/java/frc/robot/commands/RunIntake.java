@@ -17,7 +17,9 @@ public class RunIntake extends CommandBase {
     public void execute() {
         intake.setPower(Constants.INTAKE_POWER);
     }
-    public void end() {
+
+    @Override
+    public void end(boolean interupted) {
         intake.setPower(0);
     }
 }
