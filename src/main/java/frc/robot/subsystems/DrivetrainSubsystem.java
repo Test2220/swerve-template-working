@@ -83,7 +83,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private final SwerveModule m_backLeftModule;
   private final SwerveModule m_backRightModule;
 
-  private double speedModifier = 1;
+  private double speedModifier = 0.1;
 
  public double getSpeedModifier() {
         return speedModifier;
@@ -204,7 +204,7 @@ public void setSpeedModifier(double speedModifier) {
    }
 
    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
-   return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
+   return Rotation2d.fromDegrees(/*360.0 - */m_navx.getYaw());
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {
@@ -248,7 +248,7 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
         ySpeed *= MAX_VELOCITY_METERS_PER_SECOND * speedModifier;
         rot *= MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier;
     var swerveModuleStates = DrivetrainSubsystem.m_kinematics.toSwerveModuleStates(
-        fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, m_navx.getRotation2d())
+        fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getGyroscopeRotation())
             : new ChassisSpeeds(xSpeed, ySpeed, rot));
    m_states = swerveModuleStates;
   }

@@ -120,13 +120,13 @@ public class RobotContainer {
         // No requirements because we don't need to interrupt anything
         .whenPressed(() -> m_drivetrainSubsystem.zeroGyroscope());
 
-    new Button(m_driverController::getLeftBumper)
-        .whenPressed(() -> {
-          if (m_drivetrainSubsystem.getSpeedModifier() == 1.0)
-            m_drivetrainSubsystem.setSpeedModifier(0.5);
-          else
-            m_drivetrainSubsystem.setSpeedModifier(1.0);
-        });
+    // new Button(m_driverController::getLeftBumper)
+    //     .whenPressed(() -> {
+    //       if (m_drivetrainSubsystem.getSpeedModifier() == 1.0)
+    //         m_drivetrainSubsystem.setSpeedModifier(0.5);
+    //       else
+    //         m_drivetrainSubsystem.setSpeedModifier(1.0);
+    //     });
 
     new Button(m_driverController::getYButton)
         .whileHeld(

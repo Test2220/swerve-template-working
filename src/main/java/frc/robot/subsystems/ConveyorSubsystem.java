@@ -7,11 +7,13 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.PhotoEyeSensor;
 
+import static frc.robot.Constants.*;
+
 public class ConveyorSubsystem extends SubsystemBase {
 
     PhotoEyeSensor photoEyeSensorIn = new PhotoEyeSensor(1, true);
     PhotoEyeSensor photoEyeSensorOut = new PhotoEyeSensor(2, true);
-    TalonFX talon = new TalonFX(7);
+    TalonFX talon = new TalonFX(CONVEYOR_FALCON);
 
     public ConveyorSubsystem() {
         Shuffleboard.getTab("Conveyor").addBoolean("Sensor In", photoEyeSensorIn::get);

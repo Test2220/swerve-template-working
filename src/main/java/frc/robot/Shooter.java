@@ -9,7 +9,7 @@ public class Shooter extends SubsystemBase {
 
     
     private TalonFX leftFalcon;
-    private TalonFX rightFalcon;
+    // private TalonFX rightFalcon;
  
 
 
@@ -26,15 +26,15 @@ public class Shooter extends SubsystemBase {
 
     public Shooter() {
         leftFalcon = new TalonFX(Constants.SHOOTER_TALON_LEFT);
-        rightFalcon = new TalonFX(Constants.SHOOTER_TALON_RIGHT);
+        // rightFalcon = new TalonFX(Constants.SHOOTER_TALON_RIGHT);
 
         leftFalcon.configFactoryDefault();
-        rightFalcon.configFactoryDefault();
+        // rightFalcon.configFactoryDefault();
 
         leftFalcon.setInverted(Constants.LEFT_FALCON_DIRECTION);
-        rightFalcon.setInverted(Constants.RIGH_FALCON_DIRECTION);
+        // rightFalcon.setInverted(Constants.RIGH_FALCON_DIRECTION);
 
-        rightFalcon.follow(leftFalcon);
+        // rightFalcon.follow(leftFalcon);
 
     }
     public void periodic() {
