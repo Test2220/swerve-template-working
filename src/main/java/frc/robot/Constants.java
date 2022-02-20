@@ -9,6 +9,9 @@ import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -76,7 +79,7 @@ public final class Constants {
     public static final int LEFT_INTAKE_SOLENOID_REVERSE = 1;
     public static final int RIGHT_INTAKE_SOLENOID_FORWARD = 2;
     public static final int RIGHT_INTAKE_SOLENOID_REVERSE = 3;
-    public static final double INTAKE_POWER = 0.5; //need intake power value
+    public static final double INTAKE_POWER = 0.6; //need intake power value
 
     public static final int SHOOTER_TALON_LEFT = 20; //NEED SHOOTER TALON IDS
     // public static final int SHOOTER_TALON_RIGHT = 6;
@@ -85,6 +88,14 @@ public final class Constants {
     public static final TalonFXInvertType LEFT_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
     // public static final TalonFXInvertType RIGH_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
     public static final double SHOOTER_POWER = 0.4; //need shooter power value
+
+    public static final ShuffleboardTab SHUFFLEBOARD_SHOOTER = Shuffleboard.getTab("Shooter");
+    public static final NetworkTableEntry SHUFFLEBOARD_SHOOTER_POWER = 
+        SHUFFLEBOARD_SHOOTER
+            .addPersistent("Shooter Power", SHOOTER_POWER)
+            .withSize(1, 1)
+            .withPosition(0, 0)
+            .getEntry();
 
     public static final int CLIMBER_RIGHT_FALCON = 22;
     public static final int CLIMBER_LEFT_FALCON = 10; //NEED CLIMBER FALCON IDS

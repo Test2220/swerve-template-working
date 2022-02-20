@@ -18,7 +18,7 @@ public class RunShooter extends CommandBase {
     }
 
     public void execute() {
-        shooter.setPower(Constants.SHOOTER_POWER);
+        shooter.setPower(Constants.SHUFFLEBOARD_SHOOTER_POWER.getDouble(Constants.SHOOTER_POWER));
         conveyor.setPower(Constants.CONVEYOR_POWER);
         
     }
