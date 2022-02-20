@@ -183,7 +183,7 @@ public class RobotContainer {
         .whenPressed(new RetractIntake(intake));
 
     new Button(() -> m_manipulatorController.getRightTriggerAxis() > 0.4)
-        .whenPressed(new RunShooter(shooter));
+        .whenPressed(new RunShooter(shooter, conveyorSubsystem));
 
     new Button(() -> m_manipulatorController.getLeftTriggerAxis() > 0.4)
         .whenPressed(new RunIntake(intake));
