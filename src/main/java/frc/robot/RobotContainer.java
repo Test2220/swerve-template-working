@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.AllianceLEDs;
@@ -60,6 +61,7 @@ public class RobotContainer {
   private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
   private final Climber m_climber = new Climber();
   private final LED m_ledcommands = new LED();
+  private final SendableChooser<Command> autoChooser = new SendableChooser<>();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -111,6 +113,11 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
+
+    Command m_2ballAuto = new FollowPath(Trajectories.twoBall, m_drivetrainSubsystem);
+    autoChooser.setDefaultOption("2 Ball Auto", m_2ballAuto);
+    autoChooser.addOption("Test", new FollowPath(Trajectories.testTrajectory, m_drivetrainSubsystem));
+    Shuffleboard.getTab("Auto").add("Auto", autoChooser);
   }
 
   /**
@@ -210,7 +217,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new FollowPath(Trajectories.testTrajectory, m_drivetrainSubsystem);
+    return autoChooser.getSelected();
   }
 
   private static double deadband(double value, double deadband) {
