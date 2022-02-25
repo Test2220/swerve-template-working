@@ -5,16 +5,16 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.subsystems.Conveyor;
 
 public class AutomaticConveyor extends CommandBase {
-    ConveyorSubsystem conveyorSubsystem;
+    Conveyor conveyorSubsystem;
     SystemState systemState = SystemState.IDLE;
     DoubleSupplier manualPower;
     BooleanSupplier manualOveride;
     BooleanSupplier switchToIdle;
 
-    public AutomaticConveyor(ConveyorSubsystem conveyorSubsystem, DoubleSupplier manualPower, BooleanSupplier manualOveride, BooleanSupplier switchToIdle) {
+    public AutomaticConveyor(Conveyor conveyorSubsystem, DoubleSupplier manualPower, BooleanSupplier manualOveride, BooleanSupplier switchToIdle) {
         this.conveyorSubsystem = conveyorSubsystem;
         this.manualPower = manualPower;
         this.manualOveride = manualOveride;

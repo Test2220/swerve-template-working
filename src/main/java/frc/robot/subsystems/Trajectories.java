@@ -29,9 +29,9 @@ public class Trajectories {
 
   public static Trajectory makeTrajectory(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
     TrajectoryConfig config = new TrajectoryConfig(
-        DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+        Drivetrain.MAX_VELOCITY_METERS_PER_SECOND,
         Constants.kMaxAccelerationMetersPerSecondSquared)
-            .setKinematics(DrivetrainSubsystem.m_kinematics);
+            .setKinematics(Drivetrain.m_kinematics);
 
     return TrajectoryGenerator.generateTrajectory(start, interiorWaypoints, end, config);
   }

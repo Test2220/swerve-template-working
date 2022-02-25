@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.*;
 
-public class DrivetrainSubsystem extends SubsystemBase {
+public class Drivetrain extends SubsystemBase {
   /**
    * The maximum voltage that will be delivered to the drive motors.
    * <p>
@@ -90,7 +90,7 @@ public void setSpeedModifier(double speedModifier) {
  private SwerveModuleState[] m_states = m_kinematics.toSwerveModuleStates(new ChassisSpeeds(0.0, 0.0, 0.0));
 
 
-  public DrivetrainSubsystem() {
+  public Drivetrain() {
     ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
 
     // There are 4 methods you can call to create your swerve modules.
@@ -232,7 +232,7 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
         xSpeed *= MAX_VELOCITY_METERS_PER_SECOND * speedModifier;
         ySpeed *= MAX_VELOCITY_METERS_PER_SECOND * speedModifier;
         rot *= MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier;
-    var swerveModuleStates = DrivetrainSubsystem.m_kinematics.toSwerveModuleStates(
+    var swerveModuleStates = Drivetrain.m_kinematics.toSwerveModuleStates(
         fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getGyroscopeRotation())
             : new ChassisSpeeds(xSpeed, ySpeed, rot));
    m_states = swerveModuleStates;

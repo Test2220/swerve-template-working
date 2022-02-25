@@ -8,20 +8,20 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Drivetrain;
 
 public class FollowPath extends CommandBase {
     Pose2d initialPose2d;
-    DrivetrainSubsystem drivetrainSubsystem;
+    Drivetrain drivetrainSubsystem;
     SwerveControllerCommand swerveControllerCommand;
 
-    public FollowPath(Trajectory trajectory, DrivetrainSubsystem drivetrainSubsystem) { 
+    public FollowPath(Trajectory trajectory, Drivetrain drivetrainSubsystem) { 
     Transform2d transform = new Transform2d(trajectory.getInitialPose(), new Pose2d());
     trajectory = trajectory.transformBy(transform);
        swerveControllerCommand = new SwerveControllerCommand(
             trajectory, 
             drivetrainSubsystem::getPose, 
-            DrivetrainSubsystem.m_kinematics, 
+            Drivetrain.m_kinematics, 
             new PIDController(Constants.kPXController, 0, 0), 
             new PIDController(Constants.kPYController, 0, 0),
             FollowPath.getThetaController(),
