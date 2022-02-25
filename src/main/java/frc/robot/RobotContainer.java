@@ -26,6 +26,7 @@ import frc.robot.commands.RunClimber;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.TiltClimber;
+import frc.robot.commands.TwoBallAuto;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Climber.ClimberPositions;
 import frc.robot.subsystems.ConveyorSubsystem;
@@ -114,7 +115,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    Command m_2ballAuto = new FollowPath(Trajectories.twoBall, m_drivetrainSubsystem);
+    Command m_2ballAuto = new TwoBallAuto(intake, m_drivetrainSubsystem, shooter, conveyorSubsystem);
     autoChooser.setDefaultOption("2 Ball Auto", m_2ballAuto);
     autoChooser.addOption("Test", new FollowPath(Trajectories.testTrajectory, m_drivetrainSubsystem));
     Shuffleboard.getTab("Auto").add("Auto", autoChooser);
