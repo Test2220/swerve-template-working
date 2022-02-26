@@ -29,6 +29,7 @@ public class FollowPath extends CommandBase {
             drivetrainSubsystem);
             initialPose2d = trajectory.getInitialPose();
             this.drivetrainSubsystem = drivetrainSubsystem;
+            addRequirements(drivetrainSubsystem);
     }
 
     private static ProfiledPIDController getThetaController() {

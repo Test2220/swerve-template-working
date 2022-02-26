@@ -22,4 +22,7 @@ public class RetractIntake extends CommandBase {
     public void end(boolean interrupted) {
     //    intake.setPosition(Position.RETRACTED);
     }
+    public boolean isFinished() {
+        return true;
+    }
 }

@@ -19,8 +19,9 @@ public class Trajectories {
 
   public static final Trajectory testTrajectory = trajectoryFromPath("output/Test.wpilib.json");
 
-  public static final Trajectory twoBall = trajectoryFromPath("output/Upper Left 2ball.wpilib.json");
+  public static final Trajectory twoBall = trajectoryFromPath("output/reverse.wpilib.json");
 
+  public static final Trajectory backwardBall = trajectoryFromPath("output/Backward.wpilib.json");
 
   public static final Trajectory testCircleTrajectory = makeTrajectory(
       new Pose2d(0, 0, new Rotation2d(0)),

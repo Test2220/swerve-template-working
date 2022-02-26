@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
@@ -11,11 +12,15 @@ public class TwoBallAuto extends SequentialCommandGroup {
     
     public TwoBallAuto(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor){
         addCommands(
+            new RunShooter(shooter, conveyor, true).withTimeout(2),
+
             new ExtendIntake(intake),
 
-            new FollowPath(Trajectories.twoBall, drivetrain).raceWith(new RunIntake(intake)),
+            new FollowPath(Trajectories.twoBall, drivetrain).raceWith(new RunIntake(intake, false)),
 
-            new RunShooter(shooter, conveyor).withTimeout(5)
+            new FollowPath(Trajectories.backwardBall,drivetrain),
+
+            new RunShooter(shooter, conveyor, true).withTimeout(4)
         );
     }
 
