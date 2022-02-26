@@ -19,6 +19,9 @@ public class Trajectories {
 
   public static final Trajectory testTrajectory = trajectoryFromPath("output/Test.wpilib.json");
 
+  public static final Trajectory twoBall = trajectoryFromPath("output/Upper Left 2ball.wpilib.json");
+
+
   public static final Trajectory testCircleTrajectory = makeTrajectory(
       new Pose2d(0, 0, new Rotation2d(0)),
       List.of(new Translation2d(0, -3), new Translation2d(3, -3), new Translation2d(3, 0)),
@@ -26,9 +29,9 @@ public class Trajectories {
 
   public static Trajectory makeTrajectory(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
     TrajectoryConfig config = new TrajectoryConfig(
-        DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+        Drivetrain.MAX_VELOCITY_METERS_PER_SECOND,
         Constants.kMaxAccelerationMetersPerSecondSquared)
-            .setKinematics(DrivetrainSubsystem.m_kinematics);
+            .setKinematics(Drivetrain.m_kinematics);
 
     return TrajectoryGenerator.generateTrajectory(start, interiorWaypoints, end, config);
   }

@@ -9,13 +9,13 @@ import frc.robot.PhotoEyeSensor;
 
 import static frc.robot.Constants.*;
 
-public class ConveyorSubsystem extends SubsystemBase {
+public class Conveyor extends SubsystemBase {
 
     PhotoEyeSensor photoEyeSensorIn = new PhotoEyeSensor(1, true);
     PhotoEyeSensor photoEyeSensorOut = new PhotoEyeSensor(2, true);
     TalonFX talon = new TalonFX(CONVEYOR_FALCON);
 
-    public ConveyorSubsystem() {
+    public Conveyor() {
         Shuffleboard.getTab("Conveyor").addBoolean("Sensor In", photoEyeSensorIn::get);
         Shuffleboard.getTab("Conveyor").addBoolean("Sensor Out", photoEyeSensorOut::get);
 

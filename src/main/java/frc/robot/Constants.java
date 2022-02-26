@@ -29,35 +29,33 @@ public final class Constants {
      *
      * Should be measured from center to center.
      */
-    public static final double DRIVETRAIN_TRACKWIDTH_METERS = Units.inchesToMeters(9.25)*2; // FIXME Measure and set trackwidth
+    public static final double DRIVETRAIN_TRACKWIDTH_METERS = Units.inchesToMeters(9.25)*2; 
     /**
      * The front-to-back distance between the drivetrain wheels.
      *
      * Should be measured from center to center.
      */
-    public static final double DRIVETRAIN_WHEELBASE_METERS = Units.inchesToMeters(9.25)*2; // FIXME Measure and set wheelbase
+    public static final double DRIVETRAIN_WHEELBASE_METERS = Units.inchesToMeters(9.25)*2; 
 
-    public static final int DRIVETRAIN_PIGEON_ID = 0; // FIXME Set Pigeon ID
+    public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 17; 
+    public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 18; 
+    public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 5; 
+    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(45.08514404296875); 
 
-    public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 17; // FIXME Set front left module drive motor ID
-    public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 18; // FIXME Set front left module steer motor ID
-    public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 5; // *FIXME Set front left steer encoder ID
-    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(45.08514404296875); // FIXME Measure and set front left steer offset 70.224609
+    public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 14; 
+    public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 13; 
+    public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 3; 
+    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(161.97967529296875); 
 
-    public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 14; // FIXME Set front right drive motor ID
-    public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 13; // FIXME Set front right steer motor ID
-    public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 3; // FIXME Set front right steer encoder ID
-    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(161.97967529296875); // FIXME Measure and set front right steer offset 6.943359
+    public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 11; 
+    public static final int BACK_LEFT_MODULE_STEER_MOTOR = 12; 
+    public static final int BACK_LEFT_MODULE_STEER_ENCODER = 2; 
+    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(289.94293212890625); 
 
-    public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 11; // FIXME Set back left drive motor ID
-    public static final int BACK_LEFT_MODULE_STEER_MOTOR = 12; // FIXME Set back left steer motor ID
-    public static final int BACK_LEFT_MODULE_STEER_ENCODER = 2; // *FIXME Set back left steer encoder ID
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(289.94293212890625); // FIXME Measure and set back left steer offset 289.863281
-
-    public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 15; // FIXME Set back right drive motor ID
-    public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 16; // FIXME Set back right steer motor ID
-    public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 4; // FIXME Set back right steer encoder ID
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(98.0804443359375); // FIXME Measure and set back right steer offset 225.175781
+    public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 15; 
+    public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 16; 
+    public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 4; 
+    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(98.0804443359375); 
    
     public static final double kMaxAccelerationMetersPerSecondSquared = 1;
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
@@ -73,17 +71,15 @@ public final class Constants {
     public static final String LIMELIGHT_TABLE_NAME = "limelight";
 
 
-    public static final int Intake_Talon_Left = 21; //change these values to match correct Talon ID number
-    // public static final int Intake_Talon_Right = 0;
-    public static final int LEFT_INTAKE_SOLENOID_FORWARD = 0;  //NEED SOLENOID ID FOR INTAKE
+    public static final int Intake_Talon_Left = 21; 
+    public static final int LEFT_INTAKE_SOLENOID_FORWARD = 0;  
     public static final int LEFT_INTAKE_SOLENOID_REVERSE = 1;
     public static final int RIGHT_INTAKE_SOLENOID_FORWARD = 2;
     public static final int RIGHT_INTAKE_SOLENOID_REVERSE = 3;
-    public static final double INTAKE_POWER = 0.6; //need intake power value
+    public static final double INTAKE_POWER = 0.6; 
 
-    public static final int SHOOTER_TALON_LEFT = 20; //NEED SHOOTER TALON IDS
-    // public static final int SHOOTER_TALON_RIGHT = 6;
-    public static final int SHOOTER_SOLENOID_FORWARD = 4;//NEED SOLENOID ID FOR THE SHOOTER 
+    public static final int SHOOTER_TALON_LEFT = 20; 
+    public static final int SHOOTER_SOLENOID_FORWARD = 4;
     public static final int SHOOTER_SOLENOID_REVERSE = 5;
     public static final TalonFXInvertType LEFT_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
     // public static final TalonFXInvertType RIGH_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
@@ -105,13 +101,13 @@ public final class Constants {
             .getEntry();
 
     public static final int CLIMBER_RIGHT_FALCON = 22;
-    public static final int CLIMBER_LEFT_FALCON = 10; //NEED CLIMBER FALCON IDS
+    public static final int CLIMBER_LEFT_FALCON = 10; 
     public static final NeutralMode CLIMBER_IDLE_BEHAVIOR = NeutralMode.Brake;
     public static final int CLIMBER_SOLENOID_LEFT_FORWARD = 4;
     public static final int CLIMBER_SOLENOID_LEFT_REVERSE = 5;
     public static final int CLIMBER_SOLENOID_RIGHT_FORWARD = 6;
     public static final int CLIMBER_SOLENOID_RIGHT_REVERSE = 7;
-    public static final double CLIMBER_POWER = 0.25; //need climber power value
+    public static final double CLIMBER_POWER = 0.25; 
 
     public static final double CONVEYOR_POWER = 0.3;
 

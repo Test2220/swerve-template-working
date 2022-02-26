@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.AllianceLEDs;
@@ -25,11 +26,12 @@ import frc.robot.commands.RunClimber;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.TiltClimber;
+import frc.robot.commands.TwoBallAuto;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Climber.ClimberPositions;
-import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.subsystems.Conveyor;
 //import frc.robot.commands.PixyCamAutoTurning;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Limelight;
@@ -49,17 +51,21 @@ import io.github.pseudoresonance.pixy2api.Pixy2CCC;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
-  private final Limelight m_limelight = new Limelight();
+  private final XboxController driverController = new XboxController(0);
+  private final XboxController manipulatorController = new XboxController(1);
 
-  private final XboxController m_driverController = new XboxController(0);
-  private final XboxController m_manipulatorController = new XboxController(1);
-  private final PixyCamSPI m_pixy = new PixyCamSPI(0);
+  private final LED led = new LED();
+
+  private final Drivetrain drivetrain = new Drivetrain();
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
-  private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
-  private final Climber m_climber = new Climber();
-  private final LED m_ledcommands = new LED();
+  private final Conveyor conveyor = new Conveyor();
+  private final Climber climber = new Climber();
+
+  private final Limelight limelight = new Limelight();
+  private final PixyCamSPI pixy = new PixyCamSPI(0);
+
+  private final SendableChooser<Command> autoChooser = new SendableChooser<>();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -67,50 +73,55 @@ public class RobotContainer {
   public RobotContainer() {
     ShuffleboardTab xbox = Shuffleboard.getTab("Xbox");
     xbox.addNumber("Left X", () -> {
-      return m_driverController.getLeftX();
+      return driverController.getLeftX();
     }).withWidget(BuiltInWidgets.kGraph);
 
     xbox.addNumber("Left Y", () -> {
-      return m_driverController.getLeftY();
+      return driverController.getLeftY();
     }).withWidget(BuiltInWidgets.kGraph);
 
     xbox.addNumber("Right X", () -> {
-      return m_driverController.getRightX();
+      return driverController.getRightX();
     }).withWidget(BuiltInWidgets.kGraph);
     // Set up the default command for the drivetrain.
     // The controls are for field-oriented driving:
     // Left stick Y axis -> forward and backwards movement
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
-    m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
-        m_drivetrainSubsystem,
-        () -> -modifyAxis(m_driverController.getLeftY()),
-        () -> -modifyAxis(m_driverController.getLeftX()),
-        () -> -modifyAxis(m_driverController.getRightX())));
-    m_ledcommands.setDefaultCommand(new AllianceLEDs(m_ledcommands));
+    drivetrain.setDefaultCommand(new DefaultDriveCommand(
+        drivetrain,
+        () -> -modifyAxis(driverController.getLeftY()),
+        () -> -modifyAxis(driverController.getLeftX()),
+        () -> -modifyAxis(driverController.getRightX())));
+    led.setDefaultCommand(new AllianceLEDs(led));
 
-    m_limelight.setDefaultCommand(new LimelightDefaultCommand(m_limelight));
+    limelight.setDefaultCommand(new LimelightDefaultCommand(limelight));
 
-    conveyorSubsystem.setDefaultCommand(new AutomaticConveyor(conveyorSubsystem,
+    conveyor.setDefaultCommand(new AutomaticConveyor(conveyor,
         () -> {
-          if (m_manipulatorController.getPOV() == 0) {
+          if (manipulatorController.getPOV() == 0) {
             return Constants.CONVEYOR_POWER;
-          } else if (m_manipulatorController.getPOV() == 180) {
+          } else if (manipulatorController.getPOV() == 180) {
             return -Constants.CONVEYOR_POWER;
           } else {
             return 0;
           }
         },
-        () -> m_manipulatorController.getBackButton(),
-        () -> m_manipulatorController.getStartButton()));
+        () -> manipulatorController.getBackButton(),
+        () -> manipulatorController.getStartButton()));
 
-    m_climber.setDefaultCommand(new DefaultClimber(m_climber, 
-        () -> -modifyAxis(m_manipulatorController.getLeftY()),
-        () -> -modifyAxis(m_manipulatorController.getRightY())
+    climber.setDefaultCommand(new DefaultClimber(climber, 
+        () -> -modifyAxis(manipulatorController.getLeftY()),
+        () -> -modifyAxis(manipulatorController.getRightY())
     ));
 
     // Configure the button bindings
     configureButtonBindings();
+
+    Command m_2ballAuto = new TwoBallAuto(intake, drivetrain, shooter, conveyor);
+    autoChooser.setDefaultOption("2 Ball Auto", m_2ballAuto);
+    autoChooser.addOption("Test", new FollowPath(Trajectories.testTrajectory, drivetrain));
+    Shuffleboard.getTab("Auto").add("Auto", autoChooser);
   }
 
   /**
@@ -123,92 +134,92 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Back button zeros the gyroscope
-    new Button(m_driverController::getBackButton)
+    new Button(driverController::getBackButton)
         // No requirements because we don't need to interrupt anything
-        .whenPressed(() -> m_drivetrainSubsystem.zeroGyroscope());
+        .whenPressed(() -> drivetrain.zeroGyroscope());
 
-    new Button(m_driverController::getLeftBumper)
+    new Button(driverController::getLeftBumper)
         .whenPressed(() -> 
-            m_drivetrainSubsystem.setSpeedModifier(.5)
+            drivetrain.setSpeedModifier(.5)
         );
-    new Button(m_driverController::getRightBumper)
+    new Button(driverController::getRightBumper)
         .whenPressed(() ->
-            m_drivetrainSubsystem.setSpeedModifier(1)
+            drivetrain.setSpeedModifier(1)
         );
-    new Button(m_driverController::getStartButton)
+    new Button(driverController::getStartButton)
         .whenPressed(() ->
-            m_drivetrainSubsystem.setSpeedModifier(0)
+            drivetrain.setSpeedModifier(0)
         );
 
-    new Button(m_driverController::getYButton)
+    new Button(driverController::getYButton)
         .whileHeld(
             new LimelightAutoTurning(
                 (output) -> {
-                  m_drivetrainSubsystem.drive(
-                      -modifyAxis(m_driverController.getLeftY()),
-                      -modifyAxis(m_driverController.getLeftX()),
+                  drivetrain.drive(
+                      -modifyAxis(driverController.getLeftY()),
+                      -modifyAxis(driverController.getLeftX()),
                       output,
                       true);
                 },
-                m_limelight, m_drivetrainSubsystem));
+                limelight, drivetrain));
 
-    new Button(m_driverController::getAButton).whileHeld(new PixyCamAutoTurning(
+    new Button(driverController::getAButton).whileHeld(new PixyCamAutoTurning(
         (output) -> {
-          m_drivetrainSubsystem.drive(
-              -modifyAxis(m_driverController.getLeftY()),
-              -modifyAxis(m_driverController.getLeftX()),
+          drivetrain.drive(
+              -modifyAxis(driverController.getLeftY()),
+              -modifyAxis(driverController.getLeftX()),
               output,
               true);
         },
-        m_pixy, Pixy2CCC.CCC_SIG1, m_drivetrainSubsystem));
+        pixy, Pixy2CCC.CCC_SIG1, drivetrain));
 
-    new Button(m_driverController::getBButton).whileHeld(new PixyCamAutoTurning(
+    new Button(driverController::getBButton).whileHeld(new PixyCamAutoTurning(
         (output) -> {
-          m_drivetrainSubsystem.drive(
-              -modifyAxis(m_driverController.getLeftY()),
-              -modifyAxis(m_driverController.getLeftX()),
+          drivetrain.drive(
+              -modifyAxis(driverController.getLeftY()),
+              -modifyAxis(driverController.getLeftX()),
               output,
               true);
         },
-        m_pixy, Pixy2CCC.CCC_SIG2, m_drivetrainSubsystem));
+        pixy, Pixy2CCC.CCC_SIG2, drivetrain));
 
-    new Button(m_driverController::getXButton).whileHeld(new PixyCamAutoTurning(
+    new Button(driverController::getXButton).whileHeld(new PixyCamAutoTurning(
         (output) -> {
           double forward = -0.2;
-          if (m_pixy.getSeesTarget() != true) {
+          if (pixy.getSeesTarget() != true) {
             forward = 0;
             output = 0.2;
           }
-          m_drivetrainSubsystem.drive(
+          drivetrain.drive(
               forward,
               0,
               output,
               false);
         },
-        m_pixy, Pixy2CCC.CCC_SIG1, m_drivetrainSubsystem));
+        pixy, Pixy2CCC.CCC_SIG1, drivetrain));
 
     // run intake buttons
-    new Button(m_manipulatorController::getAButton)
+    new Button(manipulatorController::getAButton)
         .whenPressed(new ExtendIntake(intake));
 
-    new Button(m_manipulatorController::getBButton)
+    new Button(manipulatorController::getBButton)
         .whenPressed(new RetractIntake(intake));
 
-    new Button(() -> m_manipulatorController.getRightTriggerAxis() > 0.4)
-        .whileHeld(new RunShooter(shooter, conveyorSubsystem, true));
+    new Button(() -> manipulatorController.getRightTriggerAxis() > 0.4)
+        .whileHeld(new RunShooter(shooter, conveyor, true));
 
-    new Button(() -> m_manipulatorController.getLeftTriggerAxis() > 0.4)
+    new Button(() -> manipulatorController.getLeftTriggerAxis() > 0.4)
         .whileHeld(new RunIntake(intake, false));
 
-    new Button(m_manipulatorController::getLeftBumper)
+    new Button(manipulatorController::getLeftBumper)
         .whileHeld(new RunIntake(intake, true));
 
-    new Button(m_manipulatorController::getRightBumper)
-      .whileHeld(new RunShooter(shooter, conveyorSubsystem, false));
+    new Button(manipulatorController::getRightBumper)
+      .whileHeld(new RunShooter(shooter, conveyor, false));
 
-    new Button(m_manipulatorController::getXButton).whenPressed(new TiltClimber(m_climber, ClimberPositions.TILTED));
+    new Button(manipulatorController::getXButton).whenPressed(new TiltClimber(climber, ClimberPositions.TILTED));
 
-    new Button(m_manipulatorController::getYButton).whenPressed(new TiltClimber(m_climber, ClimberPositions.VERTICAL));
+    new Button(manipulatorController::getYButton).whenPressed(new TiltClimber(climber, ClimberPositions.VERTICAL));
   }
 
   /**
@@ -217,8 +228,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // return new FollowPath(Trajectories.testTrajectory, m_drivetrainSubsystem);
-    return null;
+    return autoChooser.getSelected();
   }
 
   private static double deadband(double value, double deadband) {
