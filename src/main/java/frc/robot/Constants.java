@@ -87,14 +87,21 @@ public final class Constants {
     public static final int SHOOTER_SOLENOID_REVERSE = 5;
     public static final TalonFXInvertType LEFT_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
     // public static final TalonFXInvertType RIGH_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
-    public static final double SHOOTER_POWER = 0.4; //need shooter power value
+    public static final double SHOOTER_POWER_HIGH = 1; //need shooter power value
+    public static final double SHOOTER_POWER_LOW = 0.3;
 
     public static final ShuffleboardTab SHUFFLEBOARD_SHOOTER = Shuffleboard.getTab("Shooter");
-    public static final NetworkTableEntry SHUFFLEBOARD_SHOOTER_POWER = 
+    public static final NetworkTableEntry SHUFFLEBOARD_SHOOTER_POWER_HIGH = 
         SHUFFLEBOARD_SHOOTER
-            .addPersistent("Shooter Power", SHOOTER_POWER)
+            .addPersistent("Shooter Power High", SHOOTER_POWER_HIGH)
             .withSize(1, 1)
             .withPosition(0, 0)
+            .getEntry();
+    public static final NetworkTableEntry SHUFFLEBOARD_SHOOTER_POWER_LOW = 
+        SHUFFLEBOARD_SHOOTER
+            .addPersistent("Shooter Power Low", SHOOTER_POWER_LOW)
+            .withSize(1, 1)
+            .withPosition(0, 1)
             .getEntry();
 
     public static final int CLIMBER_RIGHT_FALCON = 22;
@@ -110,4 +117,7 @@ public final class Constants {
 
 
     public static final int CONVEYOR_FALCON = 23;
+
+
+    public static double GYRO_OFFSET = 0;
 }

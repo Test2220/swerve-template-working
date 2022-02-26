@@ -127,13 +127,18 @@ public class RobotContainer {
         // No requirements because we don't need to interrupt anything
         .whenPressed(() -> m_drivetrainSubsystem.zeroGyroscope());
 
-    // new Button(m_driverController::getLeftBumper)
-    //     .whenPressed(() -> {
-    //       if (m_drivetrainSubsystem.getSpeedModifier() == 1.0)
-    //         m_drivetrainSubsystem.setSpeedModifier(0.5);
-    //       else
-    //         m_drivetrainSubsystem.setSpeedModifier(1.0);
-    //     });
+    new Button(m_driverController::getLeftBumper)
+        .whenPressed(() -> 
+            m_drivetrainSubsystem.setSpeedModifier(.5)
+        );
+    new Button(m_driverController::getRightBumper)
+        .whenPressed(() ->
+            m_drivetrainSubsystem.setSpeedModifier(1)
+        );
+    new Button(m_driverController::getStartButton)
+        .whenPressed(() ->
+            m_drivetrainSubsystem.setSpeedModifier(0)
+        );
 
     new Button(m_driverController::getYButton)
         .whileHeld(
@@ -190,14 +195,16 @@ public class RobotContainer {
         .whenPressed(new RetractIntake(intake));
 
     new Button(() -> m_manipulatorController.getRightTriggerAxis() > 0.4)
-        .whileHeld(new RunShooter(shooter, conveyorSubsystem));
+        .whileHeld(new RunShooter(shooter, conveyorSubsystem, true));
 
     new Button(() -> m_manipulatorController.getLeftTriggerAxis() > 0.4)
-        .whileHeld(new RunIntake(intake));
+        .whileHeld(new RunIntake(intake, false));
 
-    new Button(m_manipulatorController::getLeftBumper).whileHeld(new RunClimber(m_climber, false));
+    new Button(m_manipulatorController::getLeftBumper)
+        .whileHeld(new RunIntake(intake, true));
 
-    new Button(m_manipulatorController::getRightBumper).whileHeld(new RunClimber(m_climber, true));
+    new Button(m_manipulatorController::getRightBumper)
+      .whileHeld(new RunShooter(shooter, conveyorSubsystem, false));
 
     new Button(m_manipulatorController::getXButton).whenPressed(new TiltClimber(m_climber, ClimberPositions.TILTED));
 
@@ -210,7 +217,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new FollowPath(Trajectories.testTrajectory, m_drivetrainSubsystem);
+    // return new FollowPath(Trajectories.testTrajectory, m_drivetrainSubsystem);
+    return null;
   }
 
   private static double deadband(double value, double deadband) {

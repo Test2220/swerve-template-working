@@ -8,9 +8,13 @@ import frc.robot.subsystems.Shooter;
 public class RunShooter extends CommandBase {
     private Shooter shooter;
     private ConveyorSubsystem conveyor;
-    public RunShooter(Shooter shooter, ConveyorSubsystem conveyor) {
+    private boolean lowGoal;
+
+    public RunShooter(Shooter shooter, ConveyorSubsystem conveyor, boolean lowGoal) {
         this.shooter = shooter;
         this.conveyor = conveyor;
+        this.lowGoal = lowGoal;
+
         addRequirements(shooter, conveyor);
     }
 
@@ -18,7 +22,10 @@ public class RunShooter extends CommandBase {
     }
 
     public void execute() {
-        shooter.setPower(Constants.SHUFFLEBOARD_SHOOTER_POWER.getDouble(Constants.SHOOTER_POWER));
+        if (lowGoal)
+            shooter.setPower(Constants.SHUFFLEBOARD_SHOOTER_POWER_LOW.getDouble(Constants.SHOOTER_POWER_LOW));
+        else
+            shooter.setPower(Constants.SHUFFLEBOARD_SHOOTER_POWER_HIGH.getDouble(Constants.SHOOTER_POWER_HIGH));
         conveyor.setPower(Constants.CONVEYOR_POWER);
         
     }

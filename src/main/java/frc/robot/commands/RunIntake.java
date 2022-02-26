@@ -6,8 +6,11 @@ import frc.robot.subsystems.Intake;
 
 public class RunIntake extends CommandBase {
     private Intake intake;
-    public RunIntake(Intake intake){
+    private boolean reverse;
+    public RunIntake(Intake intake, boolean reverse){
         this.intake = intake;
+        this.reverse = reverse;
+
         addRequirements(intake);
     }
 
@@ -15,7 +18,10 @@ public class RunIntake extends CommandBase {
 
     }
     public void execute() {
-        intake.setPower(Constants.INTAKE_POWER);
+        if (reverse)
+            intake.setPower(-Constants.INTAKE_POWER);
+        else
+            intake.setPower(Constants.INTAKE_POWER);
     }
 
     @Override
