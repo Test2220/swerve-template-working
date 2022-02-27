@@ -16,9 +16,9 @@ public class TwoBallAuto extends SequentialCommandGroup {
 
             new ExtendIntake(intake),
 
-            new FollowPath(Trajectories.twoBall, drivetrain).raceWith(new RunIntake(intake, false)),
+            new FollowPath(Trajectories.hangarTwoBall, drivetrain).raceWith(new RunIntake(intake, false)),
 
-            new FollowPath(Trajectories.backwardBall,drivetrain),
+            new FollowPath(Trajectories.hangarTwoBallBackward,drivetrain),
 
             new RunShooter(shooter, conveyor, true).withTimeout(4)
         );

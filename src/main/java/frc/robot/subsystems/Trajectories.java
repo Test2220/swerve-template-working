@@ -17,11 +17,10 @@ import edu.wpi.first.math.trajectory.TrajectoryUtil;
 
 public class Trajectories {
 
-  public static final Trajectory testTrajectory = trajectoryFromPath("output/Test.wpilib.json");
 
-  public static final Trajectory twoBall = trajectoryFromPath("output/reverse.wpilib.json");
+  public static final Trajectory hangarTwoBall = trajectoryFromPath("output/hangarTwoBall.wpilib.json");
 
-  public static final Trajectory backwardBall = trajectoryFromPath("output/Backward.wpilib.json");
+  public static final Trajectory hangarTwoBallBackward = trajectoryFromPath("output/hangarTwoBallBackward.wpilib.json");
 
   public static final Trajectory testCircleTrajectory = makeTrajectory(
       new Pose2d(0, 0, new Rotation2d(0)),

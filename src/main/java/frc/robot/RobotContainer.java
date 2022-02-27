@@ -119,7 +119,7 @@ public class RobotContainer {
 
     Command m_2ballAuto = new TwoBallAuto(intake, drivetrain, shooter, conveyor);
     autoChooser.setDefaultOption("2 Ball Auto", m_2ballAuto);
-    autoChooser.addOption("Test", new FollowPath(Trajectories.testTrajectory, drivetrain));
+    //autoChooser.addOption("Test", new FollowPath(Trajectories.testTrajectory, drivetrain));
     Shuffleboard.getTab("Auto").add("Auto", autoChooser);
   }
 
