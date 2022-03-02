@@ -20,6 +20,7 @@ import frc.robot.commands.ExtendIntake;
 import frc.robot.commands.FollowPath;
 import frc.robot.commands.LimelightAutoTurning;
 import frc.robot.commands.LimelightDefaultCommand;
+import frc.robot.commands.PPFollowPath;
 import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.RunIntake;
@@ -119,7 +120,7 @@ public class RobotContainer {
 
     Command m_2ballAuto = new TwoBallAuto(intake, drivetrain, shooter, conveyor);
     autoChooser.setDefaultOption("2 Ball Auto", m_2ballAuto);
-    //autoChooser.addOption("Test", new FollowPath(Trajectories.testTrajectory, drivetrain));
+    autoChooser.addOption("Test", new PPFollowPath(Trajectories.testTrajectory, drivetrain));
     Shuffleboard.getTab("Auto").add("Auto", autoChooser);
   }
 

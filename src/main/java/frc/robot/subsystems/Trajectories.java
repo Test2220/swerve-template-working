@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.Constants;
@@ -16,7 +19,7 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 
 public class Trajectories {
-
+  public static final PathPlannerTrajectory testTrajectory = PathPlanner.loadPath("TestPath", 1, 1);
 
   public static final Trajectory hangarTwoBall = trajectoryFromPath("output/hangarTwoBall.wpilib.json");
 
@@ -47,5 +50,6 @@ public class Trajectories {
     return trajectory;
 
   }
+
 
 }
