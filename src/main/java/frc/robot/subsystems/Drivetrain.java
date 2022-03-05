@@ -87,6 +87,16 @@ public void setSpeedModifier(double speedModifier) {
         this.speedModifier = speedModifier;
 }
 
+private boolean fieldRelative = true;
+
+public boolean isFieldRelative() {
+        return fieldRelative;
+}
+
+public void setFieldRelative(boolean fieldRelative){
+        this.fieldRelative = fieldRelative;
+}
+
  private SwerveModuleState[] m_states = m_kinematics.toSwerveModuleStates(new ChassisSpeeds(0.0, 0.0, 0.0));
 
 
@@ -237,5 +247,9 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
             : new ChassisSpeeds(xSpeed, ySpeed, rot));
    m_states = swerveModuleStates;
   }
+
+public void joystickDrive(double xSpeed, double ySpeed, double rot) {
+        drive(xSpeed, ySpeed, rot, isFieldRelative());
+}
 
 }
