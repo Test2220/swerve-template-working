@@ -182,7 +182,7 @@ public void setSpeedModifier(double speedModifier) {
         m_navx.zeroYaw();
         gyroOffset = 0;
   }
-
+ 
   public void zeroGyroscope(double num) {
         m_navx.zeroYaw();
         gyroOffset = num;
@@ -196,7 +196,7 @@ public void setSpeedModifier(double speedModifier) {
 //    }
 
    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
-   return Rotation2d.fromDegrees(360.0 - m_navx.getYaw() - gyroOffset);
+   return Rotation2d.fromDegrees(/*360.0 - */(m_navx.getYaw())/* + gyroOffset) % 360*/);
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {
