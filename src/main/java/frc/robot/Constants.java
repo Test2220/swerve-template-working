@@ -120,7 +120,4 @@ public final class Constants {
     public static final int PHOTOEYE_SENSOR_INTAKE = 0;
 
     public static final int PHOTOEYE_SENSOR_LAUNCHER = 1;
-
-
-    public static double GYRO_OFFSET = 0;
 }

@@ -25,6 +25,10 @@ public class Trajectories {
 
   public static final Trajectory hangarTwoBallBackward = trajectoryFromPath("output/hangarTwoBallBackward.wpilib.json");
 
+  public static final Trajectory terminalTwoBall = trajectoryFromPath("output/terminalTwoBall.wpilib.json");
+
+  public static final Trajectory terminalTwoBallBackward = trajectoryFromPath("output/terminalTwoBallBackward.wpilib.json");
+
   public static final Trajectory testCircleTrajectory = makeTrajectory(
       new Pose2d(0, 0, new Rotation2d(0)),
       List.of(new Translation2d(0, -3), new Translation2d(3, -3), new Translation2d(3, 0)),

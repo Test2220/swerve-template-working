@@ -8,9 +8,9 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Trajectories;
 
-public class TwoBallAuto extends SequentialCommandGroup {
+public class HangarTwoBallAuto extends SequentialCommandGroup {
     
-    public TwoBallAuto(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor){
+    public HangarTwoBallAuto(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor){
         addCommands(
             new RunShooter(shooter, conveyor, true).withTimeout(2),
 
