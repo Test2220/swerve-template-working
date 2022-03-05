@@ -11,8 +11,8 @@ import static frc.robot.Constants.*;
 
 public class Conveyor extends SubsystemBase {
 
-    PhotoEyeSensor photoEyeSensorIn = new PhotoEyeSensor(1, true);
-    PhotoEyeSensor photoEyeSensorOut = new PhotoEyeSensor(2, true);
+    PhotoEyeSensor photoEyeSensorIn = new PhotoEyeSensor(PHOTOEYE_SENSOR_INTAKE, true);
+    PhotoEyeSensor photoEyeSensorOut = new PhotoEyeSensor(PHOTOEYE_SENSOR_LAUNCHER, true);
     TalonFX talon = new TalonFX(CONVEYOR_FALCON);
 
     public Conveyor() {
