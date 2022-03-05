@@ -16,8 +16,8 @@ public class FollowPath extends CommandBase {
     SwerveControllerCommand swerveControllerCommand;
 
     public FollowPath(Trajectory trajectory, Drivetrain drivetrainSubsystem) { 
-    Transform2d transform = new Transform2d(trajectory.getInitialPose(), new Pose2d());
-    trajectory = trajectory.transformBy(transform);
+    // Transform2d transform = new Transform2d(trajectory.getInitialPose(), new Pose2d());
+    // trajectory = trajectory.transformBy(transform);
        swerveControllerCommand = new SwerveControllerCommand(
             trajectory, 
             drivetrainSubsystem::getPose, 

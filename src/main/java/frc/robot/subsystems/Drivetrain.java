@@ -243,7 +243,7 @@ public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelativ
         ySpeed *= MAX_VELOCITY_METERS_PER_SECOND * speedModifier;
         rot *= MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * speedModifier;
     var swerveModuleStates = Drivetrain.m_kinematics.toSwerveModuleStates(
-        fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(-xSpeed, -ySpeed, rot, getGyroscopeRotation())
+        fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getGyroscopeRotation())
             : new ChassisSpeeds(xSpeed, ySpeed, rot));
    m_states = swerveModuleStates;
   }
