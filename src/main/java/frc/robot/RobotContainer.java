@@ -169,7 +169,7 @@ public class RobotContainer {
               -modifyAxis(driverController.getLeftY()),
               -modifyAxis(driverController.getLeftX()),
               output,
-              true);
+              false);
         },
         pixy, Pixy2CCC.CCC_SIG1, drivetrain));
 
@@ -179,13 +179,13 @@ public class RobotContainer {
               -modifyAxis(driverController.getLeftY()),
               -modifyAxis(driverController.getLeftX()),
               output,
-              true);
+              false);
         },
         pixy, Pixy2CCC.CCC_SIG2, drivetrain));
 
     new Button(driverController::getXButton).whileHeld(new PixyCamAutoTurning(
         (output) -> {
-          double forward = -0.2;
+          double forward = 0.2;
           if (pixy.getSeesTarget() != true) {
             forward = 0;
             output = 0.2;
@@ -194,7 +194,7 @@ public class RobotContainer {
               forward,
               0,
               output,
-              false);
+              true);
         },
         pixy, Pixy2CCC.CCC_SIG1, drivetrain));
 
