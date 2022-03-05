@@ -25,8 +25,9 @@ import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
+import frc.robot.commands.TerminalTwoBallAuto;
 import frc.robot.commands.TiltClimber;
-import frc.robot.commands.TwoBallAuto;
+import frc.robot.commands.HangarTwoBallAuto;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Climber.ClimberPositions;
 import frc.robot.subsystems.Conveyor;
@@ -93,6 +94,7 @@ public class RobotContainer {
         () -> -modifyAxis(driverController.getLeftY()),
         () -> -modifyAxis(driverController.getLeftX()),
         () -> -modifyAxis(driverController.getRightX())));
+
     led.setDefaultCommand(new AllianceLEDs(led));
 
     limelight.setDefaultCommand(new LimelightDefaultCommand(limelight));
@@ -118,9 +120,10 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    Command m_2ballAuto = new TwoBallAuto(intake, drivetrain, shooter, conveyor);
+    Command m_2ballAuto = new HangarTwoBallAuto(intake, drivetrain, shooter, conveyor);
     autoChooser.setDefaultOption("2 Ball Auto", m_2ballAuto);
     autoChooser.addOption("Test", new PPFollowPath(Trajectories.testTrajectory, drivetrain));
+    autoChooser.addOption("Terminal Two Ball Auto", new TerminalTwoBallAuto(intake, drivetrain, shooter, conveyor));
     Shuffleboard.getTab("Auto").add("Auto", autoChooser);
   }
 
@@ -197,6 +200,16 @@ public class RobotContainer {
               true);
         },
         pixy, Pixy2CCC.CCC_SIG1, drivetrain));
+
+      new Button(() -> driverController.getLeftTriggerAxis() > 0.4)
+      .whenPressed(
+        () -> drivetrain.setFieldRelative(false)
+      );
+
+      new Button(() -> driverController.getRightTriggerAxis() > 0.4)
+      .whenPressed(
+        () -> drivetrain.setFieldRelative(true)
+      );
 
     // run intake buttons
     new Button(manipulatorController::getAButton)
