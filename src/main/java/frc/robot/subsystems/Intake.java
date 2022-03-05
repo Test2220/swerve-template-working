@@ -34,6 +34,10 @@ public class Intake extends SubsystemBase {
         talonFXLeft.set(ControlMode.PercentOutput, demand);
     }
 
+    public double getSensorPosition() {
+        return talonFXLeft.getSelectedSensorPosition();
+    }
+
     public void setPosition(Position deploy) {
         switch (deploy) {
             case EXTENDED:
