@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.*;
 
 public class Drivetrain extends SubsystemBase {
+  private double gyroOffset = GYRO_OFFSET;
   /**
    * The maximum voltage that will be delivered to the drive motors.
    * <p>
@@ -179,17 +180,23 @@ public void setSpeedModifier(double speedModifier) {
    */
   public void zeroGyroscope() {
         m_navx.zeroYaw();
+        gyroOffset = 0;
+  }
+
+  public void zeroGyroscope(double num) {
+        m_navx.zeroYaw();
+        gyroOffset = num;
   }
 
   public Rotation2d getGyroscopeRotation() {
     
-   if (m_navx.isMagnetometerCalibrated()) {
-     // We will only get valid fused headings if the magnetometer is calibrated
-     return Rotation2d.fromDegrees(m_navx.getFusedHeading());
-   }
+//    if (m_navx.isMagnetometerCalibrated()) {
+//      // We will only get valid fused headings if the magnetometer is calibrated
+//      return Rotation2d.fromDegrees(m_navx.getFusedHeading());
+//    }
 
    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
-   return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
+   return Rotation2d.fromDegrees(360.0 - m_navx.getYaw() - gyroOffset);
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {
