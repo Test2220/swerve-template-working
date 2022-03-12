@@ -79,6 +79,9 @@ public final class Constants {
     public static final double INTAKE_POWER = 0.6; 
     public static final double REVERSE_INTAKE_POWER = -0.6;
     
+    public static final int INTAKE_THRESHOLD = 5;
+    public static final double INTAKE_UNJAM_POWER = 0.8;
+    public static final double INTAKE_UNJAM_POWER_MAX = 1;
 
     public static final int SHOOTER_TALON_LEFT = 20; 
     public static final int SHOOTER_SOLENOID_FORWARD = 4;

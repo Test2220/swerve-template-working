@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.AllianceLEDs;
+import frc.robot.commands.AutoRampPowerIntake;
 import frc.robot.commands.AutomaticConveyor;
 import frc.robot.commands.DefaultClimber;
 import frc.robot.commands.DefaultDriveCommand;
@@ -66,6 +68,7 @@ public class RobotContainer {
 
   private final Limelight limelight = new Limelight();
   private final PixyCamSPI pixy = new PixyCamSPI(0);
+  private final PowerDistribution powerDistribution = new PowerDistribution();
 
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
 
@@ -201,6 +204,8 @@ public class RobotContainer {
               true);
         },
         pixy, Pixy2CCC.CCC_SIG1, drivetrain));
+    
+    new Button(()-> driverController.getPOV() == 0).whileHeld(new AutoRampPowerIntake(intake, false));
 
       new Button(() -> driverController.getLeftTriggerAxis() > 0.4)
       .whenPressed(
