@@ -22,12 +22,13 @@ public class RunShooter extends CommandBase {
     }
 
     public void execute() {
-        if (lowGoal)
+        if (lowGoal) {
             shooter.setPower(Constants.SHUFFLEBOARD_SHOOTER_POWER_LOW.getDouble(Constants.SHOOTER_POWER_LOW));
-        else
+        }
+        else {
             shooter.setPower(Constants.SHUFFLEBOARD_SHOOTER_POWER_HIGH.getDouble(Constants.SHOOTER_POWER_HIGH));
+        }
         conveyor.setPower(Constants.CONVEYOR_POWER);
-        
     }
 
     @Override

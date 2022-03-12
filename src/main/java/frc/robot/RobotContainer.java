@@ -28,6 +28,7 @@ import frc.robot.commands.RetractIntake;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunIntakeTeleop;
 import frc.robot.commands.RunShooter;
+import frc.robot.commands.RunShooterVelocity;
 import frc.robot.commands.TerminalTwoBallAuto;
 import frc.robot.commands.TiltClimber;
 import frc.robot.commands.HangarTwoBallAuto;
@@ -217,12 +218,12 @@ public class RobotContainer {
         () -> drivetrain.setFieldRelative(true)
       );
 
-    // run intake buttons
-    // new Button(manipulatorController::getAButton)
-    //     .whenPressed(new ExtendIntake(intake));
+    //run shooter buttons
+    new Button(manipulatorController::getAButton)
+        .whenPressed(new RunShooterVelocity(shooter, conveyor, false));
 
-    // new Button(manipulatorController::getBButton)
-    //     .whenPressed(new RetractIntake(intake));
+    new Button(manipulatorController::getBButton)
+        .whenPressed(new RunShooterVelocity(shooter, conveyor, true));
 
     new Button(() -> manipulatorController.getRightTriggerAxis() > 0.4)
         .whileHeld(new RunShooter(shooter, conveyor, true));
