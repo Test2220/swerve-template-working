@@ -238,6 +238,8 @@ public class RobotContainer {
     new Button(manipulatorController::getXButton).whenPressed(new TiltClimber(climber, ClimberPositions.TILTED));
 
     new Button(manipulatorController::getYButton).whenPressed(new TiltClimber(climber, ClimberPositions.VERTICAL));
+
+    //new Button(manipulatorController::get)
   }
 
   /**

@@ -63,4 +63,17 @@ public class Shooter extends SubsystemBase {
         public ShooterDesiredState getDesiredState() {
             return dState;
         }
+    /**
+			 * Convert 500 RPM to units / 100ms.
+			 * 4096 Units/Rev * 500 RPM / 600 100ms/min in either direction:
+			 * velocity setpoint is in units/100ms
+			 */
+    public void setHighVelocity() {
+        double targetVelocity_UnitsPer100ms = 500.0 * 4096 / 600;
+        leftFalcon.set(TalonFXControlMode.Velocity , targetVelocity_UnitsPer100ms);
+    }
+    public void setLowVelocity() {
+        double targetVelocity_UnitsPer100ms =  100 * 4096 / 600;
+        leftFalcon.set(TalonFXControlMode.Velocity , targetVelocity_UnitsPer100ms);
+    }    
 }
