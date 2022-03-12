@@ -48,9 +48,10 @@ public class AutomaticConveyor extends CommandBase {
                 break;
             case LOADING:
                 conveyorSubsystem.setPower(Constants.CONVEYOR_POWER);
-                if (!conveyorSubsystem.isBallPresentAtInput()) {
+                if (inRobot != 2) {
                     transitionSystemState(SystemState.IDLE);
                 }
+
                 if (manualOveride.getAsBoolean()) {
                     transitionSystemState(SystemState.MANUAL);
                 }
