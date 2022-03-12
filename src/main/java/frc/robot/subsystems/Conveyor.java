@@ -81,6 +81,10 @@ public class Conveyor extends SubsystemBase {
         return photoEyeSensorOut.get();
     }
 
+    public int getInRobot() {
+        return inRobot;
+    }
+
     @Override
     public void periodic() {
         if (isBallPresentAtInput()) {

@@ -14,13 +14,14 @@ public class AutomaticConveyor extends CommandBase {
     BooleanSupplier manualOveride;
     BooleanSupplier switchToIdle;
 
-    public AutomaticConveyor(Conveyor conveyorSubsystem, DoubleSupplier manualPower, BooleanSupplier manualOveride, BooleanSupplier switchToIdle) {
+    public AutomaticConveyor(Conveyor conveyorSubsystem, DoubleSupplier manualPower, BooleanSupplier manualOveride,
+            BooleanSupplier switchToIdle) {
         this.conveyorSubsystem = conveyorSubsystem;
         this.manualPower = manualPower;
         this.manualOveride = manualOveride;
         this.switchToIdle = switchToIdle;
-
         addRequirements(conveyorSubsystem);
+
     }
 
     public void initialize() {
@@ -28,11 +29,18 @@ public class AutomaticConveyor extends CommandBase {
     }
 
     public void execute() {
+        int inRobot = conveyorSubsystem.getInRobot();
         switch (systemState) {
             case IDLE:
                 conveyorSubsystem.setPower(0);
                 if (conveyorSubsystem.isBallPresentAtInput()) {
                     transitionSystemState(SystemState.LOADING);
+                }
+
+                if (inRobot == 2) {
+                    if (!conveyorSubsystem.isBallPresentAtShooter()) {
+                        transitionSystemState(SystemState.LOADING);
+                    }
                 }
                 if (manualOveride.getAsBoolean()) {
                     transitionSystemState(SystemState.MANUAL);
