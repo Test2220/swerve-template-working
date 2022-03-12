@@ -19,6 +19,8 @@ import static frc.robot.Constants.*;
 
 import java.util.Map;
 
+//Conveyor.java is fine, but it has lots of errors and doesn't build on Mac. On all other devices there shouldn't be any issues.
+
 public class Conveyor extends SubsystemBase {
 
     PhotoEyeSensor photoEyeSensorIn = new PhotoEyeSensor(PHOTOEYE_SENSOR_INTAKE, true);
