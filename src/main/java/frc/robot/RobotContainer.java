@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -31,6 +32,7 @@ import frc.robot.commands.RunShooter;
 import frc.robot.commands.TerminalTwoBallAuto;
 import frc.robot.commands.TiltClimber;
 import frc.robot.commands.HangarTwoBallAuto;
+import frc.robot.subsystems.BrownOutMonitor;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Climber.ClimberPositions;
 import frc.robot.subsystems.Conveyor;
@@ -71,6 +73,7 @@ public class RobotContainer {
   private final PowerDistribution powerDistribution = new PowerDistribution();
 
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
+  private final BrownOutMonitor brownOutMonitor = new BrownOutMonitor(manipulatorController);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -239,8 +242,6 @@ public class RobotContainer {
     new Button(manipulatorController::getXButton).whenPressed(new TiltClimber(climber, ClimberPositions.TILTED));
 
     new Button(manipulatorController::getYButton).whenPressed(new TiltClimber(climber, ClimberPositions.VERTICAL));
-
-    //new Button(manipulatorController::get)
   }
 
   /**
@@ -273,5 +274,6 @@ public class RobotContainer {
 
     return value;
   }
+
 
 }
