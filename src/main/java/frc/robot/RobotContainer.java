@@ -26,6 +26,7 @@ import frc.robot.commands.PPFollowPath;
 import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.RunIntake;
+import frc.robot.commands.RunIntakeTeleop;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.TerminalTwoBallAuto;
 import frc.robot.commands.TiltClimber;
@@ -217,20 +218,20 @@ public class RobotContainer {
       );
 
     // run intake buttons
-    new Button(manipulatorController::getAButton)
-        .whenPressed(new ExtendIntake(intake));
+    // new Button(manipulatorController::getAButton)
+    //     .whenPressed(new ExtendIntake(intake));
 
-    new Button(manipulatorController::getBButton)
-        .whenPressed(new RetractIntake(intake));
+    // new Button(manipulatorController::getBButton)
+    //     .whenPressed(new RetractIntake(intake));
 
     new Button(() -> manipulatorController.getRightTriggerAxis() > 0.4)
         .whileHeld(new RunShooter(shooter, conveyor, true));
 
     new Button(() -> manipulatorController.getLeftTriggerAxis() > 0.4)
-        .whileHeld(new RunIntake(intake, false));
+        .whileHeld(new RunIntakeTeleop(intake, false));
 
     new Button(manipulatorController::getLeftBumper)
-        .whileHeld(new RunIntake(intake, true));
+        .whileHeld(new RunIntakeTeleop(intake, true));
 
     new Button(manipulatorController::getRightBumper)
       .whileHeld(new RunShooter(shooter, conveyor, false));
@@ -238,6 +239,8 @@ public class RobotContainer {
     new Button(manipulatorController::getXButton).whenPressed(new TiltClimber(climber, ClimberPositions.TILTED));
 
     new Button(manipulatorController::getYButton).whenPressed(new TiltClimber(climber, ClimberPositions.VERTICAL));
+
+    //new Button(manipulatorController::get)
   }
 
   /**
