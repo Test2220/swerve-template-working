@@ -36,7 +36,7 @@ public class Trajectories {
 
   public static Trajectory makeTrajectory(Pose2d start, List<Translation2d> interiorWaypoints, Pose2d end) {
     TrajectoryConfig config = new TrajectoryConfig(
-        Drivetrain.MAX_VELOCITY_METERS_PER_SECOND,
+        Constants.MAX_VELOCITY_METERS_PER_SECOND,
         Constants.kMaxAccelerationMetersPerSecondSquared)
             .setKinematics(Drivetrain.m_kinematics);
 

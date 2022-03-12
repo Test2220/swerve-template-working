@@ -5,7 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.PowerDistribution;
+// import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -20,22 +20,24 @@ import frc.robot.commands.AutomaticConveyor;
 import frc.robot.commands.DefaultClimber;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.ExtendIntake;
-import frc.robot.commands.FollowPath;
+import frc.robot.commands.GoToCommand;
+// import frc.robot.commands.FollowPath;
 import frc.robot.commands.LimelightAutoTurning;
 import frc.robot.commands.LimelightDefaultCommand;
-import frc.robot.commands.PPFollowPath;
+// import frc.robot.commands.PPFollowPath;
 import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunIntakeTeleop;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.RunShooterVelocity;
-import frc.robot.commands.TerminalTwoBallAuto;
+// import frc.robot.commands.TerminalTwoBallAuto;
 import frc.robot.commands.TiltClimber;
-import frc.robot.commands.HangarTwoBallAuto;
 import frc.robot.subsystems.BrownOutMonitor;
+// import frc.robot.commands.HangarTwoBallAuto;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Climber.ClimberPositions;
+import frc.robot.subsystems.drivetrain.Position;
 import frc.robot.subsystems.Conveyor;
 //import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.subsystems.Drivetrain;
@@ -71,10 +73,16 @@ public class RobotContainer {
 
   private final Limelight limelight = new Limelight();
   private final PixyCamSPI pixy = new PixyCamSPI(0);
-  private final PowerDistribution powerDistribution = new PowerDistribution();
+  // private final PowerDistribution powerDistribution = new PowerDistribution();
 
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
   private final BrownOutMonitor brownOutMonitor = new BrownOutMonitor(manipulatorController);
+
+  private final DefaultDriveCommand driveCommand = new DefaultDriveCommand(
+    drivetrain,
+    () -> -modifyAxis(driverController.getLeftY()),
+    () -> -modifyAxis(-driverController.getLeftX()),
+    () -> -modifyAxis(-driverController.getRightX()));
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -97,11 +105,7 @@ public class RobotContainer {
     // Left stick Y axis -> forward and backwards movement
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
-    drivetrain.setDefaultCommand(new DefaultDriveCommand(
-        drivetrain,
-        () -> -modifyAxis(driverController.getLeftY()),
-        () -> -modifyAxis(driverController.getLeftX()),
-        () -> -modifyAxis(driverController.getRightX())));
+    drivetrain.setDefaultCommand(driveCommand);
 
     led.setDefaultCommand(new AllianceLEDs(led));
 
@@ -128,11 +132,11 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    Command m_2ballAuto = new HangarTwoBallAuto(intake, drivetrain, shooter, conveyor);
-    autoChooser.setDefaultOption("2 Ball Auto", m_2ballAuto);
-    autoChooser.addOption("Test", new PPFollowPath(Trajectories.testTrajectory, drivetrain));
-    autoChooser.addOption("Terminal Two Ball Auto", new TerminalTwoBallAuto(intake, drivetrain, shooter, conveyor));
-    Shuffleboard.getTab("Auto").add("Auto", autoChooser);
+    // Command m_2ballAuto = new HangarTwoBallAuto(intake, drivetrain, shooter, conveyor);
+    // autoChooser.setDefaultOption("2 Ball Auto", m_2ballAuto);
+    // autoChooser.addOption("Test", new PPFollowPath(Trajectories.testTrajectory, drivetrain));
+    // autoChooser.addOption("Terminal Two Ball Auto", new TerminalTwoBallAuto(intake, drivetrain, shooter, conveyor));
+    // Shuffleboard.getTab("Auto").add("Auto", autoChooser);
   }
 
   /**
@@ -151,17 +155,13 @@ public class RobotContainer {
 
     new Button(driverController::getLeftBumper)
         .whenPressed(() -> 
-            drivetrain.setSpeedModifier(.5)
+            drivetrain.decreaseSpeed()
         );
     new Button(driverController::getRightBumper)
         .whenPressed(() ->
-            drivetrain.setSpeedModifier(1)
+            drivetrain.increaseSpeed()
         );
-    new Button(driverController::getStartButton)
-        .whenPressed(() ->
-            drivetrain.setSpeedModifier(0)
-        );
-
+        
     new Button(driverController::getYButton)
         .whileHeld(
             new LimelightAutoTurning(
@@ -211,14 +211,16 @@ public class RobotContainer {
     
     new Button(()-> driverController.getPOV() == 0).whileHeld(new AutoRampPowerIntake(intake, false));
 
+    new Button(() -> driverController.getPOV() == 180).whenPressed(new GoToCommand(drivetrain, new Position(0, 1, 0)));
+
       new Button(() -> driverController.getLeftTriggerAxis() > 0.4)
       .whenPressed(
-        () -> drivetrain.setFieldRelative(false)
+        () -> driveCommand.setMode(1)
       );
 
       new Button(() -> driverController.getRightTriggerAxis() > 0.4)
       .whenPressed(
-        () -> drivetrain.setFieldRelative(true)
+        () -> driveCommand.setMode(0)
       );
 
     //run shooter buttons
