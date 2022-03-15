@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
+import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
@@ -29,34 +30,63 @@ public final class Constants {
      *
      * Should be measured from center to center.
      */
-    public static final double DRIVETRAIN_TRACKWIDTH_METERS = Units.inchesToMeters(9.25)*2; 
+    public static final double DRIVETRAIN_WIDTH_METERS = Units.inchesToMeters(9.25)*2; // FIXME Measure and set trackwidth
     /**
      * The front-to-back distance between the drivetrain wheels.
      *
      * Should be measured from center to center.
      */
-    public static final double DRIVETRAIN_WHEELBASE_METERS = Units.inchesToMeters(9.25)*2; 
+    public static final double DRIVETRAIN_LENGTH_METERS = Units.inchesToMeters(9.25)*2; // FIXME Measure and set wheelbase
 
-    public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 17; 
-    public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 18; 
-    public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 5; 
-    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(45.08514404296875); 
+    // Calculate Ratio
+    public static final double DRIVETRAIN_DIAMETER = Math.sqrt((DRIVETRAIN_LENGTH_METERS * DRIVETRAIN_LENGTH_METERS) + (DRIVETRAIN_WIDTH_METERS * DRIVETRAIN_WIDTH_METERS));
 
-    public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 14; 
-    public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 13; 
-    public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 3; 
-    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(161.97967529296875); 
+    // CAN Bus IDs
 
-    public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 11; 
-    public static final int BACK_LEFT_MODULE_STEER_MOTOR = 12; 
-    public static final int BACK_LEFT_MODULE_STEER_ENCODER = 2; 
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(289.94293212890625); 
+    // Front Left Drive Motor
+    public static final int FL_MODULE_DM = 17;
+    // Front Left Steer Motor
+    public static final int FL_MODULE_SM = 18;
+    // Front Left Steer Encoder
+    public static final int FL_MODULE_SE = 5;
 
-    public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 15; 
-    public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 16; 
-    public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 4; 
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(98.0804443359375); 
-   
+    // Front Right Drive Motor
+    public static final int FR_MODULE_DM = 14;
+    // Front Right Steer Motor
+    public static final int FR_MODULE_SM = 13;
+    // Front Right Steer Encoder
+    public static final int FR_MODULE_SE = 3;
+
+    // Back Left Drive Motor
+    public static final int BL_MODULE_DM = 11;
+    // Back Left Steer Motor
+    public static final int BL_MODULE_SM = 12;
+    // Back Left Steer Encoder
+    public static final int BL_MODULE_SE = 2;
+
+    // Back Right Drive Motor
+    public static final int BR_MODULE_DM = 15;
+    // Back Right Steer Motor
+    public static final int BR_MODULE_SM = 16;
+    // Back Right Steer Encoder
+    public static final int BR_MODULE_SE = 4;
+
+    
+
+    // Offsets
+    public static final double FL_STEER_OFFSET = -Math.toRadians(45.08514404296875);
+    public static final double FR_STEER_OFFSET = -Math.toRadians(161.97967529296875);
+    public static final double BL_STEER_OFFSET = -Math.toRadians(289.94293212890625);
+    public static final double BR_STEER_OFFSET = -Math.toRadians(98.0804443359375);
+
+    // Max
+    public static final double MAX_VOLTAGE = 12.0;
+    public static final double MAX_VELOCITY_METERS_PER_SECOND = 6380.0 / 60.0 *
+        SdsModuleConfigurations.MK4_L2.getDriveReduction() *
+        SdsModuleConfigurations.MK4_L2.getWheelDiameter() * Math.PI;
+    public static final double MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND = MAX_VELOCITY_METERS_PER_SECOND /
+        Math.hypot(DRIVETRAIN_WIDTH_METERS / 2.0, DRIVETRAIN_LENGTH_METERS / 2.0);
+
     public static final double kMaxAccelerationMetersPerSecondSquared = 1;
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
@@ -76,7 +106,9 @@ public final class Constants {
     public static final int LEFT_INTAKE_SOLENOID_REVERSE = 1;
     public static final int RIGHT_INTAKE_SOLENOID_FORWARD = 2;
     public static final int RIGHT_INTAKE_SOLENOID_REVERSE = 3;
-    public static final double INTAKE_POWER = 0.1;
+    public static final double INTAKE_POWER = 0.6; 
+    public static final double REVERSE_INTAKE_POWER = -0.6;
+    
     public static final int INTAKE_THRESHOLD = 5;
     public static final double INTAKE_UNJAM_POWER = 0.8;
     public static final double INTAKE_UNJAM_POWER_MAX = 1;
@@ -120,4 +152,6 @@ public final class Constants {
     public static final int PHOTOEYE_SENSOR_INTAKE = 0;
 
     public static final int PHOTOEYE_SENSOR_LAUNCHER = 1;
+
+    public static final double OFFSET = (-8 / 196.85) + 1;
 }
