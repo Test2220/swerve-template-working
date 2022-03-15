@@ -22,7 +22,7 @@ public class Conveyor extends SubsystemBase {
         Shuffleboard.getTab("Conveyor").addBoolean("Sensor In", photoEyeSensorIn::get);
         Shuffleboard.getTab("Conveyor").addBoolean("Sensor Out", photoEyeSensorOut::get);
         Shuffleboard.getTab("Conveyor").addNumber("In Robot", () -> inRobot);
-        Shuffleboard.getTab("Conveyor").addBo
+        // Shuffleboard.getTab("Conveyor").addBo
 
         talon.setInverted(true);
     }
