@@ -24,6 +24,7 @@ import frc.robot.commands.GoToCommand;
 // import frc.robot.commands.FollowPath;
 import frc.robot.commands.LimelightAutoTurning;
 import frc.robot.commands.LimelightDefaultCommand;
+import frc.robot.commands.PathCommand;
 // import frc.robot.commands.PPFollowPath;
 import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.commands.RetractIntake;
@@ -211,7 +212,7 @@ public class RobotContainer {
     
     new Button(()-> driverController.getPOV() == 0).whileHeld(new AutoRampPowerIntake(intake, false));
 
-    new Button(() -> driverController.getPOV() == 180).whenPressed(new GoToCommand(drivetrain, new Position(0, 1, 0)));
+    new Button(() -> driverController.getPOV() == 180).whenPressed(new GoToCommand(drivetrain, new Position(0, 0, 0)));
 
       new Button(() -> driverController.getLeftTriggerAxis() > 0.4)
       .whenPressed(
@@ -253,7 +254,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
+    // return autoChooser.getSelected();
+    return new PathCommand(drivetrain, "New Path");
   }
 
   private static double deadband(double value, double deadband) {
