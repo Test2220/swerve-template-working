@@ -226,16 +226,19 @@ public class RobotContainer {
 
     //run shooter buttons
     new Button(manipulatorController::getAButton)
-        .whenPressed(new RunShooterVelocity(shooter, conveyor, false));
+        .whileHeld(new RunShooterVelocity(shooter, conveyor, false));
 
     new Button(manipulatorController::getBButton)
-        .whenPressed(new RunShooterVelocity(shooter, conveyor, true));
+        .whileHeld(new RunShooterVelocity(shooter, conveyor, true));
 
     new Button(() -> manipulatorController.getRightTriggerAxis() > 0.4)
         .whileHeld(new RunShooter(shooter, conveyor, true));
 
     new Button(() -> manipulatorController.getLeftTriggerAxis() > 0.4)
-        .whileHeld(new RunIntakeTeleop(intake, false));
+        //.whileHeld(new RunIntakeTeleop(intake, false));
+      .whenPressed(new ExtendIntake(intake))
+      .whileHeld(new AutoRampPowerIntake(intake, false))
+      .whenReleased(new RetractIntake(intake));
 
     new Button(manipulatorController::getLeftBumper)
         .whileHeld(new RunIntakeTeleop(intake, true));

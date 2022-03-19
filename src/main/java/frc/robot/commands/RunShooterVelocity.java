@@ -28,5 +28,6 @@ public class RunShooterVelocity extends CommandBase {
 
     public void end(boolean interrupted) {
         shooter.setPower(0);
+        conveyor.setPower(0);
     }
 }
