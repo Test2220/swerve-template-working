@@ -4,6 +4,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 
 public class Position {
+    //rotation is in radians
     private double x, y, rot;
 
     public Position(double x, double y, double rot) {
@@ -25,5 +26,9 @@ public class Position {
 
     public Pose2d convertToPose() {
         return new Pose2d(x, y, new Rotation2d(rot));
+    }
+
+    public static Position fromPose(Pose2d pose) {
+        return new Position(pose.getX(), pose.getY(), pose.getRotation().getRadians());
     }
 }

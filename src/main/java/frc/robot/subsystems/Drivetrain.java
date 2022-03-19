@@ -164,6 +164,11 @@ public class Drivetrain extends SubsystemBase {
     return currentPos.convertToPose();
   }
 
+  public void setPose(Pose2d pose) {
+    currentPos = Position.fromPose(pose);
+    m_navx.setAngleAdjustment(pose.getRotation().getDegrees());
+  }
+
   public void zeroGyroscope() {
     m_navx.zeroYaw();
     currentPos = new Position(0, 0, 0);

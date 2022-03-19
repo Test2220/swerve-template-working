@@ -9,7 +9,7 @@ import frc.robot.subsystems.drivetrain.DriveDirection;
 import frc.robot.subsystems.drivetrain.Position;
 import frc.robot.subsystems.drivetrain.PositionFinder;
 import frc.robot.subsystems.drivetrain.WheelsState;
-
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -24,6 +24,9 @@ public class GoToCommand extends CommandBase {
 
   private Position pos;
 
+  public GoToCommand(Drivetrain drivetrain, Pose2d pose) {
+    this(drivetrain, Position.fromPose(pose));
+  }
   /**
    * Creates a new ExampleCommand.
    *
