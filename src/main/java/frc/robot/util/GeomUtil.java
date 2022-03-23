@@ -118,4 +118,7 @@ public class GeomUtil {
   public static Rotation2d direction(Translation2d translation) {
     return new Rotation2d(translation.getX(), translation.getY());
   }
+  public static Pose2d getRobotCoordinate(Pose2d pose){
+    return new Pose2d(-pose.getY(), pose.getX(), pose.getRotation().times(-1));
+   }
 }
