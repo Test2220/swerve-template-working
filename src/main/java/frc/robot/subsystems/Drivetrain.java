@@ -114,8 +114,9 @@ public class Drivetrain extends SubsystemBase {
     tab.addNumber("Y calc", () -> currentPos.getPos()[1]).withSize(1, 1).withPosition(6, 3);
   }
 
+  private double gyroOffsett = 0;
   public double getGyro() {
-    return Math.toRadians(360 - m_navx.getAngle());
+    return Math.toRadians(360 - m_navx.getAngle() + gyroOffsett);
   }
 
   public void update(WheelsState in) {
@@ -166,6 +167,8 @@ public class Drivetrain extends SubsystemBase {
 
   public void setPose(Pose2d pose) {
     currentPos = Position.fromPose(pose);
+    m_navx.zeroYaw();
+    gyroOffsett = pose.getRotation().getDegrees();
     // m_navx.setAngleAdjustment(pose.getRotation().getDegrees());
   }
 

@@ -15,16 +15,16 @@ public class TerminalTwoBallAuto extends SequentialCommandGroup {
     
     public TerminalTwoBallAuto(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
-            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(new Pose2d(0,0, new Rotation2d(0))))),
+            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceA))),
 
             // new RunShooter(shooter, conveyor, true).withTimeout(2),
 
             // new ExtendIntake(intake),
 
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(new Pose2d(1.0 ,1.0, new Rotation2d(0))))
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceB)),
             // .raceWith(new RunIntake(intake, false))
 
-            // new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceA)),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceA))
 
             // new RunShooter(shooter, conveyor, true).withTimeout(4)
         );
