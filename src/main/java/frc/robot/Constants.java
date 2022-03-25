@@ -118,8 +118,8 @@ public final class Constants {
     public static final int SHOOTER_SOLENOID_REVERSE = 5;
     public static final TalonFXInvertType LEFT_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
     // public static final TalonFXInvertType RIGH_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
-    public static final double SHOOTER_POWER_HIGH = 1; //need shooter power value
-    public static final double SHOOTER_POWER_LOW = 0.5;
+    public static final double SHOOTER_POWER_HIGH = -1; //need shooter power value
+    public static final double SHOOTER_POWER_LOW = -0.5;
 
     public static final ShuffleboardTab SHUFFLEBOARD_SHOOTER = Shuffleboard.getTab("Shooter");
     public static final NetworkTableEntry SHUFFLEBOARD_SHOOTER_POWER_HIGH = 
@@ -154,4 +154,6 @@ public final class Constants {
     public static final int PHOTOEYE_SENSOR_LAUNCHER = 1;
 
     public static final double OFFSET = (-8 / 196.85) + 1;
+
+    public static final double SLEW_RATE_LIMIT = 0.8;
 }
