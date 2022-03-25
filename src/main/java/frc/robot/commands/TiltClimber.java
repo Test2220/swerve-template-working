@@ -18,4 +18,9 @@ public class TiltClimber extends CommandBase {
     public void initialize() {
         climber.setPosition(position);
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }
