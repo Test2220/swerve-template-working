@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.AllianceLEDs;
 import frc.robot.commands.AutoRampPowerIntake;
@@ -32,6 +33,7 @@ import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunIntakeTeleop;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.RunShooterVelocity;
+import frc.robot.commands.TerminalTwoBallAuto;
 // import frc.robot.commands.TerminalTwoBallAuto;
 import frc.robot.commands.TiltClimber;
 import frc.robot.subsystems.BrownOutMonitor;
@@ -133,11 +135,9 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    // Command m_2ballAuto = new HangarTwoBallAuto(intake, drivetrain, shooter, conveyor);
-    // autoChooser.setDefaultOption("2 Ball Auto", m_2ballAuto);
-    // autoChooser.addOption("Test", new PPFollowPath(Trajectories.testTrajectory, drivetrain));
-    // autoChooser.addOption("Terminal Two Ball Auto", new TerminalTwoBallAuto(intake, drivetrain, shooter, conveyor));
-    // Shuffleboard.getTab("Auto").add("Auto", autoChooser);
+    autoChooser.setDefaultOption("Do Nothing", new InstantCommand());
+    autoChooser.addOption("Terminal Two Ball Auto", new TerminalTwoBallAuto(intake, drivetrain, shooter, conveyor));
+    Shuffleboard.getTab("Auto").add("Auto", autoChooser);
   }
 
   /**
@@ -226,16 +226,19 @@ public class RobotContainer {
 
     //run shooter buttons
     new Button(manipulatorController::getAButton)
-        .whenPressed(new RunShooterVelocity(shooter, conveyor, false));
+        .whileHeld(new RunShooterVelocity(shooter, conveyor, false));
 
     new Button(manipulatorController::getBButton)
-        .whenPressed(new RunShooterVelocity(shooter, conveyor, true));
+        .whileHeld(new RunShooterVelocity(shooter, conveyor, true));
 
     new Button(() -> manipulatorController.getRightTriggerAxis() > 0.4)
         .whileHeld(new RunShooter(shooter, conveyor, true));
 
     new Button(() -> manipulatorController.getLeftTriggerAxis() > 0.4)
-        .whileHeld(new RunIntakeTeleop(intake, false));
+        //.whileHeld(new RunIntakeTeleop(intake, false));
+      .whenPressed(new ExtendIntake(intake))
+      .whileHeld(new AutoRampPowerIntake(intake, false))
+      .whenReleased(new RetractIntake(intake));
 
     new Button(manipulatorController::getLeftBumper)
         .whileHeld(new RunIntakeTeleop(intake, true));
@@ -255,7 +258,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // return autoChooser.getSelected();
-    return new PathCommand(drivetrain, "New Path");
+    return new TerminalTwoBallAuto(intake, drivetrain, shooter, conveyor);
   }
 
   private static double deadband(double value, double deadband) {

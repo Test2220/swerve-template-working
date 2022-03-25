@@ -9,7 +9,7 @@ import frc.robot.subsystems.Conveyor;
 
 public class AutomaticConveyor extends CommandBase {
     Conveyor conveyorSubsystem;
-    SystemState systemState = SystemState.MANUAL;
+    SystemState systemState = SystemState.IDLE;
     DoubleSupplier manualPower;
     BooleanSupplier manualOveride;
     BooleanSupplier switchToIdle;
@@ -24,9 +24,9 @@ public class AutomaticConveyor extends CommandBase {
 
     }
 
-    public void initialize() {
+  //  public void initialize() {
 
-    }
+ //   }
 
     public void execute() {
         int inRobot = conveyorSubsystem.getInRobot();
@@ -85,8 +85,8 @@ public class AutomaticConveyor extends CommandBase {
         systemState = state;
     }
 
-    public void end() {
-
-    }
+   // public void end() {
+        
+ //   }
 
 }
