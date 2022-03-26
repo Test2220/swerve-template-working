@@ -15,11 +15,11 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.util.GeomUtil;
 
-public class ReferenceAOneBall extends SequentialCommandGroup {
+public class ReferenceDOneBall extends SequentialCommandGroup {
     
-    public ReferenceAOneBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
+    public ReferenceDOneBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
-            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceA))),
+            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceD))),
 
             new RunShooter(shooter, conveyor, true).withTimeout(2)
         );

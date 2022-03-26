@@ -15,7 +15,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import frc.robot.autopaths.ReferenceAOneBall;
 import frc.robot.autopaths.ReferenceATwoBall;
+import frc.robot.autopaths.ReferenceBOneBall;
+import frc.robot.autopaths.ReferenceBTwoBall;
+import frc.robot.autopaths.ReferenceCFourBall;
+import frc.robot.autopaths.ReferenceCOneBall;
+import frc.robot.autopaths.ReferenceCThreeBall;
+import frc.robot.autopaths.ReferenceCTwoBall;
+import frc.robot.autopaths.ReferenceDFourBall;
+import frc.robot.autopaths.ReferenceDOneBall;
+import frc.robot.autopaths.ReferenceDThreeBall;
+import frc.robot.autopaths.ReferenceDTwoBall;
 import frc.robot.commands.AllianceLEDs;
 import frc.robot.commands.AutoRampPowerIntake;
 import frc.robot.commands.AutomaticConveyor;
@@ -258,7 +269,19 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // return autoChooser.getSelected();
-    return new ReferenceATwoBall(intake, drivetrain, shooter, conveyor);
+    return new ReferenceAOneBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceATwoBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceBOneBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceCOneBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceCTwoBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceCThreeBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceCFourBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceDOneBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceDTwoBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceDThreeBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceDFourBall(intake, drivetrain, shooter, conveyor);
+
   }
 
   private static double deadband(double value, double deadband) {
