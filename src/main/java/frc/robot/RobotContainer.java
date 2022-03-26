@@ -16,15 +16,31 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.autopaths.ReferenceAOneBall;
+import frc.robot.autopaths.ReferenceAOppositeOneBall;
+import frc.robot.autopaths.ReferenceAOppositeThreeBall;
+import frc.robot.autopaths.ReferenceAOppositeTwoBall;
+import frc.robot.autopaths.ReferenceAThreeBall;
 import frc.robot.autopaths.ReferenceATwoBall;
 import frc.robot.autopaths.ReferenceBOneBall;
+import frc.robot.autopaths.ReferenceBOppositeOneBall;
+import frc.robot.autopaths.ReferenceBOppositeThreeBall;
+import frc.robot.autopaths.ReferenceBOppositeTwoBall;
+import frc.robot.autopaths.ReferenceBThreeBall;
 import frc.robot.autopaths.ReferenceBTwoBall;
 import frc.robot.autopaths.ReferenceCFourBall;
 import frc.robot.autopaths.ReferenceCOneBall;
+import frc.robot.autopaths.ReferenceCOppositeFourBall;
+import frc.robot.autopaths.ReferenceCOppositeOneBall;
+import frc.robot.autopaths.ReferenceCOppositeThreeBall;
+import frc.robot.autopaths.ReferenceCOppositeTwoBall;
 import frc.robot.autopaths.ReferenceCThreeBall;
 import frc.robot.autopaths.ReferenceCTwoBall;
 import frc.robot.autopaths.ReferenceDFourBall;
 import frc.robot.autopaths.ReferenceDOneBall;
+import frc.robot.autopaths.ReferenceDOppositeFourBall;
+import frc.robot.autopaths.ReferenceDOppositeOneBall;
+import frc.robot.autopaths.ReferenceDOppositeThreeBall;
+import frc.robot.autopaths.ReferenceDOppositeTwoBall;
 import frc.robot.autopaths.ReferenceDThreeBall;
 import frc.robot.autopaths.ReferenceDTwoBall;
 import frc.robot.commands.AllianceLEDs;
@@ -269,18 +285,40 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // return autoChooser.getSelected();
-    return new ReferenceAOneBall(intake, drivetrain, shooter, conveyor);
+
+     return new ReferenceAOneBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceATwoBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceAThreeBall(intake, drivetrain, shooter, conveyor);
+    //  return new ReferenceAOppositeOneBall(intake, drivetrain, shooter, conveyor);
+    //  return new ReferenceAOppositeTwoBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceAOppositeThreeBall(intake, drivetrain, shooter, conveyor);
+
     // return new ReferenceBOneBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor);
+    //  return new ReferenceBThreeBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceBOppositeOneBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceBOppositeTwoBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceBOppositeThreeBall(intake, drivetrain, shooter, conveyor);
+    
     // return new ReferenceCOneBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceCTwoBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceCThreeBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceCFourBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceCOppositeOneBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceCOppositeTwoBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceCOppositeThreeBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceCOppositeThreeBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceCOppositeFourBall(intake, drivetrain, shooter, conveyor)      
+    
     // return new ReferenceDOneBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDTwoBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDThreeBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDFourBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceDOppositeOneBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceDOppositeTwoBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceDOppositeThreeBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceDOppositeFourBall(intake, drivetrain, shooter, conveyor);
+
 
   }
 

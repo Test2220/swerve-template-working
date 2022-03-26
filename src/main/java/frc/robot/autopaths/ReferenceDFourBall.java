@@ -26,13 +26,9 @@ public class ReferenceDFourBall extends SequentialCommandGroup {
 
             new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.cargoE)).raceWith(new RunIntake(intake, false)),
 
-            new RetractIntake(intake),
-
             new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceD)),
 
             new RunShooter(shooter, conveyor, true).withTimeout(4),
-
-            new ExtendIntake(intake),
 
             new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.cargoD)).raceWith(new RunIntake(intake, false)),
 

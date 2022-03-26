@@ -21,8 +21,6 @@ public class ReferenceCTwoBall extends SequentialCommandGroup {
         addCommands(
             new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceC))),
 
-            new RunShooter(shooter, conveyor, true).withTimeout(2),
-
             new ExtendIntake(intake),
 
             new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.cargoD)).raceWith(new RunIntake(intake, false)),

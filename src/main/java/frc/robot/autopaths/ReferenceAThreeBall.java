@@ -15,19 +15,23 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.util.GeomUtil;
 
-public class ReferenceBTwoBall extends SequentialCommandGroup {
+public class ReferenceAThreeBall extends SequentialCommandGroup {
     
-    public ReferenceBTwoBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
+    public ReferenceAThreeBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
-            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceB))),
+            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceA))),
+
+            new RunShooter(shooter, conveyor, true).withTimeout(2),
 
             new ExtendIntake(intake),
 
             new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.cargoB)).raceWith(new RunIntake(intake, false)),
-            
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceB)),
 
-            new RunShooter(shooter, conveyor, true).withTimeout(4)
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.cargoG)).raceWith(new RunIntake(intake, false)),
+            
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceA)),
+
+            new RunShooter(shooter, conveyor, true).withTimeout(5)
         );
     }
 }
