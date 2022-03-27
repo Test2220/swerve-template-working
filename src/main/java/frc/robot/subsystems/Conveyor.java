@@ -53,17 +53,17 @@ public class Conveyor extends SubsystemBase {
         Shuffleboard.getTab("Conveyor").addBoolean("Sensor In", photoEyeSensorIn::get);
         Shuffleboard.getTab("Conveyor").addBoolean("Sensor Out", photoEyeSensorOut::get);
         Shuffleboard.getTab("Conveyor").addNumber("In Robot", () -> inRobot);
-        Shuffleboard.getTab("Conveyor").addBoolean("Ball 1 Color Red", () -> ballOneColorRed)
-                .withProperties(Map.of("colorWhenTrue", "red", "colorWhenFalse", "black"));
+        Shuffleboard.getTab("Conveyor").addBoolean("Ball 1 Color Red", () -> ballOneColorRed);
+             //   .withProperties(Map.of("colorWhenTrue", "red", "colorWhenFalse", "black"));
 
-        Shuffleboard.getTab("Conveyor").addBoolean("Ball 1 Color Blue", () -> ballOneColorBlue)
-                .withProperties(Map.of("colorWhenTrue", "blue", "colorWhenFalse", "black"));
+        Shuffleboard.getTab("Conveyor").addBoolean("Ball 1 Color Blue", () -> ballOneColorBlue);
+              //  .withProperties(Map.of("colorWhenTrue", "blue", "colorWhenFalse", "black"));
 
-        Shuffleboard.getTab("Conveyor").addBoolean("Ball 2 Color Red", () -> ballTwoColorRed)
-                .withProperties(Map.of("colorWhenTrue", "red", "colorWhenFalse", "black"));
+        Shuffleboard.getTab("Conveyor").addBoolean("Ball 2 Color Red", () -> ballTwoColorRed);
+            //    .withProperties(Map.of("colorWhenTrue", "red", "colorWhenFalse", "black"));
 
-        Shuffleboard.getTab("Conveyor").addBoolean("Ball 2 Color Blue", () -> ballTwoColorBlue)
-                .withProperties(Map.of("colorWhenTrue", "blue", "colorWhenFalse", "black"));
+        Shuffleboard.getTab("Conveyor").addBoolean("Ball 2 Color Blue", () -> ballTwoColorBlue);
+            //    .withProperties(Map.of("colorWhenTrue", "blue", "colorWhenFalse", "black"));
 
         Shuffleboard.getTab("Conveyor").addNumber("Detected Color Distance", () -> colorDistance);
 

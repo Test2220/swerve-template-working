@@ -41,12 +41,12 @@ public class Intake extends SubsystemBase {
     public void setPosition(Position deploy) {
         switch (deploy) {
             case EXTENDED:
-                solenoidL.set(Value.kForward);
-                solenoidR.set(Value.kForward);
-                break;
-            case RETRACTED:
                 solenoidL.set(Value.kReverse);
                 solenoidR.set(Value.kReverse);
+                break;
+            case RETRACTED:
+                solenoidL.set(Value.kForward);
+                solenoidR.set(Value.kForward);
                 break;
         }
 
