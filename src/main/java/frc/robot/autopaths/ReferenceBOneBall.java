@@ -19,7 +19,7 @@ public class ReferenceBOneBall extends SequentialCommandGroup {
     
     public ReferenceBOneBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
-            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceB))),
+            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceBRobotCenter))),
 
             new RunShooter(shooter, conveyor, true).withTimeout(2)
         );

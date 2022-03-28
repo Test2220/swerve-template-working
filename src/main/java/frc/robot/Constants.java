@@ -41,6 +41,7 @@ public final class Constants {
     // Calculate Ratio
     public static final double DRIVETRAIN_DIAMETER = Math.sqrt((DRIVETRAIN_LENGTH_METERS * DRIVETRAIN_LENGTH_METERS) + (DRIVETRAIN_WIDTH_METERS * DRIVETRAIN_WIDTH_METERS));
 
+    public static final double robotLengthWithBumpers = Units.inchesToMeters(32);
     // CAN Bus IDs
 
     // Front Left Drive Motor
@@ -106,8 +107,8 @@ public final class Constants {
     public static final int LEFT_INTAKE_SOLENOID_REVERSE = 1;
     public static final int RIGHT_INTAKE_SOLENOID_FORWARD = 2;
     public static final int RIGHT_INTAKE_SOLENOID_REVERSE = 3;
-    public static final double INTAKE_POWER = 0.4; 
-    public static final double REVERSE_INTAKE_POWER = -0.4;
+    public static final double INTAKE_POWER = 0.25; 
+    public static final double REVERSE_INTAKE_POWER = -0.25;
     
     public static final int INTAKE_THRESHOLD = 5;
     public static final double INTAKE_UNJAM_POWER = 0.8;

@@ -121,4 +121,16 @@ public class GeomUtil {
   public static Pose2d getRobotCoordinate(Pose2d pose){
     return new Pose2d(-pose.getY(), pose.getX(), pose.getRotation().times(-1));
    }
+  public static Rotation2d rotationFromTranslation(Translation2d translation){
+   return new Rotation2d(translation.getX(), translation.getY());
+  }
+
+  public static Rotation2d getRotation(Translation2d startPoint, Translation2d endPoint){
+
+  return rotationFromTranslation(endPoint.minus(startPoint));
+  }
+
+  public static Pose2d poseToGetCargo(Translation2d startPoint, Translation2d endPoint){
+    return new Pose2d(endPoint, getRotation(startPoint, endPoint));
+  }
 }

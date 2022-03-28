@@ -19,19 +19,19 @@ public class ReferenceDThreeBall extends SequentialCommandGroup {
     
     public ReferenceDThreeBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
-            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceD))),
+            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceDRobotCenter))),
 
             new RunShooter(shooter, conveyor, true).withTimeout(2),
 
             new ExtendIntake(intake),
 
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.cargoD)).raceWith(new RunIntake(intake, false)),
+
             new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.cargoE)).raceWith(new RunIntake(intake, false)),
-
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.cargoG)).raceWith(new RunIntake(intake, false)),
             
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceD)),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceDRobotCenter)).raceWith(new RunIntake(intake, false)),
 
-            new RunShooter(shooter, conveyor, true).withTimeout(5)
+            new RunShooter(shooter, conveyor, true).raceWith(new RunIntake(intake, false)).withTimeout(5)
         );
     }
 }

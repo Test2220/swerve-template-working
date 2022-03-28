@@ -175,6 +175,7 @@ public class Drivetrain extends SubsystemBase {
   public void zeroGyroscope() {
     m_navx.zeroYaw();
     currentPos = new Position(0, 0, 0);
+    gyroOffsett = 0;
   }
 
   public void decreaseSpeed() {

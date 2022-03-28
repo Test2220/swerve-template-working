@@ -19,7 +19,7 @@ public class ReferenceAOneBall extends SequentialCommandGroup {
     
     public ReferenceAOneBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
-            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceA))),
+            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceARobotCenter))),
 
             new RunShooter(shooter, conveyor, true).withTimeout(2)
         );

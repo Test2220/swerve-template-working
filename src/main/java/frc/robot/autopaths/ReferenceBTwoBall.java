@@ -19,15 +19,15 @@ public class ReferenceBTwoBall extends SequentialCommandGroup {
     
     public ReferenceBTwoBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
-            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceB))),
+            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceBRobotCenter))),
 
             new ExtendIntake(intake),
 
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.cargoB)).raceWith(new RunIntake(intake, false)),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(GeomUtil.poseToGetCargo(FieldConstants.referenceBRobotCenter.getTranslation(), FieldConstants.cargoB.getTranslation()))).raceWith(new RunIntake(intake, false)),
             
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceB)),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceBRobotCenter)).raceWith(new RunIntake(intake, false)),
 
-            new RunShooter(shooter, conveyor, true).withTimeout(4)
+            new RunShooter(shooter, conveyor, true).raceWith(new RunIntake(intake, false)).withTimeout(4)
         );
     }
 }

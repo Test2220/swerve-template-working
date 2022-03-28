@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.GenericHID;
 // import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
@@ -68,6 +70,7 @@ import frc.robot.subsystems.BrownOutMonitor;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Climber.ClimberPositions;
 import frc.robot.subsystems.drivetrain.Position;
+import frc.robot.util.GeomUtil;
 import frc.robot.subsystems.Conveyor;
 //import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.subsystems.Drivetrain;
@@ -163,8 +166,34 @@ public class RobotContainer {
     configureButtonBindings();
 
     autoChooser.setDefaultOption("Do Nothing", new InstantCommand());
-    autoChooser.addOption("Terminal Two Ball Auto", new ReferenceATwoBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference A One Ball Auto", new ReferenceAOneBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference A Two Ball Auto", new ReferenceATwoBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference A Opposite Two Ball Auto", new ReferenceAOppositeTwoBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference A Opposite One Ball Auto", new ReferenceAOppositeOneBall(intake, drivetrain, shooter, conveyor));
+    
+    autoChooser.addOption("Reference B One Ball Auto", new ReferenceBOneBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference B Opposite One Ball Auto", new ReferenceBOppositeOneBall(intake, drivetrain, shooter, conveyor));
+
+
+    autoChooser.addOption("Reference C One Ball Auto", new ReferenceCOneBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference C Two Ball Auto", new ReferenceCTwoBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference C Opposite One Ball Auto", new ReferenceCOppositeOneBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference C Opposite Two Ball Auto", new ReferenceCOppositeTwoBall(intake, drivetrain, shooter, conveyor));
+
+
+    autoChooser.addOption("Reference D One Ball Auto", new ReferenceDOneBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference D Two Ball Auto", new ReferenceDTwoBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference D Opposite One Ball Auto", new ReferenceDOppositeOneBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference D Opposite Two Ball Auto", new ReferenceDOppositeTwoBall(intake, drivetrain, shooter, conveyor));
+
+
     Shuffleboard.getTab("Auto").add("Auto", autoChooser);
+
+    System.out.println(GeomUtil.getRotation(FieldConstants.referenceARobotCenter.getTranslation(), FieldConstants.cargoA.getTranslation()).getDegrees());
+    System.out.println(Units.metersToInches(FieldConstants.cargoA.getTranslation().getDistance(FieldConstants.cargoB.getTranslation())));
+    System.out.println(Units.metersToInches(FieldConstants.cargoB.getTranslation().getDistance(FieldConstants.cargoC.getTranslation())));
+    System.out.println(Units.metersToInches(FieldConstants.cargoD.getTranslation().getDistance(FieldConstants.cargoE.getTranslation())));
+
   }
 
   /**
@@ -286,36 +315,17 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // return autoChooser.getSelected();
 
-     return new ReferenceAOneBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceATwoBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceAThreeBall(intake, drivetrain, shooter, conveyor);
-    //  return new ReferenceAOppositeOneBall(intake, drivetrain, shooter, conveyor);
-    //  return new ReferenceAOppositeTwoBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceAOppositeThreeBall(intake, drivetrain, shooter, conveyor);
 
-    // return new ReferenceBOneBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor);
-    //  return new ReferenceBThreeBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceBOppositeOneBall(intake, drivetrain, shooter, conveyor);
+     return new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceBOppositeTwoBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceBOppositeThreeBall(intake, drivetrain, shooter, conveyor);
     
-    // return new ReferenceCOneBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceCTwoBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceCThreeBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceCFourBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceCOppositeOneBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceCOppositeTwoBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceCOppositeThreeBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceCOppositeThreeBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceCOppositeFourBall(intake, drivetrain, shooter, conveyor)      
     
-    // return new ReferenceDOneBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceDTwoBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDThreeBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDFourBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceDOppositeOneBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceDOppositeTwoBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDOppositeThreeBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDOppositeFourBall(intake, drivetrain, shooter, conveyor);
 

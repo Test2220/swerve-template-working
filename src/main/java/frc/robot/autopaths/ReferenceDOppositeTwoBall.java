@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.FieldConstants;
 import frc.robot.commands.ExtendIntake;
 import frc.robot.commands.GoToCommand;
+import frc.robot.commands.RetractIntake;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
 import frc.robot.subsystems.Conveyor;
@@ -19,15 +20,17 @@ public class ReferenceDOppositeTwoBall extends SequentialCommandGroup {
     
     public ReferenceDOppositeTwoBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
-            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceDOpposite))),
+            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceDOppositeRobotCenter))),
             
             new ExtendIntake(intake),
 
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.cargoEOpposite)).raceWith(new RunIntake(intake, false)),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(GeomUtil.poseToGetCargo(FieldConstants.referenceDOppositeRobotCenter.getTranslation(), FieldConstants.cargoEOpposite.getTranslation()))).raceWith(new RunIntake(intake, false)),
             
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceDOpposite)),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceDOppositeRobotCenter)).raceWith(new RunIntake(intake, false)),
 
-            new RunShooter(shooter, conveyor, true).withTimeout(4)
+            new RetractIntake(intake),
+
+            new RunShooter(shooter, conveyor, true).raceWith(new RunIntake(intake, false)).withTimeout(4)
         );
     }
 }

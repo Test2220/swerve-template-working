@@ -1,6 +1,7 @@
 package frc.robot.subsystems.drivetrain;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.util.Units;
 
 public class PositionFinder {
     private PIDController xController;
@@ -18,7 +19,9 @@ public class PositionFinder {
         rController.setTolerance(0.2);
 
         vControl = new VelocityControl(in, currentPos);
-    }
+        System.out.println("Current Position:" + Units.radiansToDegrees(in.getPos()[2]));
+
+       }
     
     public DriveDirection getDirection(Position currentPos) {
         double current[] = currentPos.getPos();
@@ -34,6 +37,7 @@ public class PositionFinder {
         double xOut = xController.calculate(current[0], next[0]);
         double yOut = yController.calculate(current[1], next[1]);
         double rOut = rController.calculate(current[2], next[2]);
+        System.out.println("R:" + Units.radiansToDegrees(next[2]));
 
         return new DriveDirection(yOut, xOut, rOut, current[2]);
     }

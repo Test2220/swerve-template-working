@@ -19,7 +19,7 @@ public class ReferenceDOneBall extends SequentialCommandGroup {
     
     public ReferenceDOneBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
-            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceD))),
+            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceDRobotCenter))),
 
             new RunShooter(shooter, conveyor, true).withTimeout(2)
         );

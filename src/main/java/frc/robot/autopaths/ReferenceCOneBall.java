@@ -19,7 +19,7 @@ public class ReferenceCOneBall extends SequentialCommandGroup {
     
     public ReferenceCOneBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
-            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceC))),
+            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceCRobotCenter))),
 
             new RunShooter(shooter, conveyor, true).withTimeout(2)
         );

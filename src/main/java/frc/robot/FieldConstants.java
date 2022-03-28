@@ -8,6 +8,7 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import frc.robot.util.GeomUtil;
@@ -136,4 +137,20 @@ public final class FieldConstants {
     return new Pose2d(fieldLength, fieldWidth, Rotation2d.fromDegrees(180.0))
         .transformBy(GeomUtil.poseToTransform(pose));
   }
+
+  public static Pose2d robotCenterFromReference(Pose2d pose){
+   return pose.transformBy(GeomUtil.transformFromTranslation(-(Constants.robotLengthWithBumpers)/2, 0));
+    /* new Pose2d(hubCenter, referenceARotation).transformBy(
+          GeomUtil.transformFromTranslation(tarmacInnerDiameter / 2.0, 0.0));*/
+  }
+
+  public static final Pose2d referenceARobotCenter = robotCenterFromReference(referenceA);
+  public static final Pose2d referenceBRobotCenter = robotCenterFromReference(referenceB);
+  public static final Pose2d referenceCRobotCenter = robotCenterFromReference(referenceC);
+  public static final Pose2d referenceDRobotCenter = robotCenterFromReference(referenceD);
+  public static final Pose2d referenceAOppositeRobotCenter = robotCenterFromReference(referenceAOpposite);
+  public static final Pose2d referenceBOppositeRobotCenter = robotCenterFromReference(referenceBOpposite);
+  public static final Pose2d referenceCOppositeRobotCenter = robotCenterFromReference(referenceCOpposite);
+  public static final Pose2d referenceDOppositeRobotCenter = robotCenterFromReference(referenceDOpposite);
+
 }

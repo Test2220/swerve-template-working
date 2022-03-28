@@ -18,7 +18,7 @@ import frc.robot.util.GeomUtil;
 public class ReferenceAOppositeOneBall extends SequentialCommandGroup{    
     public ReferenceAOppositeOneBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
-            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceAOpposite))),
+            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceAOppositeRobotCenter))),
 
             new RunShooter(shooter, conveyor, true).withTimeout(2)
         );
