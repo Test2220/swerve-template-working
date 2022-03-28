@@ -20,23 +20,25 @@ public class ReferenceCOppositeFourBall extends SequentialCommandGroup {
     
     public ReferenceCOppositeFourBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
-            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceCOpposite))),
+            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceCOppositeRobotCenter))),
 
             new ExtendIntake(intake),
 
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.cargoEOpposite)).raceWith(new RunIntake(intake, false)),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(GeomUtil.poseToGetCargo(FieldConstants.referenceCOppositeRobotCenter.getTranslation(), FieldConstants.cargoEOpposite.getTranslation()))).raceWith(new RunIntake(intake, false)),
 
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceCOpposite)),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceCOppositeRobotCenter)).raceWith(new RunIntake(intake, false)),
 
-            new RunShooter(shooter, conveyor, true).withTimeout(4),
+            new RunShooter(shooter, conveyor, true).raceWith(new RunIntake(intake, false)).withTimeout(4),
 
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.cargoDOpposite)).raceWith(new RunIntake(intake, false)),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(GeomUtil.poseToGetCargo(FieldConstants.referenceCOppositeRobotCenter.getTranslation(), FieldConstants.cargoDOpposite.getTranslation()))).raceWith(new RunIntake(intake, false)),
 
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.cargoGOpposite)).raceWith(new RunIntake(intake, false)),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(GeomUtil.poseToGetCargo(FieldConstants.cargoDOpposite.getTranslation(), FieldConstants.cargoGOpposite.getTranslation()))).raceWith(new RunIntake(intake, false)),
             
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceCOpposite)),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceCOppositeRobotCenter)).raceWith(new RunIntake(intake, false)),
 
-            new RunShooter(shooter, conveyor, true).withTimeout(5)
+            new RetractIntake(intake),
+
+            new RunShooter(shooter, conveyor, true).raceWith(new RunIntake(intake, false)).withTimeout(5)
         );
     }
 }

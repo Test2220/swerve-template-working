@@ -185,10 +185,8 @@ public class RobotContainer {
 
     Shuffleboard.getTab("Auto").add("Auto", autoChooser);
 
-    System.out.println(GeomUtil.getRotation(FieldConstants.referenceARobotCenter.getTranslation(), FieldConstants.cargoA.getTranslation()).getDegrees());
-    System.out.println(Units.metersToInches(FieldConstants.cargoA.getTranslation().getDistance(FieldConstants.cargoB.getTranslation())));
-    System.out.println(Units.metersToInches(FieldConstants.cargoB.getTranslation().getDistance(FieldConstants.cargoC.getTranslation())));
-    System.out.println(Units.metersToInches(FieldConstants.cargoD.getTranslation().getDistance(FieldConstants.cargoE.getTranslation())));
+    //System.out.println(GeomUtil.getRotation(FieldConstants.referenceCRobotCenter.getTranslation(), FieldConstants.cargoG.getTranslation()).getDegrees());
+    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + Units.metersToInches(FieldConstants.referenceD.getTranslation().getDistance(FieldConstants.cargoG.getTranslation())));
 
   }
 
@@ -312,18 +310,18 @@ public class RobotContainer {
     // return autoChooser.getSelected();
 
 
-     return new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceBOppositeTwoBall(intake, drivetrain, shooter, conveyor);
     
-    // return new ReferenceCThreeBall(intake, drivetrain, shooter, conveyor);
+     //return new ReferenceCThreeBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceCFourBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceCOppositeThreeBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceCOppositeFourBall(intake, drivetrain, shooter, conveyor)      
+     return new ReferenceCOppositeFourBall(intake, drivetrain, shooter, conveyor);      
     
     // return new ReferenceDThreeBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDFourBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDOppositeThreeBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceDOppositeFourBall(intake, drivetrain, shooter, conveyor);
+     //return new ReferenceDOppositeFourBall(intake, drivetrain, shooter, conveyor);
 
 
   }
