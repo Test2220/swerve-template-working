@@ -266,7 +266,7 @@ public class RobotContainer {
         },
         pixy, Pixy2CCC.CCC_SIG1, drivetrain));
     
-    new Button(()-> driverController.getPOV() == 0).whileHeld(new AutoRampPowerIntake(intake, false));
+   // new Button(()-> driverController.getPOV() == 0).whileHeld(new AutoRampPowerIntake(intake, false));
 
     new Button(() -> driverController.getPOV() == 180).whenPressed(new GoToCommand(drivetrain, new Position(0, 0, 0)));
 
@@ -281,11 +281,11 @@ public class RobotContainer {
       );
 
     //run shooter buttons
-    new Button(manipulatorController::getAButton)
-        .whileHeld(new RunShooterVelocity(shooter, conveyor, false));
+    // new Button(manipulatorController::getAButton)
+    //     .whileHeld(new RunShooterVelocity(shooter, conveyor, false));
 
-    new Button(manipulatorController::getBButton)
-        .whileHeld(new RunShooterVelocity(shooter, conveyor, true));
+    // new Button(manipulatorController::getBButton)
+    //     .whileHeld(new RunShooterVelocity(shooter, conveyor, true));
 
     new Button(() -> manipulatorController.getRightTriggerAxis() > 0.4)
         .whileHeld(new RunShooter(shooter, conveyor, true));
