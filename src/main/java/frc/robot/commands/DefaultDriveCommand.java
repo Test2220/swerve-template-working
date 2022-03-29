@@ -4,16 +4,12 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.drivetrain.DriveDirection;
-import frc.robot.subsystems.drivetrain.Position;
-import frc.robot.subsystems.drivetrain.WheelsState;
-
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
-import static frc.robot.Constants.*;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.drivetrain.DriveDirection;
+import frc.robot.subsystems.drivetrain.WheelsState;
 
 /** An example command that uses an example subsystem. */
 public class DefaultDriveCommand extends CommandBase {
