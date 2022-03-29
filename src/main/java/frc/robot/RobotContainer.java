@@ -183,7 +183,7 @@ public class RobotContainer {
     autoChooser.addOption("Reference C Two Ball Auto", new ReferenceCTwoBall(intake, drivetrain, shooter, conveyor));
     autoChooser.addOption("Reference C Opposite One Ball Auto", new ReferenceCOppositeOneBall(intake, drivetrain, shooter, conveyor));
     autoChooser.addOption("Reference C Opposite Two Ball Auto", new ReferenceCOppositeTwoBall(intake, drivetrain, shooter, conveyor));
-
+    autoChooser.addOption("Reference C Five Ball Auto", new ReferenceCFiveBall(intake, drivetrain, shooter, conveyor));
 
     autoChooser.addOption("Reference D One Ball Auto", new ReferenceDOneBall(intake, drivetrain, shooter, conveyor));
     autoChooser.addOption("Reference D Two Ball Auto", new ReferenceDTwoBall(intake, drivetrain, shooter, conveyor));
