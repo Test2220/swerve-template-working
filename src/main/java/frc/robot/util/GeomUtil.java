@@ -131,6 +131,11 @@ public class GeomUtil {
   }
 
   public static Pose2d poseToGetCargo(Translation2d startPoint, Translation2d endPoint){
+    /**
+     * x = new Pose2d(endPoint, getRotation(startPoint, endPoint))
+     * y = x + 10
+     * return y
+     */
     return new Pose2d(endPoint, getRotation(startPoint, endPoint));
   }
 }

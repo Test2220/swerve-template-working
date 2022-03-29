@@ -20,7 +20,7 @@ public class ReferenceDOppositeFourBall extends SequentialCommandGroup {
     
     public ReferenceDOppositeFourBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
-            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceDOpposite))),
+            new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceDOppositeRobotCenter))),
 
             new ExtendIntake(intake),
 
