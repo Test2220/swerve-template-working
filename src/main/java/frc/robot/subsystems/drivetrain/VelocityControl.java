@@ -47,6 +47,8 @@ public class VelocityControl {
 
         rotEnd = wrap(in[2]);
         rotStart = wrap(in2[2]);
+
+        rotEnd = optimizePos(rotEnd, rotStart);
         
         // xEndState = new TrapezoidProfile.State(in[0], 0);
         // yEndState = new TrapezoidProfile.State(in[1], 0);
@@ -86,9 +88,21 @@ public class VelocityControl {
             (Math.abs(rotSupplier.getAsDouble() - rotEnd) < 0.02);
     }
 
-    private double wrap(double in) {
+    public static double wrap(double in) {
         double out = in % (Math.PI * 2);
         if (out > Math.PI) out -= Math.PI * 2;
         return out;
+    }
+
+    public static double optimizePos(double in, double compare) {
+        in += Math.PI; 
+        compare += Math.PI; 
+
+        if (in - compare > Math.PI)
+            in -= Math.PI * 2; 
+        else if (compare - in > Math.PI)
+            in += Math.PI * 2; 
+
+        return in - Math.PI;
     }
 }
