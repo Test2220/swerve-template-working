@@ -152,9 +152,9 @@ public final class Constants {
 
     public static final int PHOTOEYE_SENSOR_INTAKE = 0;
 
-    public static final int PHOTOEYE_SENSOR_LAUNCHER = 1;
+    public static final int PHOTOEYE_SENSOR_LAUNCHER = 2;
 
     public static final double OFFSET = (-8 / 196.85) + 1;
 
-    public static final double SLEW_RATE_LIMIT = 0.8;
+    public static final double SLEW_RATE_LIMIT = 3;
 }

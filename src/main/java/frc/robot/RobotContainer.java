@@ -4,8 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 // import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
@@ -107,11 +109,16 @@ public class RobotContainer {
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
   private final BrownOutMonitor brownOutMonitor = new BrownOutMonitor(manipulatorController);
 
+  //Slew Rate Limiters
+  SlewRateLimiter leftY = new SlewRateLimiter(Constants.SLEW_RATE_LIMIT);
+  SlewRateLimiter leftX = new SlewRateLimiter(Constants.SLEW_RATE_LIMIT);
+  SlewRateLimiter rightX = new SlewRateLimiter(Constants.SLEW_RATE_LIMIT);
+
   private final DefaultDriveCommand driveCommand = new DefaultDriveCommand(
     drivetrain,
-    () -> -modifyAxis(driverController.getLeftY()),
-    () -> -modifyAxis(-driverController.getLeftX()),
-    () -> -modifyAxis(-driverController.getRightX()));
+    () -> -modifyAxis(leftY.calculate(driverController.getLeftY())),
+    () -> -modifyAxis(leftX.calculate(-driverController.getLeftX())),
+    () -> -modifyAxis(rightX.calculate(-driverController.getRightX())));
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -348,5 +355,11 @@ public class RobotContainer {
     return value;
   }
 
+  public static final NetworkTableEntry SLEW_RATE = 
+        Shuffleboard.getTab("Drivetrain")
+            .addPersistent("Slew Rate Limit", Constants.SLEW_RATE_LIMIT)
+            .withSize(1, 1)
+            .withPosition(0, 0)
+            .getEntry();
 
 }
