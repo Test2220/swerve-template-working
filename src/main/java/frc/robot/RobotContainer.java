@@ -43,6 +43,7 @@ import frc.robot.autopaths.ReferenceDOppositeThreeBall;
 import frc.robot.autopaths.ReferenceDOppositeTwoBall;
 import frc.robot.autopaths.ReferenceDThreeBall;
 import frc.robot.autopaths.ReferenceDTwoBall;
+import frc.robot.autopaths.TestAuto;
 import frc.robot.commands.AllianceLEDs;
 import frc.robot.commands.AutoRampPowerIntake;
 import frc.robot.commands.AutomaticConveyor;
@@ -189,6 +190,7 @@ public class RobotContainer {
     autoChooser.addOption("Reference D Opposite One Ball Auto", new ReferenceDOppositeOneBall(intake, drivetrain, shooter, conveyor));
     autoChooser.addOption("Reference D Opposite Two Ball Auto", new ReferenceDOppositeTwoBall(intake, drivetrain, shooter, conveyor));
 
+    autoChooser.addOption("TESTAUTO", new TestAuto(intake, drivetrain, shooter, conveyor));
 
     Shuffleboard.getTab("Auto").add("Auto", autoChooser);
 
@@ -316,10 +318,10 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // return autoChooser.getSelected();
+    return autoChooser.getSelected();
 
 
-     return new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor);
+    //  return new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceBOppositeTwoBall(intake, drivetrain, shooter, conveyor);
     
     // return new ReferenceCThreeBall(intake, drivetrain, shooter, conveyor);
