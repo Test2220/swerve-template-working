@@ -27,7 +27,7 @@ import frc.robot.autopaths.ReferenceBOneBall;
 import frc.robot.autopaths.ReferenceBOppositeOneBall;
 import frc.robot.autopaths.ReferenceBOppositeTwoBall;
 import frc.robot.autopaths.ReferenceBTwoBall;
-import frc.robot.autopaths.ReferenceCFourBall;
+import frc.robot.autopaths.ReferenceCFiveBall;
 import frc.robot.autopaths.ReferenceCOneBall;
 import frc.robot.autopaths.ReferenceCOppositeFourBall;
 import frc.robot.autopaths.ReferenceCOppositeOneBall;
@@ -193,9 +193,27 @@ public class RobotContainer {
     Shuffleboard.getTab("Auto").add("Auto", autoChooser);
 
     //System.out.println(GeomUtil.getRotation(FieldConstants.referenceCRobotCenter.getTranslation(), FieldConstants.cargoG.getTranslation()).getDegrees());
-    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + Units.metersToInches(FieldConstants.referenceD.getTranslation().getDistance(FieldConstants.cargoG.getTranslation())));
+    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoD" + GeomUtil.poseToGetCargo(
+      FieldConstants.referenceCRobotCenter.getTranslation(), 
+      FieldConstants.cargoD.getTranslation()
+  ).getRotation().getDegrees());
 
-  }
+  System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!CargoDToCargoE" + GeomUtil.poseToGetCargo(
+      FieldConstants.cargoD.getTranslation(), 
+      FieldConstants.cargoE.getTranslation()
+  ).getRotation().getDegrees());
+
+  System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!CargoETOrefC" + GeomUtil.poseToGetCargo(
+    FieldConstants.cargoE.getTranslation(), 
+    FieldConstants.referenceCRobotCenter.getTranslation()
+).getRotation().getDegrees());
+
+System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoG" + GeomUtil.poseToGetCargo(
+    FieldConstants.referenceCRobotCenter.getTranslation(), 
+    FieldConstants.cargoG.getTranslation()
+).getRotation().getDegrees());
+
+      }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -320,10 +338,10 @@ public class RobotContainer {
     // return new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceBOppositeTwoBall(intake, drivetrain, shooter, conveyor);
     
-     //return new ReferenceCThreeBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceCFourBall(intake, drivetrain, shooter, conveyor);
+     //return new ReferenceCTwoBall(intake, drivetrain, shooter, conveyor);
+     return new ReferenceCFiveBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceCOppositeThreeBall(intake, drivetrain, shooter, conveyor);
-     return new ReferenceCOppositeFourBall(intake, drivetrain, shooter, conveyor);      
+    // return new ReferenceCOppositeFourBall(intake, drivetrain, shooter, conveyor);      
     
     // return new ReferenceDThreeBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDFourBall(intake, drivetrain, shooter, conveyor);
