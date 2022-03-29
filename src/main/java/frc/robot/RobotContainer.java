@@ -116,9 +116,9 @@ public class RobotContainer {
 
   private final DefaultDriveCommand driveCommand = new DefaultDriveCommand(
     drivetrain,
-    () -> -modifyAxis(driverController.getLeftY()),
-    () -> -modifyAxis(-driverController.getLeftX()),
-    () -> -modifyAxis(-driverController.getRightX()));
+    () -> -modifyAxis(leftY.calculate(driverController.getLeftY())),
+    () -> -modifyAxis(leftX.calculate(-driverController.getLeftX())),
+    () -> -modifyAxis(rightX.calculate(-driverController.getRightX())));
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -357,7 +357,7 @@ public class RobotContainer {
     return value;
   }
 
-  public static final NetworkTableEntry SHUFFLEBOARD_SHOOTER_POWER_HIGH = 
+  public static final NetworkTableEntry SLEW_RATE = 
         Shuffleboard.getTab("Drivetrain")
             .addPersistent("Slew Rate Limit", Constants.SLEW_RATE_LIMIT)
             .withSize(1, 1)
