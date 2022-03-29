@@ -92,6 +92,9 @@ public class RobotContainer {
   // private final PowerDistribution powerDistribution = new PowerDistribution();
 
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
+  
+  @SuppressWarnings("unused") // BrownOutMonitor just runs in the background and doesn't have any methods used here. 
+                              // it is just assigned to a variable so that it is not garbage collected.
   private final BrownOutMonitor brownOutMonitor = new BrownOutMonitor(manipulatorController);
 
   //Slew Rate Limiters
@@ -298,7 +301,7 @@ System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoG" + GeomUt
     new Button(() -> manipulatorController.getLeftTriggerAxis() > 0.4)
         //.whileHeld(new RunIntakeTeleop(intake, false));
       .whenPressed(new ExtendIntake(intake))
-      .whileHeld(new AutoRampPowerIntake(intake, false))
+      .whileHeld(new AutoRampPowerIntake(intake))
       .whenReleased(new RetractIntake(intake));
 
     new Button(manipulatorController::getLeftBumper)
