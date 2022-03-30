@@ -6,6 +6,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.FieldConstants;
+import frc.robot.commands.AutoConveyor;
 import frc.robot.commands.ExtendIntake;
 import frc.robot.commands.GoToCommand;
 import frc.robot.commands.RetractIntake;
@@ -36,9 +37,9 @@ public class ReferenceCThreeBall extends SequentialCommandGroup {
                     ).transformBy(
                         new Transform2d(
                             new Translation2d(), 
-                            Rotation2d.fromDegrees(-35)
+                            Rotation2d.fromDegrees(-20)
                         ))
-            )).raceWith(new RunIntake(intake, false)),
+            )).raceWith(new RunIntake(intake, false)).raceWith(new AutoConveyor(conveyor)),
 
             new GoToCommand(
                 drivetrain, 

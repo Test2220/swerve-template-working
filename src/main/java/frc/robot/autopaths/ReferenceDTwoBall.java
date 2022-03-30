@@ -23,6 +23,8 @@ public class ReferenceDTwoBall extends SequentialCommandGroup {
         addCommands(
             new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceDRobotCenter))),
 
+            new RunShooter(shooter, conveyor, true).withTimeout(2),
+
             new ExtendIntake(intake),
 
             new GoToCommand(
@@ -34,7 +36,7 @@ public class ReferenceDTwoBall extends SequentialCommandGroup {
                     ).transformBy(
                         new Transform2d(
                             new Translation2d(), 
-                            Rotation2d.fromDegrees(10)
+                            Rotation2d.fromDegrees(-35)
                         ))
             )).raceWith(new RunIntake(intake, false)),            
             new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceDRobotCenter)).raceWith(new RunIntake(intake, false)),

@@ -20,13 +20,13 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.autopaths.ReferenceAOneBall;
 import frc.robot.autopaths.ReferenceATwoBall;
 import frc.robot.autopaths.ReferenceBOneBall;
+import frc.robot.autopaths.ReferenceBTwoBall;
 import frc.robot.autopaths.ReferenceCFiveBall;
 import frc.robot.autopaths.ReferenceCOneBall;
 import frc.robot.autopaths.ReferenceCThreeBall;
 import frc.robot.autopaths.ReferenceCTwoBall;
 import frc.robot.autopaths.ReferenceDOneBall;
 import frc.robot.autopaths.ReferenceDTwoBall;
-import frc.robot.autopaths.TestAuto;
 import frc.robot.commands.AllianceLEDs;
 import frc.robot.commands.AutoRampPowerIntake;
 import frc.robot.commands.AutomaticConveyor;
@@ -170,7 +170,6 @@ public class RobotContainer {
     autoChooser.addOption("Reference D One Ball Auto", new ReferenceDOneBall(intake, drivetrain, shooter, conveyor));
     autoChooser.addOption("Reference D Two Ball Auto", new ReferenceDTwoBall(intake, drivetrain, shooter, conveyor));
     
-    autoChooser.addOption("TESTAUTO", new TestAuto(intake, drivetrain, shooter, conveyor));
 
     Shuffleboard.getTab("Auto").add("Auto", autoChooser);
 
@@ -319,13 +318,13 @@ System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoG" + GeomUt
      // return new ReferenceATwoBall(intake, drivetrain, shooter, conveyor);
 
 
-    //  return new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor);
+     // return new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor);
     
     //return new ReferenceCTwoBall(intake, drivetrain, shooter, conveyor);
     //  return new ReferenceCFiveBall(intake, drivetrain, shooter, conveyor);
-     return new ReferenceCThreeBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceCThreeBall(intake, drivetrain, shooter, conveyor);
 
-    // return new ReferenceDTwoBall(intake, drivetrain, shooter, conveyor);
+     return new ReferenceDTwoBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDThreeBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDFourBall(intake, drivetrain, shooter, conveyor);
 

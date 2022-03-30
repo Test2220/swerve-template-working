@@ -19,6 +19,7 @@ public class GoToCommand extends CommandBase {
   private PositionFinder endPos;
   private DriveDirection driveDir;
   private WheelsState wheelsState;
+  private double speed = 0.4;
 
   private DriveDirection goDir;
 
@@ -43,8 +44,9 @@ public class GoToCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.setSpeed(0.4);
+    drivetrain.setSpeed(speed);
     endPos = new PositionFinder(pos, drivetrain.getPosition());
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -78,5 +80,10 @@ public class GoToCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     return endPos.isDone();
+  }
+
+  public GoToCommand withSpeed(double speed){
+    this.speed = speed;
+    return this;
   }
 }
