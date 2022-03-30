@@ -6,10 +6,9 @@ import frc.robot.subsystems.Intake;
 
 public class AutoRampPowerIntake extends CommandBase {
     private Intake intake;
-    private boolean reverse;
-    public AutoRampPowerIntake(Intake intake, boolean reverse){
+
+    public AutoRampPowerIntake(Intake intake){
         this.intake = intake;
-        this.reverse = reverse;
 
         addRequirements(intake);
     }

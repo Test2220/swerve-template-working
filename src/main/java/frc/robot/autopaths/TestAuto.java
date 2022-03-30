@@ -9,7 +9,6 @@ import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.drivetrain.Position;
 import frc.robot.util.GeomUtil;
 
 public class TestAuto extends SequentialCommandGroup {

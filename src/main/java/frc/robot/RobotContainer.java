@@ -5,13 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 // import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -25,23 +22,14 @@ import frc.robot.autopaths.ReferenceAOppositeTwoBall;
 import frc.robot.autopaths.ReferenceATwoBall;
 import frc.robot.autopaths.ReferenceBOneBall;
 import frc.robot.autopaths.ReferenceBOppositeOneBall;
-import frc.robot.autopaths.ReferenceBOppositeTwoBall;
-import frc.robot.autopaths.ReferenceBTwoBall;
 import frc.robot.autopaths.ReferenceCFiveBall;
 import frc.robot.autopaths.ReferenceCOneBall;
-import frc.robot.autopaths.ReferenceCOppositeFourBall;
 import frc.robot.autopaths.ReferenceCOppositeOneBall;
-import frc.robot.autopaths.ReferenceCOppositeThreeBall;
 import frc.robot.autopaths.ReferenceCOppositeTwoBall;
-import frc.robot.autopaths.ReferenceCThreeBall;
 import frc.robot.autopaths.ReferenceCTwoBall;
-import frc.robot.autopaths.ReferenceDFourBall;
 import frc.robot.autopaths.ReferenceDOneBall;
-import frc.robot.autopaths.ReferenceDOppositeFourBall;
 import frc.robot.autopaths.ReferenceDOppositeOneBall;
-import frc.robot.autopaths.ReferenceDOppositeThreeBall;
 import frc.robot.autopaths.ReferenceDOppositeTwoBall;
-import frc.robot.autopaths.ReferenceDThreeBall;
 import frc.robot.autopaths.ReferenceDTwoBall;
 import frc.robot.autopaths.TestAuto;
 import frc.robot.commands.AllianceLEDs;
@@ -54,22 +42,17 @@ import frc.robot.commands.GoToCommand;
 // import frc.robot.commands.FollowPath;
 import frc.robot.commands.LimelightAutoTurning;
 import frc.robot.commands.LimelightDefaultCommand;
-import frc.robot.commands.PathCommand;
 // import frc.robot.commands.PPFollowPath;
 import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.commands.RetractIntake;
-import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunIntakeTeleop;
 import frc.robot.commands.RunShooter;
-import frc.robot.commands.RunShooterVelocity;
 // import frc.robot.commands.TerminalTwoBallAuto;
 import frc.robot.commands.TiltClimber;
 import frc.robot.subsystems.BrownOutMonitor;
 // import frc.robot.commands.HangarTwoBallAuto;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Climber.ClimberPositions;
-import frc.robot.subsystems.drivetrain.Position;
-import frc.robot.util.GeomUtil;
 import frc.robot.subsystems.Conveyor;
 //import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.subsystems.Drivetrain;
@@ -78,7 +61,8 @@ import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.PixyCamSPI;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Trajectories;
+import frc.robot.subsystems.drivetrain.Position;
+import frc.robot.util.GeomUtil;
 import io.github.pseudoresonance.pixy2api.Pixy2CCC;
 
 /**
@@ -108,6 +92,9 @@ public class RobotContainer {
   // private final PowerDistribution powerDistribution = new PowerDistribution();
 
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
+  
+  @SuppressWarnings("unused") // BrownOutMonitor just runs in the background and doesn't have any methods used here. 
+                              // it is just assigned to a variable so that it is not garbage collected.
   private final BrownOutMonitor brownOutMonitor = new BrownOutMonitor(manipulatorController);
 
   //Slew Rate Limiters
@@ -314,7 +301,7 @@ System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoG" + GeomUt
     new Button(() -> manipulatorController.getLeftTriggerAxis() > 0.4)
         //.whileHeld(new RunIntakeTeleop(intake, false));
       .whenPressed(new ExtendIntake(intake))
-      .whileHeld(new AutoRampPowerIntake(intake, false))
+      .whileHeld(new AutoRampPowerIntake(intake))
       .whenReleased(new RetractIntake(intake));
 
     new Button(manipulatorController::getLeftBumper)
