@@ -9,7 +9,6 @@ import frc.robot.subsystems.Conveyor;
 
 public class AutomaticConveyor extends CommandBase {
     Conveyor conveyorSubsystem;
-    SystemState systemState = SystemState.IDLE;
     DoubleSupplier manualPower;
     BooleanSupplier manualOveride;
     BooleanSupplier switchToIdle;
@@ -24,69 +23,27 @@ public class AutomaticConveyor extends CommandBase {
 
     }
 
-  //  public void initialize() {
-
- //   }
-
     public void execute() {
-        int inRobot = conveyorSubsystem.getInRobot();
-        switch (systemState) {
-            case IDLE:
-                conveyorSubsystem.setPower(0);
-                if (conveyorSubsystem.isBallPresentAtInput()) {
-                    transitionSystemState(SystemState.LOADING);
-                }
-
-                if (inRobot == 2) {
-                    if (!conveyorSubsystem.isBallPresentAtShooter()) {
-                        transitionSystemState(SystemState.LOADING);
-                    }
-                }
-                if (manualOveride.getAsBoolean()) {
-                    transitionSystemState(SystemState.MANUAL);
-                }
-                break;
-            case LOADING:
+        if (manualPower.getAsDouble() != 0) 
+        {
+            conveyorSubsystem.setPower(manualPower.getAsDouble());
+        }
+        else
+        {
+            if (conveyorSubsystem.isBallPresentAtInput()) 
+            {
                 conveyorSubsystem.setPower(Constants.CONVEYOR_POWER);
-                if (inRobot != 2) {
-                    transitionSystemState(SystemState.IDLE);
-                }
-
-                if (manualOveride.getAsBoolean()) {
-                    transitionSystemState(SystemState.MANUAL);
-                }
-                break;
-            case MANUAL:
-                conveyorSubsystem.setPower(manualPower.getAsDouble());
-                if (switchToIdle.getAsBoolean()) {
-                    transitionSystemState(SystemState.IDLE);
-                }
-                break;
+            } 
+            else 
+            {
+                conveyorSubsystem.setPower(0);
+            }
         }
+
     }
 
-    public enum SystemState {
-        // What the robot is currently doing
-        IDLE, LOADING, MANUAL;
+    public void end(boolean interrupted)
+    {
+        conveyorSubsystem.setPower(0);
     }
-
-    public void transitionSystemState(SystemState state) {
-        if (state == systemState) {
-            return;
-        }
-        switch (state) {
-            case IDLE:
-                break;
-            case LOADING:
-                break;
-            case MANUAL:
-                break;
-        }
-        systemState = state;
-    }
-
-   // public void end() {
-        
- //   }
-
 }

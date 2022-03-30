@@ -11,19 +11,19 @@ import frc.robot.commands.GoToCommand;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunShooter;
-import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.Conveyor;    
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.util.GeomUtil;
 
-public class ReferenceCThreeBall extends SequentialCommandGroup {
+public class ReferenceCFastFiveBall extends SequentialCommandGroup {
     
-    public ReferenceCThreeBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
+    public ReferenceCFastFiveBall(Intake intake, Drivetrain drivetrain, Shooter shooter, Conveyor conveyor) {
         addCommands(
             new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceCRobotCenter))),
-
-            new RunShooter(shooter, conveyor, true).withTimeout(2),
+           
+            new RunShooter(shooter, conveyor, true).withTimeout(1),
 
             new ExtendIntake(intake),
 
@@ -36,9 +36,9 @@ public class ReferenceCThreeBall extends SequentialCommandGroup {
                     ).transformBy(
                         new Transform2d(
                             new Translation2d(), 
-                            Rotation2d.fromDegrees(-35)
+                            Rotation2d.fromDegrees(10)
                         ))
-            )).raceWith(new RunIntake(intake, false)),
+            )).withSpeed(0.5).raceWith(new RunIntake(intake, false)),
 
             new GoToCommand(
                 drivetrain, 
@@ -51,12 +51,34 @@ public class ReferenceCThreeBall extends SequentialCommandGroup {
                             new Translation2d(), 
                             Rotation2d.fromDegrees(15)
                         ))
-            )).raceWith(new RunIntake(intake, false)),
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceCRobotCenter)).raceWith(new RunIntake(intake, false)),
+            )).withSpeed(0.5).raceWith(new RunIntake(intake, false)),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceCRobotCenter)).withSpeed(0.5).raceWith(new RunIntake(intake, false)),
 
             new RetractIntake(intake),
 
-            new RunShooter(shooter, conveyor, true).raceWith(new RunIntake(intake, false)).withTimeout(5)
-        );
-    }
+            new RunShooter(shooter, conveyor, true).raceWith(new RunIntake(intake, false)).withTimeout(3),
+
+            new ExtendIntake(intake),
+
+            new GoToCommand(
+                drivetrain, 
+                GeomUtil.getRobotCoordinate(
+                    GeomUtil.poseToGetCargo(
+                        FieldConstants.referenceCRobotCenter.getTranslation(), 
+                        FieldConstants.cargoG.getTranslation()
+                    ).transformBy(
+                        new Transform2d(
+                            new Translation2d(), 
+                            Rotation2d.fromDegrees(-20)
+                        ))
+            )).withSpeed(0.5).raceWith(new RunIntake(intake, false)),    
+                   
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceCRobotCenter)).withSpeed(0.5).raceWith(new RunIntake(intake, false)),
+
+            new RetractIntake(intake),
+
+            new RunShooter(shooter, conveyor, true).raceWith(new RunIntake(intake, false)).withTimeout(3)
+            );
+        
+   }
 }
