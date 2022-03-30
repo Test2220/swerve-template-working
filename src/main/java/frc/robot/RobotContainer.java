@@ -9,6 +9,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 // import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -112,6 +113,11 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+
+    // Optimize our loop time to avoid loop overruns
+    LiveWindow.disableAllTelemetry();
+
+
     ShuffleboardTab xbox = Shuffleboard.getTab("Xbox");
     xbox.addNumber("Left X", () -> {
       return driverController.getLeftX();
@@ -354,7 +360,7 @@ System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoG" + GeomUt
 
   private static double modifyAxis(double value) {
     // Deadband
-    value = deadband(value, 0.1);
+    value = deadband(value, 0.05);
 
     // Square the axis
     value = Math.copySign(value * value, value);

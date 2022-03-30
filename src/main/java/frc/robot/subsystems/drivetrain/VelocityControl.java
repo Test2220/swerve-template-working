@@ -49,6 +49,8 @@ public class VelocityControl {
         rotStart = wrap(in2[2]);
 
         rotEnd = optimizePos(rotEnd, rotStart);
+
+        rotEnd /= 2;
         
         // xEndState = new TrapezoidProfile.State(in[0], 0);
         // yEndState = new TrapezoidProfile.State(in[1], 0);
@@ -65,6 +67,8 @@ public class VelocityControl {
         double x = xSupplier.getAsDouble();
         double y = ySupplier.getAsDouble();
         double rot = rotSupplier.getAsDouble();
+
+        rot *= 2;
 
         // xCurrentState = new TrapezoidProfile.State(in[0], currentVel.getStr() * MAX_VELOCITY_METERS_PER_SECOND);
         // yCurrentState = new TrapezoidProfile.State(in[1], currentVel.getFwd() * MAX_VELOCITY_METERS_PER_SECOND);
