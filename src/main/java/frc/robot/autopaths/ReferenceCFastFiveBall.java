@@ -2,6 +2,7 @@ package frc.robot.autopaths;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
+import frc.robot.commands.AutoConveyor;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -36,9 +37,9 @@ public class ReferenceCFastFiveBall extends SequentialCommandGroup {
                     ).transformBy(
                         new Transform2d(
                             new Translation2d(), 
-                            Rotation2d.fromDegrees(10)
+                            Rotation2d.fromDegrees(-25)
                         ))
-            )).withSpeed(0.5).raceWith(new RunIntake(intake, false)),
+            )).withSpeed(0.7).raceWith(new RunIntake(intake, false)).raceWith(new AutoConveyor(conveyor)),
 
             new GoToCommand(
                 drivetrain, 
@@ -49,9 +50,9 @@ public class ReferenceCFastFiveBall extends SequentialCommandGroup {
                     ).transformBy(
                         new Transform2d(
                             new Translation2d(), 
-                            Rotation2d.fromDegrees(15)
+                            Rotation2d.fromDegrees(25)
                         ))
-            )).withSpeed(0.5).raceWith(new RunIntake(intake, false)),
+            )).withSpeed(0.7).raceWith(new RunIntake(intake, false)).raceWith(new AutoConveyor(conveyor)),
             new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceCRobotCenter)).withSpeed(0.5).raceWith(new RunIntake(intake, false)),
 
             new RetractIntake(intake),
@@ -69,9 +70,9 @@ public class ReferenceCFastFiveBall extends SequentialCommandGroup {
                     ).transformBy(
                         new Transform2d(
                             new Translation2d(), 
-                            Rotation2d.fromDegrees(-20)
+                            Rotation2d.fromDegrees(-45)
                         ))
-            )).withSpeed(0.5).raceWith(new RunIntake(intake, false)),    
+            )).withSpeed(0.7).raceWith(new RunIntake(intake, false)).raceWith(new AutoConveyor(conveyor)),    
                    
             new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceCRobotCenter)).withSpeed(0.5).raceWith(new RunIntake(intake, false)),
 

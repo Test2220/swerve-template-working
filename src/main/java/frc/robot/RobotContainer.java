@@ -21,6 +21,7 @@ import frc.robot.autopaths.ReferenceAOneBall;
 import frc.robot.autopaths.ReferenceATwoBall;
 import frc.robot.autopaths.ReferenceBOneBall;
 import frc.robot.autopaths.ReferenceBTwoBall;
+import frc.robot.autopaths.ReferenceCFastFiveBall;
 import frc.robot.autopaths.ReferenceCFiveBall;
 import frc.robot.autopaths.ReferenceCOneBall;
 import frc.robot.autopaths.ReferenceCThreeBall;
@@ -321,10 +322,10 @@ System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoG" + GeomUt
      // return new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor);
     
     //return new ReferenceCTwoBall(intake, drivetrain, shooter, conveyor);
-    //  return new ReferenceCFiveBall(intake, drivetrain, shooter, conveyor);
+      return new ReferenceCFastFiveBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceCThreeBall(intake, drivetrain, shooter, conveyor);
 
-     return new ReferenceDTwoBall(intake, drivetrain, shooter, conveyor);
+    // return new ReferenceDTwoBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDThreeBall(intake, drivetrain, shooter, conveyor);
     // return new ReferenceDFourBall(intake, drivetrain, shooter, conveyor);
 
