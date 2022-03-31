@@ -88,9 +88,9 @@ public class RobotContainer {
 
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
   
-  @SuppressWarnings("unused") // BrownOutMonitor just runs in the background and doesn't have any methods used here. 
-                              // it is just assigned to a variable so that it is not garbage collected.
-  private final BrownOutMonitor brownOutMonitor = new BrownOutMonitor(manipulatorController);
+  // @SuppressWarnings("unused") // BrownOutMonitor just runs in the background and doesn't have any methods used here. 
+  //                             // it is just assigned to a variable so that it is not garbage collected.
+  // private final BrownOutMonitor brownOutMonitor = new BrownOutMonitor(manipulatorController);
 
   //Slew Rate Limiters
   SlewRateLimiter leftY = new SlewRateLimiter(Constants.SLEW_RATE_LIMIT);
@@ -112,18 +112,18 @@ public class RobotContainer {
     LiveWindow.disableAllTelemetry();
 
 
-    ShuffleboardTab xbox = Shuffleboard.getTab("Xbox");
-    xbox.addNumber("Left X", () -> {
-      return driverController.getLeftX();
-    }).withWidget(BuiltInWidgets.kGraph);
+    // ShuffleboardTab xbox = Shuffleboard.getTab("Xbox");
+    // xbox.addNumber("Left X", () -> {
+    //   return driverController.getLeftX();
+    // }).withWidget(BuiltInWidgets.kGraph);
 
-    xbox.addNumber("Left Y", () -> {
-      return driverController.getLeftY();
-    }).withWidget(BuiltInWidgets.kGraph);
+    // xbox.addNumber("Left Y", () -> {
+    //   return driverController.getLeftY();
+    // }).withWidget(BuiltInWidgets.kGraph);
 
-    xbox.addNumber("Right X", () -> {
-      return driverController.getRightX();
-    }).withWidget(BuiltInWidgets.kGraph);
+    // xbox.addNumber("Right X", () -> {
+    //   return driverController.getRightX();
+    // }).withWidget(BuiltInWidgets.kGraph);
     // Set up the default command for the drivetrain.
     // The controls are for field-oriented driving:
     // Left stick Y axis -> forward and backwards movement
@@ -356,11 +356,11 @@ public class RobotContainer {
     return value;
   }
 
-  public static final NetworkTableEntry SLEW_RATE = 
-        Shuffleboard.getTab("Drivetrain")
-            .addPersistent("Slew Rate Limit", Constants.SLEW_RATE_LIMIT)
-            .withSize(1, 1)
-            .withPosition(0, 0)
-            .getEntry();
+  // public static final NetworkTableEntry SLEW_RATE = 
+  //       Shuffleboard.getTab("Drivetrain")
+  //           .addPersistent("Slew Rate Limit", Constants.SLEW_RATE_LIMIT)
+  //           .withSize(1, 1)
+  //           .withPosition(0, 0)
+  //           .getEntry();
 
 }

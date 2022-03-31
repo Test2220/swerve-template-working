@@ -35,7 +35,7 @@ public class ReferenceCFourBall extends SequentialCommandGroup {
                     ).transformBy(
                         new Transform2d(
                             new Translation2d(), 
-                            Rotation2d.fromDegrees(-12.5)
+                            Rotation2d.fromDegrees(-13)
                         ))
             )).raceWith(new RunIntake(intake, false)),
 
@@ -56,7 +56,7 @@ public class ReferenceCFourBall extends SequentialCommandGroup {
                     ).transformBy(
                         new Transform2d(
                             new Translation2d(), 
-                            Rotation2d.fromDegrees(-20)
+                            Rotation2d.fromDegrees(-14)
                         ))
             )).raceWith(new RunIntake(intake, false)),    
                    
