@@ -269,7 +269,7 @@ System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoG" + GeomUt
     
    // new Button(()-> driverController.getPOV() == 0).whileHeld(new AutoRampPowerIntake(intake, false));
 
-    new Button(() -> driverController.getPOV() == 180).whenPressed(new GoToCommand(drivetrain, new Position(0, 0, 0)));
+    // new Button(() -> driverController.getPOV() == 180).whenPressed(new GoToCommand(drivetrain, new Position(0, 0, 0)));
 
       new Button(() -> driverController.getLeftTriggerAxis() > 0.4)
       .whenPressed(
