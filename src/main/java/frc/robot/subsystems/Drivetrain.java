@@ -201,8 +201,8 @@ public class Drivetrain extends SubsystemBase {
   public void setSpeed(double speed) {
     if (speed >= 0 && speed <= 1)
       speedModifier = speed;
-    else
-      System.out.println("!!! Speed was set out of bounds! Valid input range is between 0 and 1! !!!");
+    // else
+      // System.out.println("!!! Speed was set out of bounds! Valid input range is between 0 and 1! !!!");
   }
 
   @Override

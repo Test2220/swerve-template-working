@@ -9,12 +9,14 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 // import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.autopaths.ReferenceAOneBall;
@@ -22,6 +24,7 @@ import frc.robot.autopaths.ReferenceATwoBall;
 import frc.robot.autopaths.ReferenceBOneBall;
 import frc.robot.autopaths.ReferenceBTwoBall;
 import frc.robot.autopaths.ReferenceCFiveBall;
+import frc.robot.autopaths.ReferenceCFourBall;
 import frc.robot.autopaths.ReferenceCOneBall;
 import frc.robot.autopaths.ReferenceCThreeBall;
 import frc.robot.autopaths.ReferenceCTwoBall;
@@ -37,7 +40,7 @@ import frc.robot.commands.ExtendIntake;
 import frc.robot.commands.LimelightAutoTurning;
 import frc.robot.commands.LimelightDefaultCommand;
 // import frc.robot.commands.PPFollowPath;
-import frc.robot.commands.PixyCamAutoTurning;
+// import frc.robot.commands.PixyCamAutoTurning;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.RunIntakeTeleop;
 import frc.robot.commands.RunShooter;
@@ -53,9 +56,9 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.PixyCamSPI;
+// import frc.robot.subsystems.PixyCamSPI;
 import frc.robot.subsystems.Shooter;
-import io.github.pseudoresonance.pixy2api.Pixy2CCC;
+// import io.github.pseudoresonance.pixy2api.Pixy2CCC;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -80,7 +83,7 @@ public class RobotContainer {
   private final Climber climber = new Climber();
 
   private final Limelight limelight = new Limelight();
-  private final PixyCamSPI pixy = new PixyCamSPI(0);
+  // private final PixyCamSPI pixy = new PixyCamSPI(0);
   // private final PowerDistribution powerDistribution = new PowerDistribution();
 
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -164,6 +167,7 @@ public class RobotContainer {
     autoChooser.addOption("Reference C One Ball Auto", new ReferenceCOneBall(intake, drivetrain, shooter, conveyor));
     autoChooser.addOption("Reference C Two Ball Auto", new ReferenceCTwoBall(intake, drivetrain, shooter, conveyor));
     autoChooser.addOption("Reference C Three Ball Auto", new ReferenceCThreeBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference C Four Ball Auto", new ReferenceCFourBall(intake, drivetrain, shooter, conveyor));
     autoChooser.addOption("Reference C Five Ball Auto", new ReferenceCFiveBall(intake, drivetrain, shooter, conveyor));
 
     autoChooser.addOption("Reference D One Ball Auto", new ReferenceDOneBall(intake, drivetrain, shooter, conveyor));
@@ -230,42 +234,55 @@ public class RobotContainer {
                 },
                 limelight, drivetrain));
 
-    new Button(driverController::getAButton).whileHeld(new PixyCamAutoTurning(
-        (output) -> {
-          drivetrain.drive(
-              -modifyAxis(driverController.getLeftY()),
-              -modifyAxis(driverController.getLeftX()),
-              output,
-              false);
-        },
-        pixy, Pixy2CCC.CCC_SIG1, drivetrain));
+    // new Button(driverController::getAButton).whileHeld(new PixyCamAutoTurning(
+    //     (output) -> {
+    //       drivetrain.drive(
+    //           -modifyAxis(driverController.getLeftY()),
+    //           -modifyAxis(driverController.getLeftX()),
+    //           output,
+    //           false);
+    //     },
+    //     pixy, Pixy2CCC.CCC_SIG1, drivetrain));
 
-    new Button(driverController::getBButton).whileHeld(new PixyCamAutoTurning(
-        (output) -> {
-          drivetrain.drive(
-              -modifyAxis(driverController.getLeftY()),
-              -modifyAxis(driverController.getLeftX()),
-              output,
-              false);
-        },
-        pixy, Pixy2CCC.CCC_SIG2, drivetrain));
+    // new Button(driverController::getBButton).whileHeld(new PixyCamAutoTurning(
+    //     (output) -> {
+    //       drivetrain.drive(
+    //           -modifyAxis(driverController.getLeftY()),
+    //           -modifyAxis(driverController.getLeftX()),
+    //           output,
+    //           false);
+    //     },
+    //     pixy, Pixy2CCC.CCC_SIG2, drivetrain));
 
-    new Button(driverController::getXButton).whileHeld(new PixyCamAutoTurning(
-        (output) -> {
-          double forward = 0.2;
-          if (pixy.getSeesTarget() != true) {
-            forward = 0;
-            output = 0.2;
-          }
-          drivetrain.drive(
-              forward,
-              0,
-              output,
-              true);
-        },
-        pixy, Pixy2CCC.CCC_SIG1, drivetrain));
+    // new Button(driverController::getXButton).whileHeld(new PixyCamAutoTurning(
+    //     (output) -> {
+    //       double forward = 0.2;
+    //       if (pixy.getSeesTarget() != true) {
+    //         forward = 0;
+    //         output = 0.2;
+    //       }
+    //       drivetrain.drive(
+    //           forward,
+    //           0,
+    //           output,
+    //           true);
+    //     },
+    //     pixy, Pixy2CCC.CCC_SIG1, drivetrain));
     
-   // new Button(()-> driverController.getPOV() == 0).whileHeld(new AutoRampPowerIntake(intake, false));
+   new Button(()-> driverController.getPOV() == 0).whileHeld(new FunctionalCommand(
+     ()->{}, 
+     ()->{
+       manipulatorController.setRumble(RumbleType.kLeftRumble, 1);
+       manipulatorController.setRumble(RumbleType.kRightRumble, 1);
+
+     }, 
+     (interrupted)->{
+      manipulatorController.setRumble(RumbleType.kLeftRumble, 0);
+      manipulatorController.setRumble(RumbleType.kRightRumble, 0);
+
+
+     }, 
+     ()->false));
 
     // new Button(() -> driverController.getPOV() == 180).whenPressed(new GoToCommand(drivetrain, new Position(0, 0, 0)));
 

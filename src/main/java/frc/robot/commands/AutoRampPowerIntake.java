@@ -26,7 +26,7 @@ public class AutoRampPowerIntake extends CommandBase {
         intakeDraw = 0;
         sensorPosition = intake.getSensorPosition();
         double change = previousSensorPosition - sensorPosition;
-        System.out.println(sensorPosition);
+        // System.out.println(sensorPosition);
         if (staticCycles > 50 && staticCycles < 100){
             intake.setPower(Constants.INTAKE_UNJAM_POWER_MAX);
             staticCycles++;
