@@ -6,6 +6,7 @@ import frc.robot.commands.AutoConveyor;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.FieldConstants;
 import frc.robot.commands.ExtendIntake;
 import frc.robot.commands.GoToCommand;
@@ -24,7 +25,7 @@ public class ReferenceCFastFiveBall extends SequentialCommandGroup {
         addCommands(
             new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceCRobotCenter))),
            
-            new RunShooter(shooter, conveyor, true).withTimeout(1),
+            new RunShooter(shooter, conveyor, Constants.AUTO_LOW_GOAL).withTimeout(1),
 
             new ExtendIntake(intake),
 
@@ -57,7 +58,7 @@ public class ReferenceCFastFiveBall extends SequentialCommandGroup {
 
             new RetractIntake(intake),
 
-            new RunShooter(shooter, conveyor, true).raceWith(new RunIntake(intake, false)).withTimeout(3),
+            new RunShooter(shooter, conveyor, Constants.AUTO_LOW_GOAL).raceWith(new RunIntake(intake, false)).withTimeout(3),
 
             new ExtendIntake(intake),
 
@@ -78,7 +79,7 @@ public class ReferenceCFastFiveBall extends SequentialCommandGroup {
 
             new RetractIntake(intake),
 
-            new RunShooter(shooter, conveyor, true).raceWith(new RunIntake(intake, false)).withTimeout(3)
+            new RunShooter(shooter, conveyor, Constants.AUTO_LOW_GOAL).raceWith(new RunIntake(intake, false)).withTimeout(3)
             );
         
    }

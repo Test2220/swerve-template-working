@@ -21,7 +21,6 @@ import frc.robot.autopaths.ReferenceAOneBall;
 import frc.robot.autopaths.ReferenceATwoBall;
 import frc.robot.autopaths.ReferenceBOneBall;
 import frc.robot.autopaths.ReferenceBTwoBall;
-import frc.robot.autopaths.ReferenceCFastFiveBall;
 import frc.robot.autopaths.ReferenceCFiveBall;
 import frc.robot.autopaths.ReferenceCOneBall;
 import frc.robot.autopaths.ReferenceCThreeBall;
@@ -34,7 +33,6 @@ import frc.robot.commands.AutomaticConveyor;
 import frc.robot.commands.DefaultClimber;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.ExtendIntake;
-import frc.robot.commands.GoToCommand;
 // import frc.robot.commands.FollowPath;
 import frc.robot.commands.LimelightAutoTurning;
 import frc.robot.commands.LimelightDefaultCommand;
@@ -57,8 +55,6 @@ import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.PixyCamSPI;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.drivetrain.Position;
-import frc.robot.util.GeomUtil;
 import io.github.pseudoresonance.pixy2api.Pixy2CCC;
 
 /**
@@ -162,10 +158,12 @@ public class RobotContainer {
     autoChooser.addOption("Reference A Two Ball Auto", new ReferenceATwoBall(intake, drivetrain, shooter, conveyor));
    
     autoChooser.addOption("Reference B One Ball Auto", new ReferenceBOneBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference B tWO Ball Auto", new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor));
 
 
     autoChooser.addOption("Reference C One Ball Auto", new ReferenceCOneBall(intake, drivetrain, shooter, conveyor));
     autoChooser.addOption("Reference C Two Ball Auto", new ReferenceCTwoBall(intake, drivetrain, shooter, conveyor));
+    autoChooser.addOption("Reference C Three Ball Auto", new ReferenceCThreeBall(intake, drivetrain, shooter, conveyor));
     autoChooser.addOption("Reference C Five Ball Auto", new ReferenceCFiveBall(intake, drivetrain, shooter, conveyor));
 
     autoChooser.addOption("Reference D One Ball Auto", new ReferenceDOneBall(intake, drivetrain, shooter, conveyor));
@@ -175,25 +173,25 @@ public class RobotContainer {
     Shuffleboard.getTab("Auto").add("Auto", autoChooser);
 
     //System.out.println(GeomUtil.getRotation(FieldConstants.referenceCRobotCenter.getTranslation(), FieldConstants.cargoG.getTranslation()).getDegrees());
-    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoD" + GeomUtil.poseToGetCargo(
-      FieldConstants.referenceCRobotCenter.getTranslation(), 
-      FieldConstants.cargoD.getTranslation()
-  ).getRotation().getDegrees());
+//     System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoD" + GeomUtil.poseToGetCargo(
+//       FieldConstants.referenceCRobotCenter.getTranslation(), 
+//       FieldConstants.cargoD.getTranslation()
+//   ).getRotation().getDegrees());
 
-  System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!CargoDToCargoE" + GeomUtil.poseToGetCargo(
-      FieldConstants.cargoD.getTranslation(), 
-      FieldConstants.cargoE.getTranslation()
-  ).getRotation().getDegrees());
+//   System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!CargoDToCargoE" + GeomUtil.poseToGetCargo(
+//       FieldConstants.cargoD.getTranslation(), 
+//       FieldConstants.cargoE.getTranslation()
+//   ).getRotation().getDegrees());
 
-  System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!CargoETOrefC" + GeomUtil.poseToGetCargo(
-    FieldConstants.cargoE.getTranslation(), 
-    FieldConstants.referenceCRobotCenter.getTranslation()
-).getRotation().getDegrees());
+//   System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!CargoETOrefC" + GeomUtil.poseToGetCargo(
+//     FieldConstants.cargoE.getTranslation(), 
+//     FieldConstants.referenceCRobotCenter.getTranslation()
+// ).getRotation().getDegrees());
 
-System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoG" + GeomUtil.poseToGetCargo(
-    FieldConstants.referenceCRobotCenter.getTranslation(), 
-    FieldConstants.cargoG.getTranslation()
-).getRotation().getDegrees());
+// System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoG" + GeomUtil.poseToGetCargo(
+//     FieldConstants.referenceCRobotCenter.getTranslation(), 
+//     FieldConstants.cargoG.getTranslation()
+// ).getRotation().getDegrees());
 
       }
 
@@ -314,20 +312,7 @@ System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoG" + GeomUt
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    //return autoChooser.getSelected();
-
-     // return new ReferenceATwoBall(intake, drivetrain, shooter, conveyor);
-
-
-     // return new ReferenceBTwoBall(intake, drivetrain, shooter, conveyor);
-    
-    //return new ReferenceCTwoBall(intake, drivetrain, shooter, conveyor);
-      return new ReferenceCFastFiveBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceCThreeBall(intake, drivetrain, shooter, conveyor);
-
-    // return new ReferenceDTwoBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceDThreeBall(intake, drivetrain, shooter, conveyor);
-    // return new ReferenceDFourBall(intake, drivetrain, shooter, conveyor);
+    return autoChooser.getSelected();
 
 
   }

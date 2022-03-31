@@ -5,6 +5,7 @@ import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.FieldConstants;
 import frc.robot.commands.ExtendIntake;
 import frc.robot.commands.GoToCommand;
@@ -38,7 +39,7 @@ public class ReferenceBTwoBall extends SequentialCommandGroup {
             )).raceWith(new RunIntake(intake, false)),            
             new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceBRobotCenter)).raceWith(new RunIntake(intake, false)),
 
-            new RunShooter(shooter, conveyor, true).raceWith(new RunIntake(intake, false)).withTimeout(4)
+            new RunShooter(shooter, conveyor, Constants.AUTO_LOW_GOAL).raceWith(new RunIntake(intake, false)).withTimeout(4)
         );
     }
 }

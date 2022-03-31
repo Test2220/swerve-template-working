@@ -121,6 +121,7 @@ public final class Constants {
     // public static final TalonFXInvertType RIGH_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
     public static final double SHOOTER_POWER_HIGH = -1; //need shooter power value
     public static final double SHOOTER_POWER_LOW = -0.5;
+    public static final boolean AUTO_LOW_GOAL = false;
 
     public static final ShuffleboardTab SHUFFLEBOARD_SHOOTER = Shuffleboard.getTab("Shooter");
     public static final NetworkTableEntry SHUFFLEBOARD_SHOOTER_POWER_HIGH = 
