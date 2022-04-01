@@ -143,13 +143,15 @@ public final class FieldConstants {
           GeomUtil.transformFromTranslation(tarmacInnerDiameter / 2.0, 0.0));*/
   }
 
+  public static Pose2d oneBallTaxiPoseFromReferencPose2d(Pose2d pose){
+    return pose.transformBy(GeomUtil.transformFromTranslation((Constants.robotLengthWithBumpers)*2, 0));
+     /* new Pose2d(hubCenter, referenceARotation).transformBy(
+           GeomUtil.transformFromTranslation(tarmacInnerDiameter / 2.0, 0.0));*/
+   }
+
   public static final Pose2d referenceARobotCenter = robotCenterFromReference(referenceA);
   public static final Pose2d referenceBRobotCenter = robotCenterFromReference(referenceB);
   public static final Pose2d referenceCRobotCenter = robotCenterFromReference(referenceC);
   public static final Pose2d referenceDRobotCenter = robotCenterFromReference(referenceD);
-  public static final Pose2d referenceAOppositeRobotCenter = robotCenterFromReference(referenceAOpposite);
-  public static final Pose2d referenceBOppositeRobotCenter = robotCenterFromReference(referenceBOpposite);
-  public static final Pose2d referenceCOppositeRobotCenter = robotCenterFromReference(referenceCOpposite);
-  public static final Pose2d referenceDOppositeRobotCenter = robotCenterFromReference(referenceDOpposite);
 
 }

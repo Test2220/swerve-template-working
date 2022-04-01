@@ -17,7 +17,10 @@ public class ReferenceCOneBall extends SequentialCommandGroup {
         addCommands(
             new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceCRobotCenter))),
 
-            new RunShooter(shooter, conveyor, Constants.AUTO_LOW_GOAL).withTimeout(2)
+            new RunShooter(shooter, conveyor, Constants.AUTO_LOW_GOAL).withTimeout(2),
+
+            new GoToCommand(drivetrain, FieldConstants.oneBallTaxiPoseFromReferencPose2d(FieldConstants.referenceCRobotCenter))
+
         );
     }
 }
