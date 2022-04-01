@@ -311,11 +311,11 @@ public class RobotContainer {
 
     new Button(() -> driverController.getLeftTriggerAxis() > 0.4)
       .whileHeld(
-          new RunShooter(shooter, conveyor, true))
+          new RunShooter(shooter, conveyor, false))
 ;
      new Button(driverController::getLeftBumper)      
       .whileHeld(
-          new RunShooter(shooter, conveyor, false));
+          new RunShooter(shooter, conveyor, true));
 
     // new Button(driverController::getAButton).whileHeld(new PixyCamAutoTurning(
     //     (output) -> {
