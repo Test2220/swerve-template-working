@@ -149,8 +149,8 @@ public class RobotContainer {
         () -> manipulatorController.getStartButton()));
 
     climber.setDefaultCommand(new DefaultClimber(climber, 
-        () -> -modifyAxis(manipulatorController.getLeftY()),
-        () -> -modifyAxis(manipulatorController.getRightY())
+        () -> -modifyAxis(manipulatorController.getRightY()),
+        () -> -modifyAxis(manipulatorController.getLeftY())
     ));
 
     // Configure the button bindings

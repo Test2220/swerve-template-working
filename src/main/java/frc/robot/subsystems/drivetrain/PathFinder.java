@@ -20,9 +20,9 @@ public class PathFinder {
     private double timeSinceLastCheck;
 
     public PathFinder(String path, Position currentPos) {
-        xController = new PIDController(ShuffleboardPID.axisP.getDouble(0), ShuffleboardPID.axisI.getDouble(0), ShuffleboardPID.axisD.getDouble(0));
-        yController = new PIDController(ShuffleboardPID.axisP.getDouble(0), ShuffleboardPID.axisI.getDouble(0), ShuffleboardPID.axisD.getDouble(0));
-        rController = new PIDController(ShuffleboardPID.rotP.getDouble(0), ShuffleboardPID.rotI.getDouble(0), ShuffleboardPID.rotD.getDouble(0));
+        xController = new PIDController(ShuffleboardPID.axisP.getAsDouble(), ShuffleboardPID.axisI.getAsDouble(), ShuffleboardPID.axisD.getAsDouble());
+        yController = new PIDController(ShuffleboardPID.axisP.getAsDouble(), ShuffleboardPID.axisI.getAsDouble(), ShuffleboardPID.axisD.getAsDouble());
+        rController = new PIDController(ShuffleboardPID.rotP.getAsDouble(), ShuffleboardPID.rotI.getAsDouble(), ShuffleboardPID.rotD.getAsDouble());
 
         rController.enableContinuousInput(-Math.PI, Math.PI);
         rController.setTolerance(0.2);
@@ -41,9 +41,9 @@ public class PathFinder {
     public DriveDirection getDirection(Position currentPos) {
         double current[] = currentPos.getPos();
 
-        xController.setPID(ShuffleboardPID.axisP.getDouble(0), ShuffleboardPID.axisI.getDouble(0), ShuffleboardPID.axisD.getDouble(0));
-        yController.setPID(ShuffleboardPID.axisP.getDouble(0), ShuffleboardPID.axisI.getDouble(0), ShuffleboardPID.axisD.getDouble(0));
-        rController.setPID(ShuffleboardPID.rotP.getDouble(0), ShuffleboardPID.rotI.getDouble(0), ShuffleboardPID.rotD.getDouble(0));
+        xController.setPID(ShuffleboardPID.axisP.getAsDouble(), ShuffleboardPID.axisI.getAsDouble(), ShuffleboardPID.axisD.getAsDouble());
+        yController.setPID(ShuffleboardPID.axisP.getAsDouble(), ShuffleboardPID.axisI.getAsDouble(), ShuffleboardPID.axisD.getAsDouble());
+        rController.setPID(ShuffleboardPID.rotP.getAsDouble(), ShuffleboardPID.rotI.getAsDouble(), ShuffleboardPID.rotD.getAsDouble());
 
         double time = Timer.getFPGATimestamp() - timeSinceLastCheck;
 

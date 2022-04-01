@@ -79,9 +79,9 @@ public class VelocityControl {
         // double x = xProfile.calculate(time).position;
         // double y = yProfile.calculate(time).position;
 
-        ShuffleboardPID.xPos.setDouble(x);
-        ShuffleboardPID.yPos.setDouble(y);
-        ShuffleboardPID.rPos.setDouble(rot);
+        // ShuffleboardPID.xPos.setDouble(x);
+        // ShuffleboardPID.yPos.setDouble(y);
+        // ShuffleboardPID.rPos.setDouble(rot);
 
         return new Position(x, y, rot);
     }
