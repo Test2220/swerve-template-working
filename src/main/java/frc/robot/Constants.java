@@ -80,6 +80,13 @@ public final class Constants {
     public static final double BL_STEER_OFFSET = -Math.toRadians(289.94293212890625);
     public static final double BR_STEER_OFFSET = -Math.toRadians(98.0804443359375);
 
+
+    //Pipeline 
+    public static final int INTAKE_LIMELIGHT_BLUE_PIPELINE = 0;
+    public static final int INTAKE_LIMELIGHT_RED_PIPELINE = 1;
+
+
+    public static final int SHOOTER_LIMELIGHT_HUB_PIPELINE = 0;
     // Max
     public static final double MAX_VOLTAGE = 12.0;
     public static final double MAX_VELOCITY_METERS_PER_SECOND = 6380.0 / 60.0 *
@@ -99,7 +106,9 @@ public final class Constants {
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
         kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     public static final int BlinkinPWMPort = 7;
-    public static final String LIMELIGHT_TABLE_NAME = "limelight";
+    public static final String LIMELIGHT_TABLE_NAME_SHOOTER = "ShooterLimelight";
+    public static final String LIMELIGHT_TABLE_NAME_INTAKE = "IntakeLimelight";
+
 
 
     public static final int Intake_Talon_Left = 21; 

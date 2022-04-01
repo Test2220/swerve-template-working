@@ -80,7 +80,9 @@ public class RobotContainer {
   private final Conveyor conveyor = new Conveyor();
   private final Climber climber = new Climber();
 
-  private final Limelight shooterLimelight = new Limelight(Constants.LIMELIGHT_TABLE_NAME);
+  private final Limelight shooterLimelight = new Limelight(Constants.LIMELIGHT_TABLE_NAME_SHOOTER);
+  private final Limelight intakeLimelight = new Limelight(Constants.LIMELIGHT_TABLE_NAME_INTAKE);
+
   private final PixyCamSPI pixy = new PixyCamSPI(0);
   // private final PowerDistribution powerDistribution = new PowerDistribution();
 
@@ -132,6 +134,8 @@ public class RobotContainer {
     led.setDefaultCommand(new AllianceLEDs(led));
 
     shooterLimelight.setDefaultCommand(new LimelightDefaultCommand(shooterLimelight));
+    intakeLimelight.setDefaultCommand(new LimelightDefaultCommand(intakeLimelight));
+
 
     conveyor.setDefaultCommand(new AutomaticConveyor(conveyor,
         () -> {
@@ -226,10 +230,34 @@ public class RobotContainer {
                   drivetrain.drive(
                       -modifyAxis(driverController.getLeftY()),
                       -modifyAxis(driverController.getLeftX()),
+                      output, 
+                      true);
+                },
+                shooterLimelight,Constants.SHOOTER_LIMELIGHT_HUB_PIPELINE, drivetrain));
+
+    new Button(driverController::getAButton)
+        .whileHeld(
+            new LimelightAutoTurning(
+                (output) -> {
+                  drivetrain.drive(
+                      -modifyAxis(driverController.getLeftY()),
+                      -modifyAxis(driverController.getLeftX()),
                       output,
                       true);
                 },
-                shooterLimelight, drivetrain));
+                intakeLimelight, Constants.INTAKE_LIMELIGHT_BLUE_PIPELINE, drivetrain));
+
+    new Button(driverController::getBButton)
+        .whileHeld(
+            new LimelightAutoTurning(
+                (output) -> {
+                  drivetrain.drive(
+                      -modifyAxis(driverController.getLeftY()),
+                      -modifyAxis(driverController.getLeftX()),
+                      output,
+                      true);
+                },
+                intakeLimelight, Constants.INTAKE_LIMELIGHT_RED_PIPELINE, drivetrain));
 
     new Button(driverController::getAButton).whileHeld(new PixyCamAutoTurning(
         (output) -> {

@@ -11,17 +11,20 @@ import frc.robot.subsystems.Limelight.LEDMode;
 
 public class LimelightAutoTurning extends PIDCommand{
     Limelight limelight ;
+    int pipeline;
     
-    public LimelightAutoTurning(DoubleConsumer useOutput, Limelight limelight, Subsystem... requirements) {
+    public LimelightAutoTurning(DoubleConsumer useOutput, Limelight limelight, int pipeline, Subsystem... requirements) {
 
         super(new PIDController(0.01, 0, 0), limelight::getHOffset, () -> 0, useOutput, requirements);
         addRequirements(limelight);
         this.limelight = limelight;
+        this.pipeline = pipeline;
         
     }
    @Override
    public void initialize() {
        super.initialize();
+       limelight.setPipeline(pipeline);
        limelight.setCameraMode(CameraMode.VISION_PROCESSING);
        limelight.setLEDMode(LEDMode.ON);
     } 
