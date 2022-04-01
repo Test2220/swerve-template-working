@@ -5,15 +5,15 @@
 package frc.robot;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.networktables.NetworkTableEntry;
+// import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 // import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+// import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+// import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
@@ -46,7 +46,7 @@ import frc.robot.commands.RunIntakeTeleop;
 import frc.robot.commands.RunShooter;
 // import frc.robot.commands.TerminalTwoBallAuto;
 import frc.robot.commands.TiltClimber;
-import frc.robot.subsystems.BrownOutMonitor;
+// import frc.robot.subsystems.BrownOutMonitor;
 // import frc.robot.commands.HangarTwoBallAuto;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Climber.ClimberPositions;
@@ -233,6 +233,12 @@ public class RobotContainer {
                       true);
                 },
                 limelight, drivetrain));
+    new Button(driverController::getAButton)
+        .whileHeld(
+          new RunShooter(shooter, conveyor, true));
+    new Button(driverController::getBButton)
+        .whileHeld(
+          new RunShooter(shooter, conveyor, false));
 
     // new Button(driverController::getAButton).whileHeld(new PixyCamAutoTurning(
     //     (output) -> {
