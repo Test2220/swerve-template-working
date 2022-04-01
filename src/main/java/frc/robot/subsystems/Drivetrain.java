@@ -10,6 +10,8 @@ import com.swervedrivespecialties.swervelib.SwerveModule;
 
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardContainer;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -32,7 +34,7 @@ public class Drivetrain extends SubsystemBase {
   private final SwerveModule m_backLeftModule;
   private final SwerveModule m_backRightModule;
 
-  public ShuffleboardTab tab;
+  // public ShuffleboardTab tab;
 
   private WheelsState wheelsCurrent;
 
@@ -64,12 +66,14 @@ public class Drivetrain extends SubsystemBase {
 
     timeSinceLastCheck = Timer.getFPGATimestamp();
 
-    tab = Shuffleboard.getTab("Drivetrain");
+    // tab = Shuffleboard.getTab("Drivetrain");
+    ShuffleboardLayout emptyContainer = null;
 
     m_frontLeftModule = Mk4SwerveModuleHelper.createFalcon500(
-      tab.getLayout("Front Left Module", BuiltInLayouts.kList)
-              .withSize(1, 4)
-              .withPosition(0, 0),
+      // tab.getLayout("Front Left Module", BuiltInLayouts.kList)
+      //         .withSize(1, 4)
+      //         .withPosition(0, 0),
+      emptyContainer,
       Mk4SwerveModuleHelper.GearRatio.L2,
       FL_MODULE_DM,
       FL_MODULE_SM,
@@ -78,9 +82,10 @@ public class Drivetrain extends SubsystemBase {
     );
 
     m_frontRightModule = Mk4SwerveModuleHelper.createFalcon500(
-      tab.getLayout("Front Right Module", BuiltInLayouts.kList)
-              .withSize(1, 4)
-              .withPosition(1, 0),
+      // tab.getLayout("Front Right Module", BuiltInLayouts.kList)
+      //         .withSize(1, 4)
+      //         .withPosition(1, 0),
+      emptyContainer,
       Mk4SwerveModuleHelper.GearRatio.L2,
       FR_MODULE_DM,
       FR_MODULE_SM,
@@ -89,9 +94,10 @@ public class Drivetrain extends SubsystemBase {
     );
 
     m_backLeftModule = Mk4SwerveModuleHelper.createFalcon500(
-      tab.getLayout("Back Left Module", BuiltInLayouts.kList)
-              .withSize(1, 4)
-              .withPosition(2, 0),
+      // tab.getLayout("Back Left Module", BuiltInLayouts.kList)
+      //         .withSize(1, 4)
+      //         .withPosition(2, 0),
+      emptyContainer,
       Mk4SwerveModuleHelper.GearRatio.L2,
       BL_MODULE_DM,
       BL_MODULE_SM,
@@ -100,9 +106,10 @@ public class Drivetrain extends SubsystemBase {
     );
 
     m_backRightModule = Mk4SwerveModuleHelper.createFalcon500(
-      tab.getLayout("Back Right Module", BuiltInLayouts.kList)
-              .withSize(1, 4)
-              .withPosition(3, 0),
+      // tab.getLayout("Back Right Module", BuiltInLayouts.kList)
+      //         .withSize(1, 4)
+      //         .withPosition(3, 0),
+      emptyContainer,
       Mk4SwerveModuleHelper.GearRatio.L2,
       BR_MODULE_DM,
       BR_MODULE_SM,
@@ -110,8 +117,8 @@ public class Drivetrain extends SubsystemBase {
       BR_STEER_OFFSET
     );
 
-    tab.addNumber("X calc", () -> currentPos.getPos()[0]).withSize(1, 1).withPosition(6, 2);
-    tab.addNumber("Y calc", () -> currentPos.getPos()[1]).withSize(1, 1).withPosition(6, 3);
+    // tab.addNumber("X calc", () -> currentPos.getPos()[0]).withSize(1, 1).withPosition(6, 2);
+    // tab.addNumber("Y calc", () -> currentPos.getPos()[1]).withSize(1, 1).withPosition(6, 3);
   }
 
   private double gyroOffsett = 0;
@@ -201,8 +208,8 @@ public class Drivetrain extends SubsystemBase {
   public void setSpeed(double speed) {
     if (speed >= 0 && speed <= 1)
       speedModifier = speed;
-    else
-      System.out.println("!!! Speed was set out of bounds! Valid input range is between 0 and 1! !!!");
+    // else
+      // System.out.println("!!! Speed was set out of bounds! Valid input range is between 0 and 1! !!!");
   }
 
   @Override

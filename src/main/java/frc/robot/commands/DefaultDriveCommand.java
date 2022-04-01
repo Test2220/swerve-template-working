@@ -53,7 +53,7 @@ public class DefaultDriveCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.setSpeed(0.4);
+    drivetrain.setSpeed(0.40);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

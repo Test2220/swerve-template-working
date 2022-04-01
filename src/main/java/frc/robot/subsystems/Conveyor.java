@@ -50,8 +50,8 @@ public class Conveyor extends SubsystemBase {
 
     public Conveyor() {
 
-        Shuffleboard.getTab("Conveyor").addBoolean("Sensor In", photoEyeSensorIn::get);
-        Shuffleboard.getTab("Conveyor").addBoolean("Sensor Out", photoEyeSensorOut::get);
+        // Shuffleboard.getTab("Conveyor").addBoolean("Sensor In", photoEyeSensorIn::get);
+        // Shuffleboard.getTab("Conveyor").addBoolean("Sensor Out", photoEyeSensorOut::get);
         // Shuffleboard.getTab("Conveyor").addNumber("In Robot", () -> inRobot);
         // Shuffleboard.getTab("Conveyor").addBoolean("Ball 1 Color Red", () -> ballOneColorRed);
         //      //   .withProperties(Map.of("colorWhenTrue", "red", "colorWhenFalse", "black"));

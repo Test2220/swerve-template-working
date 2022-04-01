@@ -132,19 +132,19 @@ public final class Constants {
     public static final double SHOOTER_POWER_LOW = -0.5;
     public static final boolean AUTO_LOW_GOAL = false;
 
-    public static final ShuffleboardTab SHUFFLEBOARD_SHOOTER = Shuffleboard.getTab("Shooter");
-    public static final NetworkTableEntry SHUFFLEBOARD_SHOOTER_POWER_HIGH = 
-        SHUFFLEBOARD_SHOOTER
-            .addPersistent("Shooter Power High", SHOOTER_POWER_HIGH)
-            .withSize(1, 1)
-            .withPosition(0, 0)
-            .getEntry();
-    public static final NetworkTableEntry SHUFFLEBOARD_SHOOTER_POWER_LOW = 
-        SHUFFLEBOARD_SHOOTER
-            .addPersistent("Shooter Power Low", SHOOTER_POWER_LOW)
-            .withSize(1, 1)
-            .withPosition(0, 1)
-            .getEntry();
+    // public static final ShuffleboardTab SHUFFLEBOARD_SHOOTER = Shuffleboard.getTab("Shooter");
+    // public static final NetworkTableEntry SHUFFLEBOARD_SHOOTER_POWER_HIGH = 
+    //     SHUFFLEBOARD_SHOOTER
+    //         .addPersistent("Shooter Power High", SHOOTER_POWER_HIGH)
+    //         .withSize(1, 1)
+    //         .withPosition(0, 0)
+    //         .getEntry();
+    // public static final NetworkTableEntry SHUFFLEBOARD_SHOOTER_POWER_LOW = 
+    //     SHUFFLEBOARD_SHOOTER
+    //         .addPersistent("Shooter Power Low", SHOOTER_POWER_LOW)
+    //         .withSize(1, 1)
+    //         .withPosition(0, 1)
+    //         .getEntry();
 
     public static final int CLIMBER_RIGHT_FALCON = 22;
     public static final int CLIMBER_LEFT_FALCON = 10; 
@@ -153,7 +153,7 @@ public final class Constants {
     public static final int CLIMBER_SOLENOID_LEFT_REVERSE = 5;
     public static final int CLIMBER_SOLENOID_RIGHT_FORWARD = 6;
     public static final int CLIMBER_SOLENOID_RIGHT_REVERSE = 7;
-    public static final double CLIMBER_POWER = 0.25; 
+    public static final double CLIMBER_POWER = 0.75; 
 
     public static final double CONVEYOR_POWER = 0.3;
 
