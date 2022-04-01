@@ -4,7 +4,6 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 /**
  * Limelight vision processing and high FOV driver camera subsystem. Contains
@@ -19,14 +18,16 @@ public class Limelight extends SubsystemBase {
     /* INSTANCE VARIABLES */
 
     // Network table for limelight, has camera data
-    private final NetworkTable limelight = NetworkTableInstance.getDefault().getTable(Constants.LIMELIGHT_TABLE_NAME);
+    private final NetworkTable limelight;
 
     /* SUBSYSTEM CONSTRUCTOR */
 
     /**
      * Limelight subsystem constructor. No arguments necessary or present.
      */
-    public Limelight() {
+    public Limelight(String limelightTableName) {
+        limelight =  NetworkTableInstance.getDefault().getTable(limelightTableName);
+
         // Set camera mode to use vision processing
         setCameraMode(CameraMode.VISION_PROCESSING);
 

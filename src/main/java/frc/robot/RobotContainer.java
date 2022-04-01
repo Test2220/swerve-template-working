@@ -9,6 +9,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 // import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -79,7 +80,7 @@ public class RobotContainer {
   private final Conveyor conveyor = new Conveyor();
   private final Climber climber = new Climber();
 
-  private final Limelight limelight = new Limelight();
+  private final Limelight shooterLimelight = new Limelight(Constants.LIMELIGHT_TABLE_NAME);
   private final PixyCamSPI pixy = new PixyCamSPI(0);
   // private final PowerDistribution powerDistribution = new PowerDistribution();
 
@@ -130,7 +131,7 @@ public class RobotContainer {
 
     led.setDefaultCommand(new AllianceLEDs(led));
 
-    limelight.setDefaultCommand(new LimelightDefaultCommand(limelight));
+    shooterLimelight.setDefaultCommand(new LimelightDefaultCommand(shooterLimelight));
 
     conveyor.setDefaultCommand(new AutomaticConveyor(conveyor,
         () -> {
@@ -228,7 +229,7 @@ public class RobotContainer {
                       output,
                       true);
                 },
-                limelight, drivetrain));
+                shooterLimelight, drivetrain));
 
     new Button(driverController::getAButton).whileHeld(new PixyCamAutoTurning(
         (output) -> {
@@ -265,7 +266,17 @@ public class RobotContainer {
         },
         pixy, Pixy2CCC.CCC_SIG1, drivetrain));
     
-   // new Button(()-> driverController.getPOV() == 0).whileHeld(new AutoRampPowerIntake(intake, false));
+   new Button(()-> driverController.getPOV() == 0)
+      .whenPressed(() -> {
+        manipulatorController.setRumble(RumbleType.kLeftRumble, 1);
+        manipulatorController.setRumble(RumbleType.kRightRumble, 1);
+
+      })
+      .whenReleased(() -> {
+        manipulatorController.setRumble(RumbleType.kLeftRumble, 0);
+        manipulatorController.setRumble(RumbleType.kRightRumble, 0);
+
+      });
 
     // new Button(() -> driverController.getPOV() == 180).whenPressed(new GoToCommand(drivetrain, new Position(0, 0, 0)));
 
