@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.FieldConstants;
+import frc.robot.commands.GoToCommand;
 import frc.robot.commands.RunShooter;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
