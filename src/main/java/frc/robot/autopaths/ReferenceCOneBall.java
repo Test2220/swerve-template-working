@@ -20,7 +20,7 @@ public class ReferenceCOneBall extends SequentialCommandGroup {
 
             new RunShooter(shooter, conveyor, Constants.AUTO_LOW_GOAL).withTimeout(2),
 
-            new GoToCommand(drivetrain, FieldConstants.oneBallTaxiPoseFromReferencPose2d(FieldConstants.referenceCRobotCenter))
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.oneBallTaxiPoseFromReferencPose2d(FieldConstants.referenceCRobotCenter)))
 
         );
     }

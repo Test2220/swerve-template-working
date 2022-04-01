@@ -26,7 +26,16 @@ public class DriverTab {
         CameraServer.addCamera(httpCamera);
 
       //  Shuffleboard.getTab("Driver Tab").add(httpCamera).withSize(7, 4).withPosition(0, 0);
-          Shuffleboard.getTab("Driver Tab").add(httpCamera).withSize(7, 4).withPosition(0, 0);
+          Shuffleboard.getTab("Driver Tab").add(httpCamera).withSize(4, 4).withPosition(0, 0);
+
+          HttpCamera httpCameraIntake = new HttpCamera("LimeLightCameraIntake", "http://10.22.20.211");
+          httpCameraIntake.setFPS(30);
+          httpCameraIntake.setResolution(320, 240);
+          httpCameraIntake.setPixelFormat(PixelFormat.kMJPEG);
+          CameraServer.addCamera(httpCameraIntake);
+  
+        //  Shuffleboard.getTab("Driver Tab").add(httpCamera).withSize(7, 4).withPosition(0, 0);
+            Shuffleboard.getTab("Driver Tab").add(httpCameraIntake).withSize(4, 4).withPosition(4, 0);
         
     }
         

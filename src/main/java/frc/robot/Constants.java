@@ -39,6 +39,7 @@ public final class Constants {
     // Calculate Ratio
     public static final double DRIVETRAIN_DIAMETER = Math.sqrt((DRIVETRAIN_LENGTH_METERS * DRIVETRAIN_LENGTH_METERS) + (DRIVETRAIN_WIDTH_METERS * DRIVETRAIN_WIDTH_METERS));
 
+    public static final double FRONT_OF_BUMPERS_TO_INTAKE = Units.inchesToMeters(11);
     public static final double robotLengthWithBumpers = Units.inchesToMeters(32);
     // CAN Bus IDs
 
@@ -104,8 +105,8 @@ public final class Constants {
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
         kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     public static final int BlinkinPWMPort = 7;
-    public static final String LIMELIGHT_TABLE_NAME_SHOOTER = "ShooterLimelight";
-    public static final String LIMELIGHT_TABLE_NAME_INTAKE = "IntakeLimelight";
+    public static final String LIMELIGHT_TABLE_NAME_SHOOTER = "limelight-shooter";
+    public static final String LIMELIGHT_TABLE_NAME_INTAKE = "limelight-intake";
 
 
 

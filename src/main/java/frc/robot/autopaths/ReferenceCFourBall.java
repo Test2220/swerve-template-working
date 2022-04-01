@@ -56,10 +56,9 @@ public class ReferenceCFourBall extends SequentialCommandGroup {
                     ).transformBy(
                         new Transform2d(
                             new Translation2d(), 
-                            Rotation2d.fromDegrees(-14)
+                            Rotation2d.fromDegrees(-25)
                         ))
             )).raceWith(new RunIntake(intake, false)),    
-                   
             new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceCRobotCenter)).raceWith(new RunIntake(intake, false)),
 
             new RetractIntake(intake),

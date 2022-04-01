@@ -84,6 +84,9 @@ public class RobotContainer {
 
   private final Limelight shooterLimelight = new Limelight(Constants.LIMELIGHT_TABLE_NAME_SHOOTER);
   private final Limelight intakeLimelight = new Limelight(Constants.LIMELIGHT_TABLE_NAME_INTAKE);
+ 
+  @SuppressWarnings("unused")
+  private final DriverTab driverTab = new DriverTab();
 
   //private final PixyCamSPI pixy = new PixyCamSPI(0);
   // private final PowerDistribution powerDistribution = new PowerDistribution();
@@ -135,8 +138,8 @@ public class RobotContainer {
 
     led.setDefaultCommand(new AllianceLEDs(led));
 
-    shooterLimelight.setDefaultCommand(new LimelightDefaultCommand(shooterLimelight));
-    intakeLimelight.setDefaultCommand(new LimelightDefaultCommand(intakeLimelight));
+    shooterLimelight.setDefaultCommand(new LimelightDefaultCommand(shooterLimelight, 0));
+    intakeLimelight.setDefaultCommand(new LimelightDefaultCommand(intakeLimelight, 0));
 
 
     conveyor.setDefaultCommand(new AutomaticConveyor(conveyor,
@@ -181,10 +184,12 @@ public class RobotContainer {
     Shuffleboard.getTab("Auto").add("Auto", autoChooser);
 
     //System.out.println(GeomUtil.getRotation(FieldConstants.referenceCRobotCenter.getTranslation(), FieldConstants.cargoG.getTranslation()).getDegrees());
-//     System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCTOCargoD" + GeomUtil.poseToGetCargo(
-//       FieldConstants.referenceCRobotCenter.getTranslation(), 
-//       FieldConstants.cargoD.getTranslation()
-//   ).getRotation().getDegrees());
+  //  System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refC" + FieldConstants.referenceC.getTranslation().toString());
+  //  System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCOpposite" + FieldConstants.referenceCOpposite.getTranslation().toString());
+  //  System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!cargoG" + FieldConstants.cargoG.getTranslation().toString());
+  //  System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!cargoGCenter" + FieldConstants.cargoGCenter.getTranslation().toString());
+
+
 
 //   System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!CargoDToCargoE" + GeomUtil.poseToGetCargo(
 //       FieldConstants.cargoD.getTranslation(), 

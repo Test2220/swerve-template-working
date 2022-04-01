@@ -11,14 +11,15 @@ import frc.robot.subsystems.Limelight;
  */
 public class LimelightDefaultCommand extends CommandBase {
     Limelight limelight;
-
+    int pipeline;
     /**
      * Constructor that requires the limelight, preventing other commands from using
      * the limelight while this is active.
      */
-    public LimelightDefaultCommand(Limelight limelight) {
+    public LimelightDefaultCommand(Limelight limelight, int pipeline) {
         this.limelight = limelight;
         addRequirements(limelight);
+        this.pipeline = pipeline;
 
     }
 
@@ -26,11 +27,12 @@ public class LimelightDefaultCommand extends CommandBase {
      * Turn's off LEDs when this command is initialized, or essentially when no
      * other command is active.
      */
-    // @Override
-    // public void initialize() {
-    //     limelight.setCameraMode(CameraMode.DRIVER_CAMERA);
-    //     limelight.setLEDMode(LEDMode.ON);
-    // }
+    @Override
+    public void initialize() {
+        limelight.setPipeline(pipeline);
+        // limelight.setCameraMode(CameraMode.DRIVER_CAMERA);
+        // limelight.setLEDMode(LEDMode.ON);
+    }
 
     /**
      * Called when the command ends because somebody called cancel() or another
