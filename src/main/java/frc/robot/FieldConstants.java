@@ -144,7 +144,7 @@ public final class FieldConstants {
   }
 
   public static Pose2d cargoCenterFromReference(Pose2d pose){
-    return pose.transformBy(GeomUtil.transformFromTranslation(((Constants.robotLengthWithBumpers/2))+Constants.FRONT_OF_BUMPERS_TO_INTAKE, 0));
+    return pose.transformBy(GeomUtil.transformFromTranslation(((Constants.robotLengthWithBumpers/2)), 0));
      /* new Pose2d(hubCenter, referenceARotation).transformBy(
            GeomUtil.transformFromTranslation(tarmacInnerDiameter / 2.0, 0.0));*/
    }

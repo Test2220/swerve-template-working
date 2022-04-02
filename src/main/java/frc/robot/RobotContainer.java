@@ -156,7 +156,7 @@ public class RobotContainer {
         () -> manipulatorController.getStartButton()));
 
     climber.setDefaultCommand(new DefaultClimber(climber, 
-        () -> -modifyAxis(manipulatorController.getRightY()),
+        () -> modifyAxis(manipulatorController.getRightY()),
         () -> -modifyAxis(manipulatorController.getLeftY())
     ));
 
@@ -186,8 +186,8 @@ public class RobotContainer {
     //System.out.println(GeomUtil.getRotation(FieldConstants.referenceCRobotCenter.getTranslation(), FieldConstants.cargoG.getTranslation()).getDegrees());
   //  System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refC" + FieldConstants.referenceC.getTranslation().toString());
   //  System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!refCOpposite" + FieldConstants.referenceCOpposite.getTranslation().toString());
-  //  System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!cargoG" + FieldConstants.cargoG.getTranslation().toString());
-  //  System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!cargoGCenter" + FieldConstants.cargoGCenter.getTranslation().toString());
+    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!cargoG" + FieldConstants.cargoG.getTranslation().toString());
+    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!cargoGCenter" + FieldConstants.cargoGCenter.getTranslation().toString());
 
 
 
