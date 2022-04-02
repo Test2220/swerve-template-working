@@ -222,14 +222,14 @@ public class RobotContainer {
         // No requirements because we don't need to interrupt anything
         .whenPressed(() -> drivetrain.zeroGyroscope());
 
-    // new Button(driverController::getLeftBumper)
-    //     .whenPressed(() -> 
-    //         drivetrain.decreaseSpeed()
-    //     );
-    // new Button(driverController::getRightBumper)
-    //     .whenPressed(() ->
-    //         drivetrain.increaseSpeed()
-    //     );
+    new Button(() -> driverController.getPOV() == 180)
+        .whenPressed(() -> 
+            drivetrain.decreaseSpeed()
+        );
+    new Button(() -> driverController.getPOV() == 0)
+        .whenPressed(() ->
+            drivetrain.increaseSpeed()
+        );
         
     new Button(driverController::getYButton)
         .whileHeld(

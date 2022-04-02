@@ -26,7 +26,7 @@ public class LimelightAutoTurning extends PIDCommand{
        super.initialize();
        limelight.setPipeline(pipeline);
        limelight.setCameraMode(CameraMode.VISION_PROCESSING);
-       limelight.setLEDMode(LEDMode.ON);
+    //    limelight.setLEDMode(LEDMode.ON);
     } 
     @Override
     public void end(boolean interrupted) {

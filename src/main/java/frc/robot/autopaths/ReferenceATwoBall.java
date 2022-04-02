@@ -35,7 +35,7 @@ public class ReferenceATwoBall extends SequentialCommandGroup {
                     ).transformBy(
                         new Transform2d(
                             new Translation2d(), 
-                            Rotation2d.fromDegrees(-30)
+                            Rotation2d.fromDegrees(-35)
                         ))
             )).raceWith(new RunIntake(intake, false)),
             
