@@ -186,12 +186,15 @@ public class Drivetrain extends SubsystemBase {
     speedModifier /= 1.1;
     if (speedModifier < 0.1)
       speedModifier = 0.1;
+      System.out.println("Speed has decreased: " + speedModifier);
   }
 
   public void increaseSpeed() {
     speedModifier *= 1.1;
     if (speedModifier > 1)
       speedModifier = 1;
+      System.out.println("Speed has increased: " + speedModifier);
+
   }
 
   public void resetSpeed() {
