@@ -154,7 +154,7 @@ public final class Constants {
     public static final int CLIMBER_SOLENOID_RIGHT_REVERSE = 7;
     public static final double CLIMBER_POWER = 0.75; 
 
-    public static final double CONVEYOR_POWER = 0.7;
+    public static final double CONVEYOR_POWER = 0.3;
 
 
     public static final int CONVEYOR_FALCON = 23;
