@@ -145,8 +145,8 @@ public final class Constants {
     //         .withPosition(0, 1)
     //         .getEntry();
 
-    public static final int CLIMBER_RIGHT_FALCON = 22;
-    public static final int CLIMBER_LEFT_FALCON = 10; 
+    public static final int CLIMBER_RIGHT_FALCON = 10;
+    public static final int CLIMBER_LEFT_FALCON = 22; 
     public static final NeutralMode CLIMBER_IDLE_BEHAVIOR = NeutralMode.Brake;
     public static final int CLIMBER_SOLENOID_LEFT_FORWARD = 4;
     public static final int CLIMBER_SOLENOID_LEFT_REVERSE = 5;
