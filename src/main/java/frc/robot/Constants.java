@@ -110,7 +110,7 @@ public final class Constants {
 
 
 
-    public static final int Intake_Talon_Left = 21; 
+    public static final int INTAKE_TALON_LEFT = 21; 
     public static final int LEFT_INTAKE_SOLENOID_FORWARD = 0;  
     public static final int LEFT_INTAKE_SOLENOID_REVERSE = 1;
     public static final int RIGHT_INTAKE_SOLENOID_FORWARD = 2;
@@ -166,4 +166,11 @@ public final class Constants {
     public static final double OFFSET = (-8 / 196.85) + 1;
 
     public static final double SLEW_RATE_LIMIT = 3;
+
+    public static final int LEFT_CLIMB_LIMIT_BOTTOM_PORT = 3;
+    public static final int LEFT_CLIMB_LIMIT_TOP_PORT = 4;
+    public static final int RIGHT_CLIMB_LIMIT_BOTTOM_PORT = 5;
+    public static final int RIGHT_CLIMB_LIMIT_TOP_PORT = 6;
+
+    public static final boolean CLIMB_LIMITS_INVERTED = false;
 }

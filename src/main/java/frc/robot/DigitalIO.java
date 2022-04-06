@@ -2,12 +2,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 
-public class PhotoEyeSensor {
+public class DigitalIO {
 
     private DigitalInput digitalInput;
     private boolean inverted;
 
-    public PhotoEyeSensor(int port, boolean inverted) {
+    public DigitalIO(int port, boolean inverted) {
 
         digitalInput = new DigitalInput(port);
         this.inverted = inverted;

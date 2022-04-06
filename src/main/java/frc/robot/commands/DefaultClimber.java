@@ -20,9 +20,28 @@ public class DefaultClimber extends CommandBase {
         addRequirements(climber);
     }
 
+
+
     @Override
     public void execute() {
-        climber.setLeft(leftClimb.getAsDouble() * Constants.CLIMBER_POWER);
-        climber.setRight(rightClimb.getAsDouble() * Constants.CLIMBER_POWER);
+        // TODO add overide
+
+        climber.setLeft(
+            climber.clamp(
+                climber.getLeftLimitTop(), 
+                climber.getLeftLimitBottom(), 
+                leftClimb.getAsDouble() * Constants.CLIMBER_POWER,
+                false
+            )
+        );
+
+        climber.setRight(
+            climber.clamp(
+                climber.getRightLimitTop(), 
+                climber.getRightLimitBottom(), 
+                rightClimb.getAsDouble() * Constants.CLIMBER_POWER,
+                false
+            )
+        );
     }
 }
