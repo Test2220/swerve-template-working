@@ -74,7 +74,7 @@ public final class Constants {
     
 
     // Offsets
-    public static final double FL_STEER_OFFSET = -Math.toRadians(45.08514404296875);
+    public static final double FL_STEER_OFFSET = -Math.toRadians(251.42211914062497 - 180);
     public static final double FR_STEER_OFFSET = -Math.toRadians(161.97967529296875);
     public static final double BL_STEER_OFFSET = -Math.toRadians(289.94293212890625);
     public static final double BR_STEER_OFFSET = -Math.toRadians(98.0804443359375);
