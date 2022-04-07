@@ -35,7 +35,7 @@ public class ReferenceATwoBall extends SequentialCommandGroup {
                     ).transformBy(
                         new Transform2d(
                             new Translation2d(), 
-                            Rotation2d.fromDegrees(-35)
+                            Rotation2d.fromDegrees(-35) //Make more negative when ball hits right side of intake
                         ))
             )).raceWith(new RunIntake(intake, false)),
             

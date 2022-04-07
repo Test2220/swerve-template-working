@@ -74,7 +74,7 @@ public final class Constants {
     
 
     // Offsets
-    public static final double FL_STEER_OFFSET = -Math.toRadians(45.08514404296875);
+    public static final double FL_STEER_OFFSET = -Math.toRadians(251.42211914062497 - 180);
     public static final double FR_STEER_OFFSET = -Math.toRadians(161.97967529296875);
     public static final double BL_STEER_OFFSET = -Math.toRadians(289.94293212890625);
     public static final double BR_STEER_OFFSET = -Math.toRadians(98.0804443359375);
@@ -110,7 +110,7 @@ public final class Constants {
 
 
 
-    public static final int Intake_Talon_Left = 21; 
+    public static final int INTAKE_TALON_LEFT = 21; 
     public static final int LEFT_INTAKE_SOLENOID_FORWARD = 0;  
     public static final int LEFT_INTAKE_SOLENOID_REVERSE = 1;
     public static final int RIGHT_INTAKE_SOLENOID_FORWARD = 2;
@@ -145,8 +145,8 @@ public final class Constants {
     //         .withPosition(0, 1)
     //         .getEntry();
 
-    public static final int CLIMBER_RIGHT_FALCON = 22;
-    public static final int CLIMBER_LEFT_FALCON = 10; 
+    public static final int CLIMBER_RIGHT_FALCON = 10;
+    public static final int CLIMBER_LEFT_FALCON = 22; 
     public static final NeutralMode CLIMBER_IDLE_BEHAVIOR = NeutralMode.Brake;
     public static final int CLIMBER_SOLENOID_LEFT_FORWARD = 4;
     public static final int CLIMBER_SOLENOID_LEFT_REVERSE = 5;
@@ -166,4 +166,11 @@ public final class Constants {
     public static final double OFFSET = (-8 / 196.85) + 1;
 
     public static final double SLEW_RATE_LIMIT = 3;
+
+    public static final int LEFT_CLIMB_LIMIT_BOTTOM_PORT = 3;
+    public static final int LEFT_CLIMB_LIMIT_TOP_PORT = 4;
+    public static final int RIGHT_CLIMB_LIMIT_BOTTOM_PORT = 5;
+    public static final int RIGHT_CLIMB_LIMIT_TOP_PORT = 6;
+
+    public static final boolean CLIMB_LIMITS_INVERTED = false;
 }

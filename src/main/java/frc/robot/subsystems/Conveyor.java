@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // import com.revrobotics.ColorMatch;
 // import edu.wpi.first.wpilibj.util.Color;
 
-import frc.robot.PhotoEyeSensor;
+import frc.robot.DigitalIO;
 
 import static frc.robot.Constants.*;
 
@@ -22,8 +22,8 @@ import static frc.robot.Constants.*;
 
 public class Conveyor extends SubsystemBase {
 
-    PhotoEyeSensor photoEyeSensorIn = new PhotoEyeSensor(PHOTOEYE_SENSOR_INTAKE, true);
-    PhotoEyeSensor photoEyeSensorOut = new PhotoEyeSensor(PHOTOEYE_SENSOR_LAUNCHER, true);
+    DigitalIO photoEyeSensorIn = new DigitalIO(PHOTOEYE_SENSOR_INTAKE, true);
+    DigitalIO photoEyeSensorOut = new DigitalIO(PHOTOEYE_SENSOR_LAUNCHER, true);
     TalonFX talon = new TalonFX(CONVEYOR_FALCON);
     int inRobot = 0;
     boolean ballInput = false;
@@ -71,6 +71,10 @@ public class Conveyor extends SubsystemBase {
 
     public void setPower(double power) {
         talon.set(ControlMode.PercentOutput, power);
+    }
+
+    public void setSpeed(double speed) {
+        talon.set(ControlMode.Velocity, speed);
     }
 
     public boolean isBallPresentAtInput() {
