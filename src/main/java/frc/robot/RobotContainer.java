@@ -145,9 +145,9 @@ public class RobotContainer {
     conveyor.setDefaultCommand(new AutomaticConveyor(conveyor,
         () -> {
           if (manipulatorController.getPOV() == 0) {
-            return Constants.SHUFFLEBOARD_CONVEYOR_SPEED.getDouble(0.4);
+            return Constants.CONVEYOR_SPEED.getValue();
           } else if (manipulatorController.getPOV() == 180) {
-            return -Constants.SHUFFLEBOARD_CONVEYOR_SPEED.getDouble(0.4);
+            return -Constants.CONVEYOR_SPEED.getValue();
           } else {
             return 0;
           }
