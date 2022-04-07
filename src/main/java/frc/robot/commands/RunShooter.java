@@ -23,14 +23,14 @@ public class RunShooter extends CommandBase {
 
     public void execute() {
         if (lowGoal) {
-            // shooter.setPower(Constants.SHUFFLEBOARD_SHOOTER_POWER_LOW.getDouble(Constants.SHOOTER_POWER_LOW));
-            shooter.setPower(0.3);
+            shooter.setPower(Constants.SHUFFLEBOARD_SHOOTER_POWER_LOW.getDouble(Constants.SHOOTER_POWER_LOW));
+            // shooter.setPower(0.3);
         }
         else {
-            // shooter.setPower(Constants.SHUFFLEBOARD_SHOOTER_POWER_HIGH.getDouble(Constants.SHOOTER_POWER_HIGH));
-            shooter.setPower(0.75);
+            shooter.setPower(Constants.SHUFFLEBOARD_SHOOTER_POWER_HIGH.getDouble(Constants.SHOOTER_POWER_HIGH));
+            // shooter.setPower(0.75);
         }
-        conveyor.setPower(Constants.CONVEYOR_POWER);
+        conveyor.setPower(Constants.SHUFFLEBOARD_CONVEYOR_SPEED.getDouble(Constants.CONVEYOR_POWER));
     }
 
     @Override

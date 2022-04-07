@@ -23,7 +23,7 @@ public class RunShooterVelocity extends CommandBase {
         else {
             shooter.setHighVelocity();
         }
-        conveyor.setPower(Constants.CONVEYOR_POWER);
+        conveyor.setPower(Constants.SHUFFLEBOARD_CONVEYOR_SPEED.getDouble(Constants.CONVEYOR_POWER));
     }
 
     public void end(boolean interrupted) {

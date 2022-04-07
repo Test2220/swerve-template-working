@@ -145,9 +145,9 @@ public class RobotContainer {
     conveyor.setDefaultCommand(new AutomaticConveyor(conveyor,
         () -> {
           if (manipulatorController.getPOV() == 0) {
-            return Constants.CONVEYOR_POWER;
+            return Constants.SHUFFLEBOARD_CONVEYOR_SPEED.getDouble(0.4);
           } else if (manipulatorController.getPOV() == 180) {
-            return -Constants.CONVEYOR_POWER;
+            return -Constants.SHUFFLEBOARD_CONVEYOR_SPEED.getDouble(0.4);
           } else {
             return 0;
           }
@@ -158,8 +158,8 @@ public class RobotContainer {
     climber.setDefaultCommand(new DefaultClimber(climber, 
         () -> modifyAxis(manipulatorController.getRightY()),
         () -> -modifyAxis(manipulatorController.getLeftY()),
-        () -> manipulatorController.getLeftStickButton(),
-        () -> manipulatorController.getRightStickButton()
+        () -> !manipulatorController.getLeftStickButton(),
+        () -> !manipulatorController.getRightStickButton()
     ));
 
     // Configure the button bindings

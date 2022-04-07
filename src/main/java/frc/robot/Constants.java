@@ -125,15 +125,15 @@ public final class Constants {
     public static final double INTAKE_UNJAM_POWER = 0.8;
     public static final double INTAKE_UNJAM_POWER_MAX = 1;
 
-    public static final double CONVEYOR_POWER = 0.3;
+    public static final double CONVEYOR_POWER = 0.4;
 
     public static final int SHOOTER_TALON_LEFT = 20; 
     public static final int SHOOTER_SOLENOID_FORWARD = 4;
     public static final int SHOOTER_SOLENOID_REVERSE = 5;
     public static final TalonFXInvertType LEFT_FALCON_DIRECTION = TalonFXInvertType.Clockwise;
     // public static final TalonFXInvertType RIGH_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
-    public static final double SHOOTER_POWER_HIGH = -1; //need shooter power value
-    public static final double SHOOTER_POWER_LOW = -0.5;
+    public static final double SHOOTER_POWER_HIGH = 0.75; //need shooter power value
+    public static final double SHOOTER_POWER_LOW = 0.3;
     public static final boolean AUTO_LOW_GOAL = false;
 
     public static final ShuffleboardTab SHUFFLEBOARD_SHOOTER = Shuffleboard.getTab("Shooter");
