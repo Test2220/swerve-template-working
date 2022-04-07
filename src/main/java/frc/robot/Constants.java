@@ -41,7 +41,7 @@ public final class Constants {
     public static final double DRIVETRAIN_DIAMETER = Math.sqrt((DRIVETRAIN_LENGTH_METERS * DRIVETRAIN_LENGTH_METERS) + (DRIVETRAIN_WIDTH_METERS * DRIVETRAIN_WIDTH_METERS));
 
     public static final double FRONT_OF_BUMPERS_TO_INTAKE = Units.inchesToMeters(11);
-    public static final double robotLengthWithBumpers = Units.inchesToMeters(32);
+    public static final double ROBOT_LENGTH_WITH_BUMPERS = Units.inchesToMeters(32);
     // CAN Bus IDs
 
     // Front Left Drive Motor

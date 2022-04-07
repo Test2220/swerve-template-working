@@ -138,20 +138,20 @@ public final class FieldConstants {
   }
 
   public static Pose2d robotCenterFromReference(Pose2d pose){
-   return pose.transformBy(GeomUtil.transformFromTranslation(-(Constants.robotLengthWithBumpers)/2, 0));
+   return pose.transformBy(GeomUtil.transformFromTranslation(-(Constants.ROBOT_LENGTH_WITH_BUMPERS)/2, 0));
     /* new Pose2d(hubCenter, referenceARotation).transformBy(
           GeomUtil.transformFromTranslation(tarmacInnerDiameter / 2.0, 0.0));*/
   }
 
   public static Pose2d cargoCenterFromReference(Pose2d pose){
-    return pose.transformBy(GeomUtil.transformFromTranslation(((Constants.robotLengthWithBumpers/2)), 0));
+    return pose.transformBy(GeomUtil.transformFromTranslation(((Constants.ROBOT_LENGTH_WITH_BUMPERS/2)), 0));
      /* new Pose2d(hubCenter, referenceARotation).transformBy(
            GeomUtil.transformFromTranslation(tarmacInnerDiameter / 2.0, 0.0));*/
    }
 
 
   public static Pose2d oneBallTaxiPoseFromReferencPose2d(Pose2d pose){
-    return pose.transformBy(GeomUtil.transformFromTranslation((Constants.robotLengthWithBumpers)*2, 0));
+    return pose.transformBy(GeomUtil.transformFromTranslation((Constants.ROBOT_LENGTH_WITH_BUMPERS)*2, 0));
      /* new Pose2d(hubCenter, referenceARotation).transformBy(
            GeomUtil.transformFromTranslation(tarmacInnerDiameter / 2.0, 0.0));*/
    }
