@@ -157,6 +157,9 @@ public final class Constants {
     public static final TunableDouble CONVEYOR_SPEED = 
         new TunableDouble("Conveyor Speed", 0.4, true);
 
+    public static final DebugGroup CLIMB_DEBUG_GROUP = 
+        new DebugGroup("Climber", true);
+
     public static final int CLIMBER_RIGHT_FALCON = 10;
     public static final int CLIMBER_LEFT_FALCON = 22; 
     public static final NeutralMode CLIMBER_IDLE_BEHAVIOR = NeutralMode.Brake;

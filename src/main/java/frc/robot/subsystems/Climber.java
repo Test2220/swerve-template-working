@@ -6,8 +6,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.DigitalIO;
@@ -38,11 +36,11 @@ public class Climber extends SubsystemBase {
         // rightTalon.configReverseSoftLimitThreshold(0);
         // Shuffleboard.getTab("Climber").addNumber("Right Sensor Units", rightTalon::getSelectedSensorPosition);
         // Shuffleboard.getTab("Climber").addNumber("Left Sensor Units", leftTalon::getSelectedSensorPosition);
-        ShuffleboardTab tab = Shuffleboard.getTab("Climber");
-        tab.addBoolean("Left Limit Bottom", this::getLeftLimitBottom);
-        tab.addBoolean("Left Limit Top", this::getLeftLimitTop);
-        tab.addBoolean("Right Limit Bottom", this::getRightLimitBottom);
-        tab.addBoolean("Right Limit Top", this::getRightLimitTop);
+        // ShuffleboardTab tab = Shuffleboard.getTab("Climber");
+        Constants.CLIMB_DEBUG_GROUP.addBoolean("Left Limit Bottom", this::getLeftLimitBottom);
+        Constants.CLIMB_DEBUG_GROUP.addBoolean("Left Limit Top", this::getLeftLimitTop);
+        Constants.CLIMB_DEBUG_GROUP.addBoolean("Right Limit Bottom", this::getRightLimitBottom);
+        Constants.CLIMB_DEBUG_GROUP.addBoolean("Right Limit Top", this::getRightLimitTop);
 
         rightTalon.setInverted(true);
         leftTalon.setInverted(true);

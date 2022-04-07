@@ -7,6 +7,13 @@ public class TunableDouble {
     private double defaultValue;
     private NetworkTableEntry shuffleboard;
 
+    /**
+     * Creates a TunableDouble. It can be enabled and disabled (Use defaultValue)
+     * 
+     * @param name
+     * @param defaultValue
+     * @param tunable
+     */
     public TunableDouble(String name, double defaultValue, boolean tunable) {
         this.defaultValue = defaultValue;
 
@@ -19,6 +26,9 @@ public class TunableDouble {
             shuffleboard = null;
     }
 
+    /**
+     * @return Value as a double
+     */
     public double getValue() {
         if (shuffleboard != null)
             return shuffleboard.getDouble(defaultValue);
