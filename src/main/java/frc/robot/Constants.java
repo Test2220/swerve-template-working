@@ -12,6 +12,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants. This class should not be used for any other
@@ -40,7 +41,7 @@ public final class Constants {
     public static final double DRIVETRAIN_DIAMETER = Math.sqrt((DRIVETRAIN_LENGTH_METERS * DRIVETRAIN_LENGTH_METERS) + (DRIVETRAIN_WIDTH_METERS * DRIVETRAIN_WIDTH_METERS));
 
     public static final double FRONT_OF_BUMPERS_TO_INTAKE = Units.inchesToMeters(11);
-    public static final double robotLengthWithBumpers = Units.inchesToMeters(32);
+    public static final double ROBOT_LENGTH_WITH_BUMPERS = Units.inchesToMeters(32);
     // CAN Bus IDs
 
     // Front Left Drive Motor
@@ -74,18 +75,18 @@ public final class Constants {
     
 
     // Offsets
-    public static final double FL_STEER_OFFSET = -Math.toRadians(45.08514404296875);
+    public static final double FL_STEER_OFFSET = -Math.toRadians(251.42211914062497 - 180);
     public static final double FR_STEER_OFFSET = -Math.toRadians(161.97967529296875);
     public static final double BL_STEER_OFFSET = -Math.toRadians(289.94293212890625);
     public static final double BR_STEER_OFFSET = -Math.toRadians(98.0804443359375);
 
 
     //Pipeline 
-    public static final int INTAKE_LIMELIGHT_BLUE_PIPELINE = 0;
-    public static final int INTAKE_LIMELIGHT_RED_PIPELINE = 1;
+    public static final int INTAKE_LIMELIGHT_BLUE_PIPELINE = 1;
+    public static final int INTAKE_LIMELIGHT_RED_PIPELINE = 2;
 
 
-    public static final int SHOOTER_LIMELIGHT_HUB_PIPELINE = 0;
+    public static final int SHOOTER_LIMELIGHT_HUB_PIPELINE = 1;
     // Max
     public static final double MAX_VOLTAGE = 12.0;
     public static final double MAX_VELOCITY_METERS_PER_SECOND = 6380.0 / 60.0 *
@@ -110,7 +111,7 @@ public final class Constants {
 
 
 
-    public static final int Intake_Talon_Left = 21; 
+    public static final int INTAKE_TALON_LEFT = 21; 
     public static final int LEFT_INTAKE_SOLENOID_FORWARD = 0;  
     public static final int LEFT_INTAKE_SOLENOID_REVERSE = 1;
     public static final int RIGHT_INTAKE_SOLENOID_FORWARD = 2;
@@ -122,13 +123,15 @@ public final class Constants {
     public static final double INTAKE_UNJAM_POWER = 0.8;
     public static final double INTAKE_UNJAM_POWER_MAX = 1;
 
+    // public static final double CONVEYOR_POWER = 0.4;
+
     public static final int SHOOTER_TALON_LEFT = 20; 
     public static final int SHOOTER_SOLENOID_FORWARD = 4;
     public static final int SHOOTER_SOLENOID_REVERSE = 5;
     public static final TalonFXInvertType LEFT_FALCON_DIRECTION = TalonFXInvertType.Clockwise;
     // public static final TalonFXInvertType RIGH_FALCON_DIRECTION = TalonFXInvertType.CounterClockwise;
-    public static final double SHOOTER_POWER_HIGH = -1; //need shooter power value
-    public static final double SHOOTER_POWER_LOW = -0.5;
+    // public static final double SHOOTER_POWER_HIGH = 0.75; //need shooter power value
+    // public static final double SHOOTER_POWER_LOW = 0.3;
     public static final boolean AUTO_LOW_GOAL = false;
 
     // public static final ShuffleboardTab SHUFFLEBOARD_SHOOTER = Shuffleboard.getTab("Shooter");
@@ -145,16 +148,38 @@ public final class Constants {
     //         .withPosition(0, 1)
     //         .getEntry();
 
-    public static final int CLIMBER_RIGHT_FALCON = 22;
-    public static final int CLIMBER_LEFT_FALCON = 10; 
+    public static final TunableDouble SHOOTER_SPEED_HIGH = 
+        new TunableDouble("Shooter Speed High", 0.75, false);
+
+    public static final TunableDouble SHOOTER_SPEED_LOW = 
+        new TunableDouble("Shooter Speed Low", 0.3, false);
+
+    public static final TunableDouble CONVEYOR_SPEED = 
+        new TunableDouble("Conveyor Speed", 0.4, false);
+
+    public static final TunableDouble TEST_LIMELIGHT =
+        new TunableDouble("Limelight test value", 0, false);
+
+    public static final TunableDouble LIMELIGHT_P =
+        new TunableDouble("LL P", 0.03, false);
+
+    public static final TunableDouble LIMELIGHT_D = 
+        new TunableDouble("LL D", 0, false);
+
+    public static final DebugGroup CLIMB_DEBUG_GROUP = 
+        new DebugGroup("Climber", false);
+
+    public static final DebugGroup CONVEYOR_DEBUG_GROUP = 
+        new DebugGroup("Conveyor", true);
+
+    public static final int CLIMBER_RIGHT_FALCON = 10;
+    public static final int CLIMBER_LEFT_FALCON = 22; 
     public static final NeutralMode CLIMBER_IDLE_BEHAVIOR = NeutralMode.Brake;
     public static final int CLIMBER_SOLENOID_LEFT_FORWARD = 4;
     public static final int CLIMBER_SOLENOID_LEFT_REVERSE = 5;
     public static final int CLIMBER_SOLENOID_RIGHT_FORWARD = 6;
     public static final int CLIMBER_SOLENOID_RIGHT_REVERSE = 7;
     public static final double CLIMBER_POWER = 0.75; 
-
-    public static final double CONVEYOR_POWER = 0.3;
 
 
     public static final int CONVEYOR_FALCON = 23;
@@ -166,4 +191,11 @@ public final class Constants {
     public static final double OFFSET = (-8 / 196.85) + 1;
 
     public static final double SLEW_RATE_LIMIT = 3;
+
+    public static final int LEFT_CLIMB_LIMIT_BOTTOM_PORT = 3;
+    public static final int LEFT_CLIMB_LIMIT_TOP_PORT = 4;
+    public static final int RIGHT_CLIMB_LIMIT_BOTTOM_PORT = 5;
+    public static final int RIGHT_CLIMB_LIMIT_TOP_PORT = 6;
+
+    public static final boolean CLIMB_LIMITS_INVERTED = false;
 }

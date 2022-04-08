@@ -32,7 +32,7 @@ public class AutomaticConveyor extends CommandBase {
         {
             if (conveyorSubsystem.isBallPresentAtInput()) 
             {
-                conveyorSubsystem.setPower(Constants.CONVEYOR_POWER);
+                conveyorSubsystem.setPower(Constants.CONVEYOR_SPEED.getValue());
             } 
             else 
             {

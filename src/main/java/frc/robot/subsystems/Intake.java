@@ -14,7 +14,7 @@ public class Intake extends SubsystemBase {
         EXTENDED, RETRACTED
     }
 
-    TalonFX talonFXLeft = new TalonFX(Constants.Intake_Talon_Left); // change the numbers once the talonFX is updated
+    TalonFX talonFXLeft = new TalonFX(Constants.INTAKE_TALON_LEFT); // change the numbers once the talonFX is updated
     // TalonFX talonFXRight = new TalonFX(Constants.Intake_Talon_Right);
     DoubleSolenoid solenoidL = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.LEFT_INTAKE_SOLENOID_FORWARD,
             Constants.LEFT_INTAKE_SOLENOID_REVERSE);

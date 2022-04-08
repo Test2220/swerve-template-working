@@ -145,9 +145,9 @@ public class RobotContainer {
     conveyor.setDefaultCommand(new AutomaticConveyor(conveyor,
         () -> {
           if (manipulatorController.getPOV() == 0) {
-            return Constants.CONVEYOR_POWER;
+            return Constants.CONVEYOR_SPEED.getValue();
           } else if (manipulatorController.getPOV() == 180) {
-            return -Constants.CONVEYOR_POWER;
+            return -Constants.CONVEYOR_SPEED.getValue();
           } else {
             return 0;
           }
@@ -156,8 +156,10 @@ public class RobotContainer {
         () -> manipulatorController.getStartButton()));
 
     climber.setDefaultCommand(new DefaultClimber(climber, 
-        () -> modifyAxis(manipulatorController.getRightY()),
-        () -> -modifyAxis(manipulatorController.getLeftY())
+        () -> -modifyAxis(manipulatorController.getRightY()),
+        () -> -modifyAxis(manipulatorController.getLeftY()),
+        () -> !manipulatorController.getLeftStickButton(),
+        () -> !manipulatorController.getRightStickButton()
     ));
 
     // Configure the button bindings
@@ -238,8 +240,9 @@ public class RobotContainer {
                   drivetrain.drive(
                       -modifyAxis(driverController.getLeftY()),
                       -modifyAxis(driverController.getLeftX()),
-                      output, 
+                      -output, 
                       true);
+                  System.out.println(output);
                 },
                 shooterLimelight,Constants.SHOOTER_LIMELIGHT_HUB_PIPELINE, drivetrain));
 
@@ -253,7 +256,10 @@ public class RobotContainer {
                       output,
                       true);
                 },
-                intakeLimelight, Constants.INTAKE_LIMELIGHT_BLUE_PIPELINE, drivetrain));
+                intakeLimelight, Constants.INTAKE_LIMELIGHT_BLUE_PIPELINE, drivetrain))
+        .whenPressed(
+                () -> shooterLimelight.takeSnapshot()
+        );
 
     new Button(driverController::getBButton)
         .whileHeld(
