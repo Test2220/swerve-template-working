@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 
 // import com.revrobotics.ColorSensorV3;
 // import com.revrobotics.ColorMatchResult;
@@ -67,6 +68,9 @@ public class Conveyor extends SubsystemBase {
         // Shuffleboard.getTab("Conveyor").addNumber("Detected Color Distance", () -> colorDistance);
 
         talon.setInverted(true);
+
+        Constants.CONVEYOR_DEBUG_GROUP.addBoolean("IN", photoEyeSensorIn::get);
+        Constants.CONVEYOR_DEBUG_GROUP.addBoolean("OUT", photoEyeSensorOut::get);
     }
 
     public void setPower(double power) {

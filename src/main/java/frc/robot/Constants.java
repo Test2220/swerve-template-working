@@ -82,11 +82,11 @@ public final class Constants {
 
 
     //Pipeline 
-    public static final int INTAKE_LIMELIGHT_BLUE_PIPELINE = 0;
-    public static final int INTAKE_LIMELIGHT_RED_PIPELINE = 1;
+    public static final int INTAKE_LIMELIGHT_BLUE_PIPELINE = 1;
+    public static final int INTAKE_LIMELIGHT_RED_PIPELINE = 2;
 
 
-    public static final int SHOOTER_LIMELIGHT_HUB_PIPELINE = 0;
+    public static final int SHOOTER_LIMELIGHT_HUB_PIPELINE = 1;
     // Max
     public static final double MAX_VOLTAGE = 12.0;
     public static final double MAX_VELOCITY_METERS_PER_SECOND = 6380.0 / 60.0 *
@@ -149,16 +149,28 @@ public final class Constants {
     //         .getEntry();
 
     public static final TunableDouble SHOOTER_SPEED_HIGH = 
-        new TunableDouble("Shooter Speed High", 0.75, true);
+        new TunableDouble("Shooter Speed High", 0.75, false);
 
     public static final TunableDouble SHOOTER_SPEED_LOW = 
-        new TunableDouble("Shooter Speed Low", 0.3, true);
+        new TunableDouble("Shooter Speed Low", 0.3, false);
 
     public static final TunableDouble CONVEYOR_SPEED = 
-        new TunableDouble("Conveyor Speed", 0.4, true);
+        new TunableDouble("Conveyor Speed", 0.4, false);
+
+    public static final TunableDouble TEST_LIMELIGHT =
+        new TunableDouble("Limelight test value", 0, false);
+
+    public static final TunableDouble LIMELIGHT_P =
+        new TunableDouble("LL P", 0.03, false);
+
+    public static final TunableDouble LIMELIGHT_D = 
+        new TunableDouble("LL D", 0, false);
 
     public static final DebugGroup CLIMB_DEBUG_GROUP = 
-        new DebugGroup("Climber", true);
+        new DebugGroup("Climber", false);
+
+    public static final DebugGroup CONVEYOR_DEBUG_GROUP = 
+        new DebugGroup("Conveyor", true);
 
     public static final int CLIMBER_RIGHT_FALCON = 10;
     public static final int CLIMBER_LEFT_FALCON = 22; 
