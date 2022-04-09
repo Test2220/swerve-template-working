@@ -246,7 +246,10 @@ public class RobotContainer {
                       true);
                   System.out.println(output);
                 },
-                shooterLimelight,Constants.SHOOTER_LIMELIGHT_HUB_PIPELINE, drivetrain));
+                shooterLimelight,Constants.SHOOTER_LIMELIGHT_HUB_PIPELINE, drivetrain))
+        .whenPressed(
+          () -> shooterLimelight.takeSnapshot()
+        );
 
     new Button(driverController::getAButton)
         .whileHeld(
@@ -258,11 +261,7 @@ public class RobotContainer {
                       output,
                       true);
                 },
-                intakeLimelight, Constants.INTAKE_LIMELIGHT_BLUE_PIPELINE, drivetrain))
-        .whenPressed(
-                () -> shooterLimelight.takeSnapshot()
-        );
-
+                intakeLimelight, Constants.INTAKE_LIMELIGHT_BLUE_PIPELINE, drivetrain));
     new Button(driverController::getBButton)
         .whileHeld(
             new LimelightAutoTurning(
