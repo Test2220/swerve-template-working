@@ -19,6 +19,7 @@ public class RunShooter extends CommandBase {
     }
 
     public void intialize() {
+        shooter.setVoltageComp(false);
     }
 
     public void execute() {

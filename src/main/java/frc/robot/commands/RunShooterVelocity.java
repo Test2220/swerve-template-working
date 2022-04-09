@@ -16,6 +16,10 @@ public class RunShooterVelocity extends CommandBase {
         this.lowGoal = lowGoal;
     }
 
+    public void initalize() {
+        shooter.setVoltageComp(true);
+    }
+
     public void execute() {
         if (lowGoal) {
             shooter.setLowVelocity();

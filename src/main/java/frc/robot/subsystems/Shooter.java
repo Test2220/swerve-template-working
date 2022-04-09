@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -37,9 +38,30 @@ public class Shooter extends SubsystemBase {
 
         // rightFalcon.follow(leftFalcon);
 
+        leftFalcon.configVoltageCompSaturation(10);
+        leftFalcon.enableVoltageCompensation(false);
+
+        leftFalcon.configNeutralDeadband(0.001);
+
+        final int TIMEOUTMS = 30;
+        leftFalcon.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, TIMEOUTMS);
+
+        leftFalcon.configNominalOutputForward(0, TIMEOUTMS);
+        leftFalcon.configNominalOutputReverse(0, TIMEOUTMS);
+        leftFalcon.configPeakOutputForward(1, TIMEOUTMS);
+        leftFalcon.configPeakOutputReverse(-1, TIMEOUTMS);
+
+        leftFalcon.config_kF(0, Constants.PIDSHOOTER_F, TIMEOUTMS);
+        leftFalcon.config_kP(0, Constants.PIDSHOOTER_P, TIMEOUTMS);
+        leftFalcon.config_kI(0, Constants.PIDSHOOTER_I, TIMEOUTMS);
+        leftFalcon.config_kD(0, Constants.PIDSHOOTER_D, TIMEOUTMS);
     }
     public void periodic() {
         
+    }
+
+    public void setVoltageComp(boolean enabled) {
+        leftFalcon.enableVoltageCompensation(enabled);
     }
 
     public void setPower(double demand) {
@@ -63,17 +85,13 @@ public class Shooter extends SubsystemBase {
         public ShooterDesiredState getDesiredState() {
             return dState;
         }
-    /**
-			 * Convert 500 RPM to units / 100ms.
-			 * 4096 Units/Rev * 500 RPM / 600 100ms/min in either direction:
-			 * velocity setpoint is in units/100ms
-			 */
+
     public void setHighVelocity() {
-        double targetVelocity_UnitsPer100ms = 500.0 * 4096 / 600;
+        double targetVelocity_UnitsPer100ms = -4000 * 2048.0 / 600.0 ;
         leftFalcon.set(TalonFXControlMode.Velocity , targetVelocity_UnitsPer100ms);
     }
     public void setLowVelocity() {
-        double targetVelocity_UnitsPer100ms =  100 * 4096 / 600;
+        double targetVelocity_UnitsPer100ms =  -1000 * 2048.0 / 600.0;
         leftFalcon.set(TalonFXControlMode.Velocity , targetVelocity_UnitsPer100ms);
     }    
 }

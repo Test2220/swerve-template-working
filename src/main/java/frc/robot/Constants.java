@@ -198,4 +198,10 @@ public final class Constants {
     public static final int RIGHT_CLIMB_LIMIT_TOP_PORT = 6;
 
     public static final boolean CLIMB_LIMITS_INVERTED = false;
+
+    public static final double PIDSHOOTER_F = (1023 * 0.75) / 14500;
+    public static final double PIDSHOOTER_P = (0.2 * 1023) / 1400;
+    public static final double PIDSHOOTER_I = 0;
+    public static final double PIDSHOOTER_D = PIDSHOOTER_P * 5;
 }
+    
