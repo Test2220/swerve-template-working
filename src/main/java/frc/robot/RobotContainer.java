@@ -5,7 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.math.geometry.Transform2d;
+// import edu.wpi.first.math.geometry.Transform2d;
 // import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 // import edu.wpi.first.wpilibj.PowerDistribution;
@@ -60,7 +60,7 @@ import frc.robot.subsystems.Limelight;
 // import frc.robot.subsystems.PixyCamSPI;
 import frc.robot.subsystems.Shooter;
 // import io.github.pseudoresonance.pixy2api.Pixy2CCC;
-import frc.robot.util.GeomUtil;
+// import frc.robot.util.GeomUtil;
 
 /**
  * This class is where the bulk of the robot should be declared. Since

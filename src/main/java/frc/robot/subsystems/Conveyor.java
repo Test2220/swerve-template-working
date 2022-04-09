@@ -73,23 +73,44 @@ public class Conveyor extends SubsystemBase {
         Constants.CONVEYOR_DEBUG_GROUP.addBoolean("OUT", photoEyeSensorOut::get);
     }
 
+    /**
+     * Sets the power of the conveyor
+     * @param power Power as a double
+     */
     public void setPower(double power) {
         talon.set(ControlMode.PercentOutput, power);
     }
 
+    /**
+     * Sets the velocity of the conveyor
+     * @param speed Velocity as a double
+     */
     public void setSpeed(double speed) {
         talon.set(ControlMode.Velocity, speed);
     }
 
+    /**
+     * Get whether a ball is present at the input
+     * @return Bottom PhotoEye sensor as a boolean
+     */
     public boolean isBallPresentAtInput() {
         return photoEyeSensorIn.get();
 
     }
 
+    /**
+     * Gets whether a ball is present at the output
+     * @return Top PhotoEye sensor as a boolean
+     */
     public boolean isBallPresentAtShooter() {
         return photoEyeSensorOut.get();
     }
 
+    /**
+     * Gets how many balls are currently in the robot
+     * @return The number of balls in the robot as an int
+     */
+    @Deprecated
     public int getInRobot() {
         return inRobot;
     }

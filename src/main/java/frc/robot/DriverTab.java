@@ -2,8 +2,8 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.HttpCamera;
-import edu.wpi.first.cscore.HttpCamera.HttpCameraKind;
-import edu.wpi.first.cscore.VideoMode.PixelFormat;
+// import edu.wpi.first.cscore.HttpCamera.HttpCameraKind;
+// import edu.wpi.first.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 
