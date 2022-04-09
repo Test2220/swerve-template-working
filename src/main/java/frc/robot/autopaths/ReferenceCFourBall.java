@@ -39,7 +39,7 @@ public class ReferenceCFourBall extends SequentialCommandGroup {
                         ))
             )).raceWith(new RunIntake(intake, false)),
 
-            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceCRobotCenter)).raceWith(new RunIntake(intake, false)),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceC)).raceWith(new RunIntake(intake, false)),
 
             new RetractIntake(intake),
 
@@ -51,18 +51,18 @@ public class ReferenceCFourBall extends SequentialCommandGroup {
                 drivetrain, 
                 GeomUtil.getRobotCoordinate(
                     GeomUtil.poseToGetCargo(
-                        FieldConstants.referenceCRobotCenter.getTranslation(), 
+                        FieldConstants.referenceC.getTranslation(), 
                         FieldConstants.cargoGCenter.getTranslation()
                     ).transformBy(
                         new Transform2d(
                             new Translation2d(), 
-                            Rotation2d.fromDegrees(-23.5/2)
+                            Rotation2d.fromDegrees(-5)
                         ))
             )).raceWith(new RunIntake(intake, false)),    
 
             new GoToCommand(
                 drivetrain, 
-                GeomUtil.getRobotCoordinate(FieldConstants.referenceCRobotCenter)).raceWith(new RunIntake(intake, false)),
+                GeomUtil.getRobotCoordinate(FieldConstants.referenceC.transformBy(GeomUtil.transformFromTranslation(+(Constants.ROBOT_LENGTH_WITH_BUMPERS)/2, 0)))).raceWith(new RunIntake(intake, false)),
 
             new RetractIntake(intake),
 
