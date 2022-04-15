@@ -309,17 +309,17 @@ public class RobotContainer {
     //     },
     //     pixy, Pixy2CCC.CCC_SIG1, drivetrain));
     
-   new Button(()-> driverController.getPOV() == 0)
-      .whenPressed(() -> {
-        manipulatorController.setRumble(RumbleType.kLeftRumble, 1);
-        manipulatorController.setRumble(RumbleType.kRightRumble, 1);
+  //  new Button(()-> driverController.getPOV() == 0)
+  //     .whenPressed(() -> {
+  //       manipulatorController.setRumble(RumbleType.kLeftRumble, 1);
+  //       manipulatorController.setRumble(RumbleType.kRightRumble, 1);
 
-      })
-      .whenReleased(() -> {
-        manipulatorController.setRumble(RumbleType.kLeftRumble, 0);
-        manipulatorController.setRumble(RumbleType.kRightRumble, 0);
+  //     })
+  //     .whenReleased(() -> {
+  //       manipulatorController.setRumble(RumbleType.kLeftRumble, 0);
+  //       manipulatorController.setRumble(RumbleType.kRightRumble, 0);
 
-      });
+  //     });
 
     new Button(() -> driverController.getLeftTriggerAxis() > 0.4)
       .whileHeld(
@@ -328,6 +328,11 @@ public class RobotContainer {
      new Button(driverController::getLeftBumper)      
       .whileHeld(
           new RunShooter(shooter, conveyor, true));
+
+    new Button(
+      () -> driverController.getRightTriggerAxis() > 0.4)
+        .whenPressed(() -> drivetrain.setSpeed(Constants.HIGH_DRIVE_SPEED.getValue()))
+        .whenReleased(() -> drivetrain.setSpeed(Constants.LOW_DRIVE_SPEED.getValue()));
 
     // new Button(driverController::getAButton).whileHeld(new PixyCamAutoTurning(
     //     (output) -> {
@@ -364,20 +369,20 @@ public class RobotContainer {
     //     },
     //     pixy, Pixy2CCC.CCC_SIG1, drivetrain));
     
-   new Button(()-> driverController.getPOV() == 0).whileHeld(new FunctionalCommand(
-     ()->{}, 
-     ()->{
-       manipulatorController.setRumble(RumbleType.kLeftRumble, 1);
-       manipulatorController.setRumble(RumbleType.kRightRumble, 1);
+  //  new Button(()-> driverController.getPOV() == 0).whileHeld(new FunctionalCommand(
+  //    ()->{}, 
+  //    ()->{
+  //      manipulatorController.setRumble(RumbleType.kLeftRumble, 1);
+  //      manipulatorController.setRumble(RumbleType.kRightRumble, 1);
 
-     }, 
-     (interrupted)->{
-      manipulatorController.setRumble(RumbleType.kLeftRumble, 0);
-      manipulatorController.setRumble(RumbleType.kRightRumble, 0);
+  //    }, 
+  //    (interrupted)->{
+  //     manipulatorController.setRumble(RumbleType.kLeftRumble, 0);
+  //     manipulatorController.setRumble(RumbleType.kRightRumble, 0);
 
 
-     }, 
-     ()->false));
+  //    }, 
+  //    ()->false));
 
     // new Button(() -> driverController.getPOV() == 180).whenPressed(new GoToCommand(drivetrain, new Position(0, 0, 0)));
 

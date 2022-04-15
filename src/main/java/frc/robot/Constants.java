@@ -44,6 +44,9 @@ public final class Constants {
     public static final double ROBOT_LENGTH_WITH_BUMPERS = Units.inchesToMeters(32);
     // CAN Bus IDs
 
+    public static final TunableDouble HIGH_DRIVE_SPEED= new TunableDouble("HIGH_DRIVE_SPEED", 1, true);
+    public static final TunableDouble LOW_DRIVE_SPEED= new TunableDouble("LOW_DRIVE_SPEED", 0.6, true);
+
     // Front Left Drive Motor
     public static final int FL_MODULE_DM = 17;
     // Front Left Steer Motor
@@ -116,8 +119,8 @@ public final class Constants {
     public static final int LEFT_INTAKE_SOLENOID_REVERSE = 1;
     public static final int RIGHT_INTAKE_SOLENOID_FORWARD = 2;
     public static final int RIGHT_INTAKE_SOLENOID_REVERSE = 3;
-    public static final double INTAKE_POWER = 0.25; 
-    public static final double REVERSE_INTAKE_POWER = -0.25;
+    public static final TunableDouble INTAKE_POWER = new TunableDouble("INTAKE_POWER", 0.25, true); 
+    // public static final double REVERSE_INTAKE_POWER = -0.25;
     
     public static final int INTAKE_THRESHOLD = 5;
     public static final double INTAKE_UNJAM_POWER = 0.8;
