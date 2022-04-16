@@ -11,9 +11,9 @@ import frc.robot.TunableDouble;
 
 public class Shooter extends SubsystemBase {
     private TunableDouble lowGoal = new TunableDouble("Low Goal RPM", 2000, true);
-    private TunableDouble highGoal = new TunableDouble("High Goal RPM", 4000, true);
+    private TunableDouble highGoal = new TunableDouble("High Goal RPM", 4150, true);
     private TunableDouble launchGoal = new TunableDouble("Launch Goal RPM", 6600, true);
-    private TunableDouble toleranceHigh = new TunableDouble("Shooter High Tolerence", 250, true);
+    private TunableDouble toleranceHigh = new TunableDouble("Shooter High Tolerence", 1, true);
     private TunableDouble toleranceLaunch = new TunableDouble("Shooter Launch Tolerance", 2800, true);
     private TalonFX leftFalcon;
     
@@ -64,7 +64,7 @@ public class Shooter extends SubsystemBase {
         leftFalcon.config_kD(0, Constants.PIDSHOOTER_D, TIMEOUTMS);
 
         Shuffleboard.getTab("Shooter")
-            .addNumber("SHOOTER_RPM", leftFalcon::getClosedLoopError);
+            .addNumber("SHOOTER_RPM", this::getVelocity);
 
     }
     public void periodic() {
@@ -112,14 +112,18 @@ public class Shooter extends SubsystemBase {
     }    
 
     public double getPIDError() {
-        return leftFalcon.getClosedLoopError();
+        return (leftFalcon.getClosedLoopError()) / 2048.0 * 600;
+    }
+
+    public double getVelocity() {
+        return leftFalcon.getSelectedSensorVelocity() / 2048.0 * 600;
     }
 
     public boolean withinHighTolerance() {
-        return (leftFalcon.getClosedLoopError() < toleranceHigh.getValue());
+        return (getPIDError() < toleranceHigh.getValue());
     }
 
     public boolean withinLaunchTolerance() {
-        return (leftFalcon.getClosedLoopError() < toleranceLaunch.getValue());
+        return (getPIDError() < toleranceLaunch.getValue());
     }
 }

@@ -245,7 +245,7 @@ public class RobotContainer {
                       -modifyAxis(driverController.getLeftX()),
                       -output, 
                       true);
-                  System.out.println(output);
+                 // System.out.println(output);
                 },
                 shooterLimelight,Constants.SHOOTER_LIMELIGHT_HUB_PIPELINE, drivetrain))
         .whenPressed(
