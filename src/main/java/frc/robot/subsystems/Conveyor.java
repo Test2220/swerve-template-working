@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 // import edu.wpi.first.wpilibj.I2C;
 
@@ -68,6 +69,28 @@ public class Conveyor extends SubsystemBase {
         // Shuffleboard.getTab("Conveyor").addNumber("Detected Color Distance", () -> colorDistance);
 
         talon.setInverted(true);
+
+        talon.configVoltageCompSaturation(10);
+        talon.enableVoltageCompensation(true);
+
+        
+        talon.configVoltageCompSaturation(10);
+        talon.enableVoltageCompensation(false);
+
+        talon.configNeutralDeadband(0.001);
+
+        final int TIMEOUTMS = 30;
+        talon.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, TIMEOUTMS);
+
+        talon.configNominalOutputForward(0, TIMEOUTMS);
+        talon.configNominalOutputReverse(0, TIMEOUTMS);
+        talon.configPeakOutputForward(1, TIMEOUTMS);
+        talon.configPeakOutputReverse(-1, TIMEOUTMS);
+
+        talon.config_kF(0, Constants.PIDSHOOTER_F, TIMEOUTMS);
+        talon.config_kP(0, Constants.PIDSHOOTER_P, TIMEOUTMS);
+        talon.config_kI(0, Constants.PIDSHOOTER_I, TIMEOUTMS);
+        talon.config_kD(0, Constants.PIDSHOOTER_D, TIMEOUTMS);
 
         Constants.CONVEYOR_DEBUG_GROUP.addBoolean("IN", photoEyeSensorIn::get);
         Constants.CONVEYOR_DEBUG_GROUP.addBoolean("OUT", photoEyeSensorOut::get);

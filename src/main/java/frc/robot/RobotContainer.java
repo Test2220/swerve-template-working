@@ -45,6 +45,7 @@ import frc.robot.commands.LimelightDefaultCommand;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.RunIntakeTeleop;
 import frc.robot.commands.RunShooter;
+import frc.robot.commands.RunShooterVelocity;
 // import frc.robot.commands.TerminalTwoBallAuto;
 import frc.robot.commands.TiltClimber;
 // import frc.robot.subsystems.BrownOutMonitor;
@@ -240,7 +241,7 @@ public class RobotContainer {
             new LimelightAutoTurning(
                 (output) -> {
                   drivetrain.drive(
-                      -modifyAxis(driverController.getLeftY()),
+                      modifyAxis(driverController.getLeftY()),
                       -modifyAxis(driverController.getLeftX()),
                       -output, 
                       true);
@@ -323,11 +324,11 @@ public class RobotContainer {
 
     new Button(() -> driverController.getLeftTriggerAxis() > 0.4)
       .whileHeld(
-          new RunShooter(shooter, conveyor, false))
+          new RunShooterVelocity(shooter, conveyor, false))
 ;
      new Button(driverController::getLeftBumper)      
       .whileHeld(
-          new RunShooter(shooter, conveyor, true));
+          new RunShooterVelocity(shooter, conveyor, true));
 
     new Button(
       () -> driverController.getRightTriggerAxis() > 0.4)
@@ -404,7 +405,7 @@ public class RobotContainer {
     //     .whileHeld(new RunShooterVelocity(shooter, conveyor, true));
 
     new Button(() -> manipulatorController.getRightTriggerAxis() > 0.4)
-        .whileHeld(new RunShooter(shooter, conveyor, true));
+        .whileHeld(new RunShooterVelocity(shooter, conveyor, true));
 
     new Button(() -> manipulatorController.getLeftTriggerAxis() > 0.4)
         //.whileHeld(new RunIntakeTeleop(intake, false));
@@ -416,7 +417,7 @@ public class RobotContainer {
         .whileHeld(new RunIntakeTeleop(intake, true));
 
     new Button(manipulatorController::getRightBumper)
-      .whileHeld(new RunShooter(shooter, conveyor, false));
+      .whileHeld(new RunShooterVelocity(shooter, conveyor, false));
 
     new Button(manipulatorController::getXButton).whenPressed(new TiltClimber(climber, ClimberPositions.TILTED));
 

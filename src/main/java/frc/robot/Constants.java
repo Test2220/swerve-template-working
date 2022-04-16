@@ -151,14 +151,23 @@ public final class Constants {
     //         .withPosition(0, 1)
     //         .getEntry();
 
+
+        //tolerance(IF NEEDED)- 2800
+
     public static final TunableDouble SHOOTER_SPEED_HIGH = 
-        new TunableDouble("Shooter Speed High", 0.75, false);
+        new TunableDouble("Shooter Speed High", 0.75, true);
 
     public static final TunableDouble SHOOTER_SPEED_LOW = 
         new TunableDouble("Shooter Speed Low", 0.3, false);
 
     public static final TunableDouble CONVEYOR_SPEED = 
-        new TunableDouble("Conveyor Speed", 0.4, false);
+        new TunableDouble("Conveyor Speed", 0.4, true);
+
+    public static final TunableDouble CONVEYOR_VELOCITY_HIGH = 
+        new TunableDouble("Conveyor High Velocity", 2000, true);
+
+    public static final TunableDouble CONVEYOR_VELOCITY_LAUNCH = 
+        new TunableDouble("Conveyor Launch Velocity", 4500, true);
 
     public static final TunableDouble TEST_LIMELIGHT =
         new TunableDouble("Limelight test value", 0, false);
@@ -170,7 +179,7 @@ public final class Constants {
         new TunableDouble("LL D", 0, false);
 
     public static final DebugGroup CLIMB_DEBUG_GROUP = 
-        new DebugGroup("Climber", false);
+        new DebugGroup("Climber", true);
 
     public static final DebugGroup CONVEYOR_DEBUG_GROUP = 
         new DebugGroup("Conveyor", true);
@@ -189,18 +198,18 @@ public final class Constants {
 
     public static final int PHOTOEYE_SENSOR_INTAKE = 0;
 
-    public static final int PHOTOEYE_SENSOR_LAUNCHER = 2;
+    public static final int PHOTOEYE_SENSOR_LAUNCHER = 1;
 
     public static final double OFFSET = (-8 / 196.85) + 1;
 
     public static final double SLEW_RATE_LIMIT = 3;
 
-    public static final int LEFT_CLIMB_LIMIT_BOTTOM_PORT = 3;
-    public static final int LEFT_CLIMB_LIMIT_TOP_PORT = 4;
-    public static final int RIGHT_CLIMB_LIMIT_BOTTOM_PORT = 5;
-    public static final int RIGHT_CLIMB_LIMIT_TOP_PORT = 6;
+    public static final int LEFT_CLIMB_LIMIT_BOTTOM_PORT = 2;
+    public static final int LEFT_CLIMB_LIMIT_TOP_PORT = 3;
+    public static final int RIGHT_CLIMB_LIMIT_BOTTOM_PORT = 6;
+    public static final int RIGHT_CLIMB_LIMIT_TOP_PORT = 7;
 
-    public static final boolean CLIMB_LIMITS_INVERTED = false;
+    public static final boolean CLIMB_LIMITS_INVERTED = true;
 
     public static final double PIDSHOOTER_F = (1023 * 0.75) / 14500;
     public static final double PIDSHOOTER_P = (0.2 * 1023) / 1400;

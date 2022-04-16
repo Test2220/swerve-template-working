@@ -22,6 +22,9 @@ public class AutoConveyor extends CommandBase {
             {
                 conveyor.setPower(Constants.CONVEYOR_SPEED.getValue());
             } 
+            else if (conveyor.isBallPresentAtShooter()) {
+                conveyor.setPower(-Constants.CONVEYOR_SPEED.getValue());
+            }
             else 
             {
                 conveyor.setPower(0);
