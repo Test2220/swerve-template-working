@@ -14,7 +14,6 @@ public class RunShooterVelocity extends CommandBase {
         this.shooter = shooter;
         this.conveyor = conveyor;
         this.launchGoal = launchGoal;
-        
         addRequirements(shooter, conveyor);
 
     }

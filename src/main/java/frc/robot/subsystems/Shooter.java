@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -13,7 +14,8 @@ public class Shooter extends SubsystemBase {
     private TunableDouble lowGoal = new TunableDouble("Low Goal RPM", 2000, true);
     private TunableDouble highGoal = new TunableDouble("High Goal RPM", 4150, true);
     private TunableDouble launchGoal = new TunableDouble("Launch Goal RPM", 6600, true);
-    private TunableDouble toleranceHigh = new TunableDouble("Shooter High Tolerence", 1, true);
+    private TunableDouble velocityToleranceHigh = new TunableDouble("Shooter High Tolerence", 50, true);
+   // private TunableDouble accelerationToleranceHigh = new TunableDouble("Shooter acceleration High Tolerance", 5, true);
     private TunableDouble toleranceLaunch = new TunableDouble("Shooter Launch Tolerance", 2800, true);
     private TalonFX leftFalcon;
     
@@ -65,11 +67,29 @@ public class Shooter extends SubsystemBase {
 
         Shuffleboard.getTab("Shooter")
             .addNumber("SHOOTER_RPM", this::getVelocity);
-
-    }
-    public void periodic() {
         
+        // Shuffleboard.getTab("Shooter")
+        //     .addNumber("ACCELERATION", this::getAcceleration);
     }
+
+    // private double lastVelocity = 0;
+    // private double lastAcceleration = 0;
+    // private double lastTime = 0;
+
+    
+    public void periodic() {
+        // // double currentAcceleration = 0;
+        // double currentVelocity = getVelocity();
+        // double currentTime = Timer.getFPGATimestamp();
+        // lastAcceleration = (currentVelocity - lastVelocity)/(currentTime - lastTime);
+        // lastTime = currentTime;
+        // lastVelocity = currentVelocity;
+       
+    }
+
+    // public double getAcceleration(){
+    //     return lastAcceleration;
+    // }
 
     public void setVoltageComp(boolean enabled) {
         leftFalcon.enableVoltageCompensation(enabled);
@@ -119,8 +139,11 @@ public class Shooter extends SubsystemBase {
         return leftFalcon.getSelectedSensorVelocity() / 2048.0 * 600;
     }
 
+
     public boolean withinHighTolerance() {
-        return (getPIDError() < toleranceHigh.getValue());
+        return (getPIDError() < velocityToleranceHigh.getValue());
+        // &&
+        // (getAcceleration() < accelerationToleranceHigh.getValue());
     }
 
     public boolean withinLaunchTolerance() {

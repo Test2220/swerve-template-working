@@ -117,7 +117,7 @@ public class RobotContainer {
   public RobotContainer() {
 
     // Optimize our loop time to avoid loop overruns
-    LiveWindow.disableAllTelemetry();
+    // LiveWindow.disableAllTelemetry();
 
 
     // ShuffleboardTab xbox = Shuffleboard.getTab("Xbox");

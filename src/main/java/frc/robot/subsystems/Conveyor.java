@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 // import edu.wpi.first.wpilibj.I2C;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -94,6 +95,9 @@ public class Conveyor extends SubsystemBase {
 
         Constants.CONVEYOR_DEBUG_GROUP.addBoolean("IN", photoEyeSensorIn::get);
         Constants.CONVEYOR_DEBUG_GROUP.addBoolean("OUT", photoEyeSensorOut::get);
+
+        Shuffleboard.getTab("Shooter")
+            .addNumber("CONVEYOR_RPM", this::getVelocity);
     }
 
     /**
@@ -191,4 +195,7 @@ public class Conveyor extends SubsystemBase {
 
     }
 
+    public double getVelocity() {
+        return talon.getSelectedSensorVelocity() / 2048.0 * 600;
+    }
 }
