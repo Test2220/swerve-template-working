@@ -5,6 +5,9 @@ taskkill /IM "javaw.exe" /F
 
 taskkill /IM "electron.exe"
 
+::Disable Firewalls
+netsh advfirewall set allprofiles state off 
+
 :: 2 seconds is the minimum, 1.9 doesn't allow time to close and reopen
 timeout /t 2
 
