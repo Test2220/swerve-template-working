@@ -169,6 +169,9 @@ public final class FieldConstants {
   public static final Pose2d cargoGCenter = cargoCenterFromReference(cargoG);
 
   public static final Pose2d referenceAShootRobotCenter = robotCenterShootFromReference(referenceA);
+  public static final Pose2d referenceBShootRobotCenter = robotCenterShootFromReference(referenceB);
+  public static final Pose2d referenceCShootRobotCenter = robotCenterShootFromReference(referenceC);
+  public static final Pose2d referenceDShootRobotCenter = robotCenterShootFromReference(referenceD);
 
 
 }
