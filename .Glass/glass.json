@@ -5,7 +5,9 @@
     },
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Climber": "Subsystem",
       "/LiveWindow/LED": "Subsystem",
+      "/LiveWindow/Limelight": "Subsystem",
       "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
       "/LiveWindow/Ungrouped/DigitalInput[1]": "Digital Input",
       "/LiveWindow/Ungrouped/DigitalInput[2]": "Digital Input",
