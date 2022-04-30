@@ -45,6 +45,7 @@ import frc.robot.commands.LimelightDefaultCommand;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.RunIntakeTeleop;
 import frc.robot.commands.RunShooter;
+import frc.robot.commands.RunShooterVelocity;
 // import frc.robot.commands.TerminalTwoBallAuto;
 import frc.robot.commands.TiltClimber;
 // import frc.robot.subsystems.BrownOutMonitor;
@@ -116,7 +117,7 @@ public class RobotContainer {
   public RobotContainer() {
 
     // Optimize our loop time to avoid loop overruns
-    LiveWindow.disableAllTelemetry();
+    // LiveWindow.disableAllTelemetry();
 
 
     // ShuffleboardTab xbox = Shuffleboard.getTab("Xbox");
@@ -240,11 +241,11 @@ public class RobotContainer {
             new LimelightAutoTurning(
                 (output) -> {
                   drivetrain.drive(
-                      -modifyAxis(driverController.getLeftY()),
+                      modifyAxis(driverController.getLeftY()),
                       -modifyAxis(driverController.getLeftX()),
                       -output, 
                       true);
-                  System.out.println(output);
+                 // System.out.println(output);
                 },
                 shooterLimelight,Constants.SHOOTER_LIMELIGHT_HUB_PIPELINE, drivetrain))
         .whenPressed(
@@ -309,25 +310,30 @@ public class RobotContainer {
     //     },
     //     pixy, Pixy2CCC.CCC_SIG1, drivetrain));
     
-   new Button(()-> driverController.getPOV() == 0)
-      .whenPressed(() -> {
-        manipulatorController.setRumble(RumbleType.kLeftRumble, 1);
-        manipulatorController.setRumble(RumbleType.kRightRumble, 1);
+  //  new Button(()-> driverController.getPOV() == 0)
+  //     .whenPressed(() -> {
+  //       manipulatorController.setRumble(RumbleType.kLeftRumble, 1);
+  //       manipulatorController.setRumble(RumbleType.kRightRumble, 1);
 
-      })
-      .whenReleased(() -> {
-        manipulatorController.setRumble(RumbleType.kLeftRumble, 0);
-        manipulatorController.setRumble(RumbleType.kRightRumble, 0);
+  //     })
+  //     .whenReleased(() -> {
+  //       manipulatorController.setRumble(RumbleType.kLeftRumble, 0);
+  //       manipulatorController.setRumble(RumbleType.kRightRumble, 0);
 
-      });
+  //     });
 
     new Button(() -> driverController.getLeftTriggerAxis() > 0.4)
       .whileHeld(
-          new RunShooter(shooter, conveyor, false))
+          new RunShooterVelocity(shooter, conveyor, false))
 ;
      new Button(driverController::getLeftBumper)      
       .whileHeld(
-          new RunShooter(shooter, conveyor, true));
+          new RunShooterVelocity(shooter, conveyor, true));
+
+    new Button(
+      () -> driverController.getRightTriggerAxis() > 0.4)
+        .whenPressed(() -> drivetrain.setSpeed(Constants.HIGH_DRIVE_SPEED.getValue()))
+        .whenReleased(() -> drivetrain.setSpeed(Constants.LOW_DRIVE_SPEED.getValue()));
 
     // new Button(driverController::getAButton).whileHeld(new PixyCamAutoTurning(
     //     (output) -> {
@@ -364,20 +370,20 @@ public class RobotContainer {
     //     },
     //     pixy, Pixy2CCC.CCC_SIG1, drivetrain));
     
-   new Button(()-> driverController.getPOV() == 0).whileHeld(new FunctionalCommand(
-     ()->{}, 
-     ()->{
-       manipulatorController.setRumble(RumbleType.kLeftRumble, 1);
-       manipulatorController.setRumble(RumbleType.kRightRumble, 1);
+  //  new Button(()-> driverController.getPOV() == 0).whileHeld(new FunctionalCommand(
+  //    ()->{}, 
+  //    ()->{
+  //      manipulatorController.setRumble(RumbleType.kLeftRumble, 1);
+  //      manipulatorController.setRumble(RumbleType.kRightRumble, 1);
 
-     }, 
-     (interrupted)->{
-      manipulatorController.setRumble(RumbleType.kLeftRumble, 0);
-      manipulatorController.setRumble(RumbleType.kRightRumble, 0);
+  //    }, 
+  //    (interrupted)->{
+  //     manipulatorController.setRumble(RumbleType.kLeftRumble, 0);
+  //     manipulatorController.setRumble(RumbleType.kRightRumble, 0);
 
 
-     }, 
-     ()->false));
+  //    }, 
+  //    ()->false));
 
     // new Button(() -> driverController.getPOV() == 180).whenPressed(new GoToCommand(drivetrain, new Position(0, 0, 0)));
 
@@ -399,7 +405,7 @@ public class RobotContainer {
     //     .whileHeld(new RunShooterVelocity(shooter, conveyor, true));
 
     new Button(() -> manipulatorController.getRightTriggerAxis() > 0.4)
-        .whileHeld(new RunShooter(shooter, conveyor, true));
+        .whileHeld(new RunShooterVelocity(shooter, conveyor, true));
 
     new Button(() -> manipulatorController.getLeftTriggerAxis() > 0.4)
         //.whileHeld(new RunIntakeTeleop(intake, false));
@@ -411,7 +417,7 @@ public class RobotContainer {
         .whileHeld(new RunIntakeTeleop(intake, true));
 
     new Button(manipulatorController::getRightBumper)
-      .whileHeld(new RunShooter(shooter, conveyor, false));
+      .whileHeld(new RunShooterVelocity(shooter, conveyor, false));
 
     new Button(manipulatorController::getXButton).whenPressed(new TiltClimber(climber, ClimberPositions.TILTED));
 

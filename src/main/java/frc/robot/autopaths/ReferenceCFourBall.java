@@ -60,11 +60,11 @@ public class ReferenceCFourBall extends SequentialCommandGroup {
                         ))
             )).raceWith(new RunIntake(intake, false)),    
 
+            new RetractIntake(intake),
+            
             new GoToCommand(
                 drivetrain, 
                 GeomUtil.getRobotCoordinate(FieldConstants.referenceC.transformBy(GeomUtil.transformFromTranslation(+(Constants.ROBOT_LENGTH_WITH_BUMPERS)/2, 0)))).raceWith(new RunIntake(intake, false)),
-
-            new RetractIntake(intake),
 
             new RunShooter(shooter, conveyor, Constants.AUTO_LOW_GOAL).raceWith(new RunIntake(intake, false)).withTimeout(3)
             );

@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.FieldConstants;
 import frc.robot.commands.GoToCommand;
-import frc.robot.commands.RunShooter;
+import frc.robot.commands.RunShooterVelocity;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -18,7 +18,9 @@ public class ReferenceDOneBall extends SequentialCommandGroup {
         addCommands(
             new InstantCommand(()->drivetrain.setPose(GeomUtil.getRobotCoordinate(FieldConstants.referenceDRobotCenter))),
 
-            new RunShooter(shooter, conveyor, Constants.AUTO_LOW_GOAL).withTimeout(2),
+            new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.referenceD)),
+
+            new RunShooterVelocity(shooter, conveyor, Constants.AUTO_LOW_GOAL).withTimeout(2),
 
             new GoToCommand(drivetrain, GeomUtil.getRobotCoordinate(FieldConstants.oneBallTaxiPoseFromReferencPose2d(FieldConstants.referenceDRobotCenter)))
 

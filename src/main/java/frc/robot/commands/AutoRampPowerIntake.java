@@ -38,7 +38,7 @@ public class AutoRampPowerIntake extends CommandBase {
         } else if (staticCycles >= 100) {
             intake.setPower(0);
         } else {
-            intake.setPower(Constants.INTAKE_POWER);
+            intake.setPower(Constants.INTAKE_POWER.getValue());
             staticCycles = 0;
         }
         previousSensorPosition = sensorPosition;

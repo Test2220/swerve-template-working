@@ -8,12 +8,14 @@ import frc.robot.subsystems.Shooter;
 public class RunShooterVelocity extends CommandBase {
     private Shooter shooter;
     private Conveyor conveyor;
-    private boolean lowGoal;
+    private boolean launchGoal;
 
-    public RunShooterVelocity(Shooter shooter, Conveyor conveyor, boolean lowGoal) {
+    public RunShooterVelocity(Shooter shooter, Conveyor conveyor, boolean launchGoal) {
         this.shooter = shooter;
         this.conveyor = conveyor;
-        this.lowGoal = lowGoal;
+        this.launchGoal = launchGoal;
+        addRequirements(shooter, conveyor);
+
     }
 
     public void initalize() {
@@ -21,13 +23,20 @@ public class RunShooterVelocity extends CommandBase {
     }
 
     public void execute() {
-        if (lowGoal) {
-            shooter.setLowVelocity();
+        if (launchGoal) {
+            shooter.setLaunchpadVelocity();
+            if (shooter.withinLaunchTolerance())
+                conveyor.setSpeed(Constants.CONVEYOR_VELOCITY_LAUNCH.getValue() * 2048.0 / 600.0);
+            else
+                conveyor.setPower(0);
         }
         else {
             shooter.setHighVelocity();
+            if (shooter.withinHighTolerance())
+                conveyor.setSpeed(Constants.CONVEYOR_VELOCITY_HIGH.getValue() * 2048.0 / 600.0);
+            else
+                conveyor.setPower(0);
         }
-        conveyor.setPower(Constants.CONVEYOR_SPEED.getValue());
     }
 
     public void end(boolean interrupted) {

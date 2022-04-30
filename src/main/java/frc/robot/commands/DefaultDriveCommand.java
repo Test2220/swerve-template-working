@@ -7,6 +7,7 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.drivetrain.DriveDirection;
 import frc.robot.subsystems.drivetrain.WheelsState;
@@ -53,7 +54,7 @@ public class DefaultDriveCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.setSpeed(0.40);
+    drivetrain.setSpeed(Constants.LOW_DRIVE_SPEED.getValue());
   }
 
   // Called every time the scheduler runs while the command is scheduled.

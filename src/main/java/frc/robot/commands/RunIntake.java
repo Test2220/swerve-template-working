@@ -19,9 +19,9 @@ public class RunIntake extends CommandBase {
     }
     public void execute() {
         if (reverse)
-            intake.setPower(-Constants.INTAKE_POWER);
+            intake.setPower(-Constants.INTAKE_POWER.getValue());
         else
-            intake.setPower(Constants.INTAKE_POWER);
+            intake.setPower(Constants.INTAKE_POWER.getValue());
     }
 
     @Override

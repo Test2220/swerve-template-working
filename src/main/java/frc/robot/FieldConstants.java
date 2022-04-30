@@ -143,6 +143,12 @@ public final class FieldConstants {
           GeomUtil.transformFromTranslation(tarmacInnerDiameter / 2.0, 0.0));*/
   }
 
+  public static Pose2d robotCenterShootFromReference(Pose2d pose){
+    return pose.transformBy(GeomUtil.transformFromTranslation((Constants.ROBOT_LENGTH_WITH_BUMPERS)/2, 0));
+     /* new Pose2d(hubCenter, referenceARotation).transformBy(
+           GeomUtil.transformFromTranslation(tarmacInnerDiameter / 2.0, 0.0));*/
+   }
+
   public static Pose2d cargoCenterFromReference(Pose2d pose){
     return pose.transformBy(GeomUtil.transformFromTranslation(((Constants.ROBOT_LENGTH_WITH_BUMPERS/2)), 0));
      /* new Pose2d(hubCenter, referenceARotation).transformBy(
@@ -161,5 +167,11 @@ public final class FieldConstants {
   public static final Pose2d referenceCRobotCenter = robotCenterFromReference(referenceC);
   public static final Pose2d referenceDRobotCenter = robotCenterFromReference(referenceD);
   public static final Pose2d cargoGCenter = cargoCenterFromReference(cargoG);
+
+  public static final Pose2d referenceAShootRobotCenter = robotCenterShootFromReference(referenceA);
+  public static final Pose2d referenceBShootRobotCenter = robotCenterShootFromReference(referenceB);
+  public static final Pose2d referenceCShootRobotCenter = robotCenterShootFromReference(referenceC);
+  public static final Pose2d referenceDShootRobotCenter = robotCenterShootFromReference(referenceD);
+
 
 }
