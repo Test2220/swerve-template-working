@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.DigitalIO;
@@ -43,6 +44,9 @@ public class Climber extends SubsystemBase {
         Constants.CLIMB_DEBUG_GROUP.addBoolean("Right Limit Bottom", this::getRightLimitBottom);
         Constants.CLIMB_DEBUG_GROUP.addBoolean("Right Limit Top", this::getRightLimitTop);
 
+        Shuffleboard.getTab("Climber").addNumber("Left Current", this::getLeftCurrent);
+        Shuffleboard.getTab("Climber").addNumber("Right Current", this::getRightCurrent);
+
         rightTalon.setInverted(true);
         leftTalon.setInverted(true);
 
@@ -54,7 +58,7 @@ public class Climber extends SubsystemBase {
      * @param speed The left climber speed as a percentage
      */
     public void setLeft(double speed) {
-        leftTalon.set(ControlMode.PercentOutput, speed);
+        leftTalon.set(ControlMode.PercentOutput, clamp(getLeftLimitTop(), getLeftLimitBottom(), speed, false));
     }
 
     /**
@@ -73,7 +77,7 @@ public class Climber extends SubsystemBase {
      * @param speed The left climber speed as a percentage
      */
     public void setRight(double speed) {
-        rightTalon.set(ControlMode.PercentOutput, speed);
+        rightTalon.set(ControlMode.PercentOutput, clamp(getRightLimitTop(), getRightLimitBottom(), speed, false));
     }
 
     /**
@@ -128,6 +132,14 @@ public class Climber extends SubsystemBase {
      */
     public boolean getRightLimitTop() {
         return rightLimitTop.get();
+    }
+
+    public double getRightCurrent() {
+        return rightTalon.getStatorCurrent();
+    }
+
+    public double getLeftCurrent() {
+        return leftTalon.getStatorCurrent();
     }
 
     /*
