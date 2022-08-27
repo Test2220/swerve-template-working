@@ -32,6 +32,7 @@ import frc.robot.autopaths.ReferenceCTwoBall;
 import frc.robot.autopaths.ReferenceDOneBall;
 import frc.robot.autopaths.ReferenceDTwoBall;
 import frc.robot.commands.AllianceLEDs;
+import frc.robot.commands.AutoClimb;
 import frc.robot.commands.AutoRampPowerIntake;
 import frc.robot.commands.AutomaticConveyor;
 import frc.robot.commands.DefaultClimber;
@@ -145,28 +146,29 @@ public class RobotContainer {
     intakeLimelight.setDefaultCommand(new LimelightDefaultCommand(intakeLimelight, 0));
 
 
-    conveyor.setDefaultCommand(new AutomaticConveyor(conveyor,
-        () -> {
-          if (manipulatorController.getPOV() == 0) {
-            return Constants.CONVEYOR_SPEED.getValue();
-          } else if (manipulatorController.getPOV() == 180) {
-            return -Constants.CONVEYOR_SPEED.getValue();
-          } else {
-            return 0;
-          }
-        },
-        () -> manipulatorController.getBackButton(),
-        () -> manipulatorController.getStartButton()));
+    // conveyor.setDefaultCommand(new AutomaticConveyor(conveyor,
+    //     () -> {
+    //       if (manipulatorController.getPOV() == 0) {
+    //         return Constants.CONVEYOR_SPEED.getValue();
+    //       } else if (manipulatorController.getPOV() == 180) {
+    //         return -Constants.CONVEYOR_SPEED.getValue();
+    //       } else {
+    //         return 0;
+    //       }
+    //     },
+    //     () -> manipulatorController.getBackButton(),
+    //     () -> manipulatorController.getStartButton()));
 
-    climber.setDefaultCommand(new DefaultClimber(climber, 
-        () -> -modifyAxis(manipulatorController.getRightY()),
-        () -> -modifyAxis(manipulatorController.getLeftY()),
-        () -> !manipulatorController.getLeftStickButton(),
-        () -> !manipulatorController.getRightStickButton()
-    ));
+    // climber.setDefaultCommand(new DefaultClimber(climber, 
+    //     () -> -modifyAxis(manipulatorController.getRightY()),
+    //     () -> -modifyAxis(manipulatorController.getLeftY()),
+    //     () -> !manipulatorController.getLeftStickButton(),
+    //     () -> !manipulatorController.getRightStickButton()
+    // ));
 
     // Configure the button bindings
     configureButtonBindings();
+    
 
     autoChooser.setDefaultOption("Do Nothing", new InstantCommand());
     autoChooser.addOption("Reference A One Ball Auto", new ReferenceAOneBall(intake, drivetrain, shooter, conveyor));
@@ -223,57 +225,59 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Back button zeros the gyroscope
-    new Button(driverController::getBackButton)
+    drivetrain.setSpeed(0.1);
+
+    new Button(manipulatorController::getBackButton)
         // No requirements because we don't need to interrupt anything
         .whenPressed(() -> drivetrain.zeroGyroscope());
 
-    new Button(() -> driverController.getPOV() == 180)
+    new Button(() -> manipulatorController.getPOV() == 270)
         .whenPressed(() -> 
             drivetrain.decreaseSpeed()
         );
-    new Button(() -> driverController.getPOV() == 0)
+    new Button(() -> manipulatorController.getPOV() == 90)
         .whenPressed(() ->
             drivetrain.increaseSpeed()
         );
         
-    new Button(driverController::getYButton)
-        .whileHeld(
-            new LimelightAutoTurning(
-                (output) -> {
-                  drivetrain.drive(
-                      modifyAxis(driverController.getLeftY()),
-                      -modifyAxis(driverController.getLeftX()),
-                      -output, 
-                      true);
-                 // System.out.println(output);
-                },
-                shooterLimelight,Constants.SHOOTER_LIMELIGHT_HUB_PIPELINE, drivetrain))
-        .whenPressed(
-          () -> shooterLimelight.takeSnapshot()
-        );
+    // new Button(driverController::getYButton)
+    //     .whileHeld(
+    //         new LimelightAutoTurning(
+    //             (output) -> {
+    //               drivetrain.drive(
+    //                   modifyAxis(driverController.getLeftY()),
+    //                   -modifyAxis(driverController.getLeftX()),
+    //                   -output, 
+    //                   true);
+    //              // System.out.println(output);
+    //             },
+    //             shooterLimelight,Constants.SHOOTER_LIMELIGHT_HUB_PIPELINE, drivetrain))
+    //     .whenPressed(
+    //       () -> shooterLimelight.takeSnapshot()
+    //     );
 
-    new Button(driverController::getAButton)
-        .whileHeld(
-            new LimelightAutoTurning(
-                (output) -> {
-                  drivetrain.drive(
-                      -modifyAxis(driverController.getLeftY()),
-                      -modifyAxis(driverController.getLeftX()),
-                      output,
-                      true);
-                },
-                intakeLimelight, Constants.INTAKE_LIMELIGHT_BLUE_PIPELINE, drivetrain));
-    new Button(driverController::getBButton)
-        .whileHeld(
-            new LimelightAutoTurning(
-                (output) -> {
-                  drivetrain.drive(
-                      -modifyAxis(driverController.getLeftY()),
-                      -modifyAxis(driverController.getLeftX()),
-                      output,
-                      true);
-                },
-                intakeLimelight, Constants.INTAKE_LIMELIGHT_RED_PIPELINE, drivetrain));
+    // new Button(driverController::getAButton)
+    //     .whileHeld(
+    //         new LimelightAutoTurning(
+    //             (output) -> {
+    //               drivetrain.drive(
+    //                   -modifyAxis(driverController.getLeftY()),
+    //                   -modifyAxis(driverController.getLeftX()),
+    //                   output,
+    //                   true);
+    //             },
+    //             intakeLimelight, Constants.INTAKE_LIMELIGHT_BLUE_PIPELINE, drivetrain));
+    // new Button(driverController::getBButton)
+    //     .whileHeld(
+    //         new LimelightAutoTurning(
+    //             (output) -> {
+    //               drivetrain.drive(
+    //                   -modifyAxis(driverController.getLeftY()),
+    //                   -modifyAxis(driverController.getLeftX()),
+    //                   output,
+    //                   true);
+    //             },
+    //             intakeLimelight, Constants.INTAKE_LIMELIGHT_RED_PIPELINE, drivetrain));
 
     // new Button(driverController::getAButton).whileHeld(new PixyCamAutoTurning(
     //     (output) -> {
@@ -322,18 +326,18 @@ public class RobotContainer {
 
   //     });
 
-    new Button(() -> driverController.getLeftTriggerAxis() > 0.4)
-      .whileHeld(
-          new RunShooterVelocity(shooter, conveyor, false))
-;
-     new Button(driverController::getLeftBumper)      
-      .whileHeld(
-          new RunShooterVelocity(shooter, conveyor, true));
+//     new Button(() -> driverController.getLeftTriggerAxis() > 0.4)
+//       .whileHeld(
+//           new RunShooterVelocity(shooter, conveyor, false))
+// ;
+//      new Button(driverController::getLeftBumper)      
+//       .whileHeld(
+//           new RunShooterVelocity(shooter, conveyor, true));
 
-    new Button(
-      () -> driverController.getRightTriggerAxis() > 0.4)
-        .whenPressed(() -> drivetrain.setSpeed(Constants.HIGH_DRIVE_SPEED.getValue()))
-        .whenReleased(() -> drivetrain.setSpeed(Constants.LOW_DRIVE_SPEED.getValue()));
+//     new Button(
+//       () -> driverController.getRightTriggerAxis() > 0.4)
+//         .whenPressed(() -> drivetrain.setSpeed(Constants.HIGH_DRIVE_SPEED.getValue()))
+//         .whenReleased(() -> drivetrain.setSpeed(Constants.LOW_DRIVE_SPEED.getValue()));
 
     // new Button(driverController::getAButton).whileHeld(new PixyCamAutoTurning(
     //     (output) -> {
@@ -422,6 +426,14 @@ public class RobotContainer {
     new Button(manipulatorController::getXButton).whenPressed(new TiltClimber(climber, ClimberPositions.TILTED));
 
     new Button(manipulatorController::getYButton).whenPressed(new TiltClimber(climber, ClimberPositions.VERTICAL));
+
+    new Button(manipulatorController::getAButton).whenHeld(new AutoClimb(climber, () -> 0));
+
+    new Button(manipulatorController::getBButton).whenPressed(() -> {
+      drivetrain.setSpeed(0);
+    }).whenReleased(() -> {
+      drivetrain.setSpeed(0.1);
+    });
   }
 
   /**

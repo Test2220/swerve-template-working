@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -38,6 +39,10 @@ public class Climber extends SubsystemBase {
     public Climber() {
         rightTalon.setNeutralMode(Constants.CLIMBER_IDLE_BEHAVIOR);
         leftTalon.setNeutralMode(Constants.CLIMBER_IDLE_BEHAVIOR);
+
+        StatorCurrentLimitConfiguration limit = new StatorCurrentLimitConfiguration(true, 40, 40, 0);
+        rightTalon.configStatorCurrentLimit(limit);
+        leftTalon.configStatorCurrentLimit(limit);
 
         Constants.CLIMB_DEBUG_GROUP.addBoolean("Left Limit Bottom", this::getLeftLimitBottom);
         Constants.CLIMB_DEBUG_GROUP.addBoolean("Left Limit Top", this::getLeftLimitTop);
@@ -140,6 +145,10 @@ public class Climber extends SubsystemBase {
 
     public double getLeftCurrent() {
         return leftTalon.getStatorCurrent();
+    }
+
+    public double getRightVelocity() {
+        return 0;
     }
 
     /*
