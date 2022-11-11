@@ -159,12 +159,12 @@ public class RobotContainer {
     //     () -> manipulatorController.getBackButton(),
     //     () -> manipulatorController.getStartButton()));
 
-    // climber.setDefaultCommand(new DefaultClimber(climber, 
-    //     () -> -modifyAxis(manipulatorController.getRightY()),
-    //     () -> -modifyAxis(manipulatorController.getLeftY()),
-    //     () -> !manipulatorController.getLeftStickButton(),
-    //     () -> !manipulatorController.getRightStickButton()
-    // ));
+    climber.setDefaultCommand(new DefaultClimber(climber, 
+        () -> -modifyAxis(manipulatorController.getRightY()),
+        () -> -modifyAxis(manipulatorController.getLeftY()),
+        () -> !manipulatorController.getLeftStickButton(),
+        () -> !manipulatorController.getRightStickButton()
+    ));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -240,21 +240,21 @@ public class RobotContainer {
             drivetrain.increaseSpeed()
         );
         
-    // new Button(driverController::getYButton)
-    //     .whileHeld(
-    //         new LimelightAutoTurning(
-    //             (output) -> {
-    //               drivetrain.drive(
-    //                   modifyAxis(driverController.getLeftY()),
-    //                   -modifyAxis(driverController.getLeftX()),
-    //                   -output, 
-    //                   true);
-    //              // System.out.println(output);
-    //             },
-    //             shooterLimelight,Constants.SHOOTER_LIMELIGHT_HUB_PIPELINE, drivetrain))
-    //     .whenPressed(
-    //       () -> shooterLimelight.takeSnapshot()
-    //     );
+    new Button(driverController::getYButton)
+        .whileHeld(
+            new LimelightAutoTurning(
+                (output) -> {
+                  drivetrain.drive(
+                      modifyAxis(driverController.getLeftY()),
+                      -modifyAxis(driverController.getLeftX()),
+                      -output, 
+                      true);
+                 // System.out.println(output);
+                },
+                shooterLimelight,Constants.SHOOTER_LIMELIGHT_HUB_PIPELINE, drivetrain))
+        .whenPressed(
+          () -> shooterLimelight.takeSnapshot()
+        );
 
     // new Button(driverController::getAButton)
     //     .whileHeld(
@@ -326,10 +326,10 @@ public class RobotContainer {
 
   //     });
 
-//     new Button(() -> driverController.getLeftTriggerAxis() > 0.4)
-//       .whileHeld(
-//           new RunShooterVelocity(shooter, conveyor, false))
-// ;
+    new Button(() -> driverController.getLeftTriggerAxis() > 0.4)
+      .whileHeld(
+          new RunShooterVelocity(shooter, conveyor, false));
+
 //      new Button(driverController::getLeftBumper)      
 //       .whileHeld(
 //           new RunShooterVelocity(shooter, conveyor, true));
